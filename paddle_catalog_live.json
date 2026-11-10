@@ -1,0 +1,69 @@
+{
+  "environment": "production",
+  "migrated_at": "2026-11-10T11:34:38.136Z",
+  "mapping": {
+    "pri_01m72gmcpvvddfk1x6j0jmfzn3": "pri_01m72kt6t1t2zh5fpatc1k9151",
+    "pri_01m72gmcx6erheqg2xwtge567q": "pri_01m72kt6zhmaqz9gak4xjkaskn",
+    "pri_01m72gmdae8h84jzp8cv0g853x": "pri_01m72kt7regx9e77616tpxndvy",
+    "pri_01m72gmdgfwevdsap0w0ab9yeh": "pri_01m72kt7y0pnm3cwatekxcmy2b",
+    "pri_01m72gme9vjkveppzj7ky0zw65": "pri_01m72kt8a2nzw71ak548nhcqmg",
+    "pri_01m72gmefxcb2ybd6d1k9fr0y1": "pri_01m72kt8f8gdc3zqx8p4qrhkh2"
+  },
+  "products": {
+    "starter": {
+      "product_id": "pro_01m72kt6kfc0gwf4gyhjmxmcxe",
+      "name": "Starter",
+      "prices": {
+        "monthly": {
+          "price_id": "pri_01m72kt6t1t2zh5fpatc1k9151",
+          "sandbox_price_id": "pri_01m72gmcpvvddfk1x6j0jmfzn3",
+          "interval": "month",
+          "base_amount": "1000"
+        },
+        "annual": {
+          "price_id": "pri_01m72kt6zhmaqz9gak4xjkaskn",
+          "sandbox_price_id": "pri_01m72gmcx6erheqg2xwtge567q",
+          "interval": "year",
+          "base_amount": "10000"
+        }
+      }
+    },
+    "pro": {
+      "product_id": "pro_01m72kt774153d12jmfft09vjd",
+      "name": "Pro",
+      "prices": {
+        "monthly": {
+          "price_id": "pri_01m72kt7regx9e77616tpxndvy",
+          "sandbox_price_id": "pri_01m72gmdae8h84jzp8cv0g853x",
+          "interval": "month",
+          "base_amount": "4000"
+        },
+        "annual": {
+          "price_id": "pri_01m72kt7y0pnm3cwatekxcmy2b",
+          "sandbox_price_id": "pri_01m72gmdgfwevdsap0w0ab9yeh",
+          "interval": "year",
+          "base_amount": "40000"
+        }
+      }
+    },
+    "advanced": {
+      "product_id": "pro_01m72kt8521n1vqsy6rc0zeyjd",
+      "name": "Advanced",
+      "prices": {
+        "monthly": {
+          "price_id": "pri_01m72kt8a2nzw71ak548nhcqmg",
+          "sandbox_price_id": "pri_01m72gme9vjkveppzj7ky0zw65",
+          "interval": "month",
+          "base_amount": "12000"
+        },
+        "annual": {
+          "price_id": "pri_01m72kt8f8gdc3zqx8p4qrhkh2",
+          "sandbox_price_id": "pri_01m72gmefxcb2ybd6d1k9fr0y1",
+          "interval": "year",
+          "base_amount": "120000"
+        }
+      }
+    }
+  },
+  "client_token": "live_8ddfaa98537c57c820c4b4ace8d"
+}

@@ -23,8 +23,8 @@ export const TIERS = [
       '7 Günlük Ücretsiz Deneme'
     ],
     priceId: {
-      month: 'pri_01m72gmcpvvddfk1x6j0jmfzn3',
-      year: 'pri_01m72gmcx6erheqg2xwtge567q'
+      month: 'pri_01m72kt6t1t2zh5fpatc1k9151',
+      year: 'pri_01m72kt6zhmaqz9gak4xjkaskn'
     },
     featured: false
   },
@@ -41,8 +41,8 @@ export const TIERS = [
       '7 Günlük Ücretsiz Deneme'
     ],
     priceId: {
-      month: 'pri_01m72gmdae8h84jzp8cv0g853x',
-      year: 'pri_01m72gmdgfwevdsap0w0ab9yeh'
+      month: 'pri_01m72kt7regx9e77616tpxndvy',
+      year: 'pri_01m72kt7y0pnm3cwatekxcmy2b'
     },
     featured: true
   },
@@ -59,8 +59,8 @@ export const TIERS = [
       '7 Günlük Ücretsiz Deneme'
     ],
     priceId: {
-      month: 'pri_01m72gme9vjkveppzj7ky0zw65',
-      year: 'pri_01m72gmefxcb2ybd6d1k9fr0y1'
+      month: 'pri_01m72kt8a2nzw71ak548nhcqmg',
+      year: 'pri_01m72kt8f8gdc3zqx8p4qrhkh2'
     },
     featured: false
   }
