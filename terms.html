@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kullanım ve Hizmet Şartları — vAdBlock Pro</title>
+<meta name="description" content="vAdBlock Pro Kullanım Şartları: Açık, adil ve tüketici odaklı yazılım lisans ve hizmet kullanım sözleşmesi.">
+<link rel="icon" type="image/svg+xml" href="brand/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="brand/icon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="skin/home.css">
+<style>
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: #FAFBFB;
+  color: #0F172A;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Hero Section */
+.doc-hero {
+  padding: 80px 24px 40px;
+  text-align: center;
+  position: relative;
+  background: radial-gradient(circle at 50% 0%, rgba(37, 99, 235, 0.12) 0%, rgba(59, 130, 246, 0.04) 40%, transparent 75%);
+}
+.doc-wrap {
+  max-width: 1040px;
+  margin: 0 auto;
+}
+.doc-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #EFF6FF;
+  border: 1px solid #BFDBFE;
+  color: #2563EB;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 800;
+  font-size: 12px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.doc-title {
+  font-family: 'Manrope', sans-serif;
+  font-size: 42px;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.15;
+  color: #0F172A;
+  margin-bottom: 16px;
+}
+.doc-title span {
+  color: #2563EB;
+}
+.doc-desc {
+  font-size: 16.5px;
+  color: #475569;
+  max-width: 680px;
+  margin: 0 auto 30px;
+  line-height: 1.6;
+}
+
+/* Trust Pill Indicators */
+.doc-trust-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+.doc-trust-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #0F172A;
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  padding: 8px 16px;
+  border-radius: 999px;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+}
+.doc-trust-pill svg {
+  color: #2563EB;
+}
+
+/* 2-Column Layout */
+.doc-grid {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 40px;
+  align-items: start;
+  margin-bottom: 80px;
+  text-align: left;
+}
+
+/* Sticky Sidebar Table of Contents */
+.doc-sidebar {
+  position: sticky;
+  top: 100px;
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.03);
+}
+.doc-sidebar-title {
+  font-family: 'Manrope', sans-serif;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #64748B;
+  margin-bottom: 14px;
+}
+.doc-toc-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.doc-toc-link {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #475569;
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+}
+.doc-toc-link:hover {
+  color: #2563EB;
+  background: #F8FAFC;
+  transform: translateX(3px);
+}
+.doc-toc-link.active {
+  color: #2563EB;
+  background: #EFF6FF;
+  font-weight: 700;
+}
+
+/* Document Content Card */
+.doc-content-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 24px;
+  padding: 44px 40px;
+  box-shadow: 0 20px 50px -15px rgba(15, 23, 42, 0.06);
+}
+.doc-section {
+  margin-bottom: 40px;
+  scroll-margin-top: 120px;
+}
+.doc-section:last-child {
+  margin-bottom: 0;
+}
+.doc-section-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.doc-section-num {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: #EFF6FF;
+  color: #2563EB;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 800;
+  font-size: 14px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+.doc-section h2 {
+  font-family: 'Manrope', sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  color: #0F172A;
+  letter-spacing: -0.02em;
+}
+.doc-section p {
+  color: #475569;
+  font-size: 15px;
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+.doc-section p:last-child {
+  margin-bottom: 0;
+}
+.doc-section ul {
+  margin: 14px 0 16px 20px;
+  color: #475569;
+  font-size: 15px;
+}
+.doc-section li {
+  margin-bottom: 8px;
+  line-height: 1.6;
+}
+.doc-section li strong {
+  color: #0F172A;
+}
+
+.doc-callout {
+  background: #EFF6FF;
+  border: 1px solid #BFDBFE;
+  border-left: 4px solid #2563EB;
+  border-radius: 14px;
+  padding: 20px 22px;
+  margin: 24px 0 32px;
+}
+.doc-callout h3 {
+  font-family: 'Manrope', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  color: #0F172A;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.doc-callout p {
+  font-size: 14px;
+  color: #1E40AF;
+  line-height: 1.6;
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .doc-grid { grid-template-columns: 1fr; }
+  .doc-sidebar { display: none; }
+  .doc-title { font-size: 32px; }
+  .doc-content-card { padding: 30px 22px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="./" aria-label="vAdBlock Pro">
+      <img src="img/logo.png" alt="vAdBlock Pro" width="34" height="34" style="display:block; object-fit:contain; border-radius:8px;">
+      <span>vAdBlock <b>Pro</b></span>
+    </a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="#features">Features</a>
+      <a href="#sites">Supported sites</a>
+      <a href="#demo">Demo</a>
+      <a href="#how">How it works</a>
+      <a href="#pricing">Premium</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div style="display:flex; align-items:center; gap:12px;">
+      <a href="auth.html" class="btn btn-ghost" style="padding:7px 16px; font-weight:700; color:#0F172A; text-decoration:none; font-size:14px; border:1px solid #E2E8F0; border-radius:999px; background:#fff; white-space:nowrap;">Giriş Yap</a>
+      <a href="lave_adblock_ext.zip" download class="btn btn-primary btn-nav"><span class="btn-ico"><img src="brand/favicon.svg" alt="" width="22" height="22"></span>Add to Chrome</a>
+    </div>
+  </div>
+</header>
+
+<main class="doc-hero">
+  <div class="doc-wrap">
+    <span class="doc-badge">● KULLANIM VE HİZMET ŞARTLARI</span>
+    <h1 class="doc-title">Hizmet <span>Şartları</span></h1>
+    <p class="doc-desc">vAdBlock Pro tarayıcı eklentisini ve web sitesini kullanarak kabul ettiğiniz kullanım koşulları, lisans hakları ve sorumluluk sınırları.</p>
+
+    <!-- Trust Stats -->
+    <div class="doc-trust-row">
+      <span class="doc-trust-pill">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg>
+        Yürürlük Tarihi: Ekim 2026
+      </span>
+      <span class="doc-trust-pill">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+        Sürüm 4.2 Pro Lisansı
+      </span>
+      <span class="doc-trust-pill">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+        Tüketici Güvencesi
+      </span>
+      <span class="doc-trust-pill">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        Şeffaf & Adil Koşullar
+      </span>
+    </div>
+
+    <!-- 2-Column Content Grid -->
+    <div class="doc-grid">
+      
+      <!-- Sticky Sidebar Navigation -->
+      <aside class="doc-sidebar">
+        <div class="doc-sidebar-title">Bölümler</div>
+        <nav class="doc-toc-nav">
+          <a href="#sec1" class="doc-toc-link active">1. Koşulların Kabulü</a>
+          <a href="#sec2" class="doc-toc-link">2. İzin Verilen Kullanım</a>
+          <a href="#sec3" class="doc-toc-link">3. Fikri Mülkiyet & Lisans</a>
+          <a href="#sec4" class="doc-toc-link">4. Garanti Reddi</a>
+          <a href="#sec5" class="doc-toc-link">5. Sorumluluk Sınırı</a>
+          <a href="#sec6" class="doc-toc-link">6. Destek & İletişim</a>
+        </nav>
+      </aside>
+
+      <!-- Main Document Card -->
+      <div class="doc-content-card">
+        
+        <div class="doc-callout">
+          <h3>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Kullanıcı Özeti
+          </h3>
+          <p>vAdBlock Pro, internet deneyiminizi hızlandırmak ve istenmeyen içerikleri filtrelemek için tasarlanmış kişisel bir yazılımdır. Eklentiyi dilediğiniz gibi özelleştirebilir, web sitelerine özel istisnalar tanımlayabilirsiniz.</p>
+        </div>
+
+        <section class="doc-section" id="sec1">
+          <div class="doc-section-head">
+            <span class="doc-section-num">01</span>
+            <h2>Koşulların Kabulü</h2>
+          </div>
+          <p>vAdBlock Pro tarayıcı eklentisini indirerek, kurarak veya `vadblock.com` web sitesini ziyaret ederek bu Hizmet Şartlarını kabul etmiş sayılırsınız. Şartların herhangi bir maddesini kabul etmiyorsanız, lütfen eklentiyi tarayıcınızdan kaldırınız ve web sitesi kullanımını sonlandırınız.</p>
+        </section>
+
+        <section class="doc-section" id="sec2">
+          <div class="doc-section-head">
+            <span class="doc-section-num">02</span>
+            <h2>İzin Verilen ve Yasaklanan Kullanım</h2>
+          </div>
+          <p>vAdBlock Pro kişisel, adil ve tüketici odaklı internet filtreleme amacıyla sunulmaktadır:</p>
+          <ul>
+            <li><strong>İzin Verilen:</strong> Kişisel cihazlarınızda reklamları, pop-up'ları, izleyicileri engellemek, özel filtre listeleri eklemek ve SponsorSkip topluluğuna katkı sağlamak.</li>
+            <li><strong>Yasaklanan:</strong> Eklentiyi kötü amaçlı yazılım yaymak, üçüncü taraf bilgisayar sistemlerine veya sunuculara kasıtlı olarak hizmet reddi (DoS) saldırısı düzenlemek ya da yazılımı zararlı modifikasyonlarla yeniden dağıtmak amacıyla kullanmak kesinlikle yasaktır.</li>
+          </ul>
+        </section>
+
+        <section class="doc-section" id="sec3">
+          <div class="doc-section-head">
+            <span class="doc-section-num">03</span>
+            <h2>Fikri Mülkiyet ve Lisans</h2>
+          </div>
+          <p>vAdBlock Pro logosu, marka varlıkları, kaynak kod mimarisi ve özgün web sitesi tasarımı vAdBlock ekibine aittir. Kullanıcılara, eklentiyi kişisel tarayıcılarında çalıştırmaları için geri alınabilir, münhasır olmayan ve devredilemez bir kullanım lisansı verilmektedir.</p>
+        </section>
+
+        <section class="doc-section" id="sec4">
+          <div class="doc-section-head">
+            <span class="doc-section-num">04</span>
+            <h2>Garanti Reddi (As-Is Prensibi)</h2>
+          </div>
+          <p>vAdBlock Pro "OLDUĞU GİBİ" (AS IS) ve "MEVCUT OLDUĞU ŞEKİLDE" sunulmaktadır. Filtre kurallarımız (54,000+ kural) düzenli olarak güncellense de, üçüncü taraf web sitelerinin kod yapılarını sürekli değiştirmesi nedeniyle, tüm web sitelerinde %100 kesintisiz ve hatasız çalışma taahhüdü verilemez.</p>
+          <p>Bir web sitesinin bozulması durumunda, tek tıkla o site için korumayı devre dışı bırakabilir veya destek merkezimizden bildirimde bulunabilirsiniz.</p>
+        </section>
+
+        <section class="doc-section" id="sec5">
+          <div class="doc-section-head">
+            <span class="doc-section-num">05</span>
+            <h2>Sorumluluk Sınırı</h2>
+          </div>
+          <p>Yürürlükteki mevzuatın izin verdiği azami ölçüde, vAdBlock Pro geliştiricileri; eklentinin kullanımından veya kullanılamamasından, ziyaret edilen üçüncü taraf web sitelerinden doğabilecek doğrudan, dolaylı veya arızi zararlardan sorumlu tutulamaz.</p>
+        </section>
+
+        <section class="doc-section" id="sec6">
+          <div class="doc-section-head">
+            <span class="doc-section-num">06</span>
+            <h2>Destek ve İletişim</h2>
+          </div>
+          <p>Hizmet Şartlarımız veya filtre kuralları ile ilgili tüm sorularınız için resmi destek kanallarımız üzerinden bizimle iletişime geçebilirsiniz:</p>
+          <p><b>E-posta:</b> <a href="mailto:admin@vadblock.com" style="color:#2563EB; font-weight:700; text-decoration:none;">admin@vadblock.com</a> · <b>Destek Merkezi:</b> <a href="contact.html" style="color:#2563EB; font-weight:700; text-decoration:none;">vadblock.com/support</a></p>
+        </section>
+
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<!-- Footer -->
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <a class="brand" href="./"><img src="img/logo.png" alt="vAdBlock Pro" width="26" height="26" style="display:block; object-fit:contain; border-radius:8px;">
+      <span>vAdBlock <b>Pro</b></span></a>
+      <p>A free Chrome extension that blocks banner ads, video ads, pop-ups and trackers — for a cleaner, faster, quieter web.</p>
+    </div>
+    <div class="foot-col"><span class="foot-label">Product</span><a href="#features">Features</a><a href="#sites">Supported sites</a><a href="#how">How it works</a><a href="#pricing">Premium</a><a href="lave_adblock_ext.zip" download>Download Extension</a></div>
+    <div class="foot-col"><span class="foot-label">Legal & Info</span><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Service</a><a href="contact.html">Support & Contact</a></div>
+    <div class="foot-col"><span class="foot-label">Hesap</span><a href="auth.html">Giriş Yap</a><a href="auth.html?mode=register">Ücretsiz Kayıt Ol</a></div>
+  </div>
+  <div class="foot-legal wrap">&copy; 2026 vAdBlock Pro · Not affiliated with Google or Chrome. All trademarks belong to their respective owners.</div>
+</footer>
+
+<script>
+window.addEventListener('scroll', function() {
+  var sections = document.querySelectorAll('.doc-section');
+  var links = document.querySelectorAll('.doc-toc-link');
+  var current = '';
+  sections.forEach(function(sec) {
+    var top = sec.offsetTop - 140;
+    if (window.pageYOffset >= top) {
+      current = sec.getAttribute('id');
+    }
+  });
+  links.forEach(function(link) {
+    link.classList.remove('active');
+    if (link.getAttribute('href') === '#' + current) {
+      link.classList.add('active');
+    }
+  });
+});
+</script>
+
+</body>
+</html>

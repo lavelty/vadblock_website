@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1, viewport-fit=cover">
+<title>vAdBlock Pro — Daha Hızlı, Sessiz ve Reklamsız Bir İnternet</title>
+<meta name="description" content="vAdBlock Pro; banner reklamları, video reklamları, YouTube sponsorluklarını ve izleyicileri cihazınızda yerel olarak filtreler. Sıfır telemetri, ultra hafif MV3 motoru.">
+<link rel="icon" type="image/svg+xml" href="brand/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="brand/icon-32.png">
+<link rel="apple-touch-icon" href="brand/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,450;0,500;0,550;0,600;0,700;1,400;1,500&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="skin/home.css">
+<style>
+/* Özelleştirilmiş vAdBlock Tasarım Zenginleştirmeleri */
+.vab-hero-window {
+    background: #FFFFFF;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    box-shadow: 0 30px 80px rgba(15, 23, 42, 0.08), 0 4px 16px rgba(15, 23, 42, 0.04);
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    max-width: 520px;
+    margin: 0 auto;
+}
+.vab-win-bar {
+    background: #F8FAFC;
+    border-bottom: 1px solid var(--line);
+    padding: 12px 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.vab-dots {
+    display: flex;
+    gap: 6px;
+}
+.vab-dots span {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+.vab-dots .d-red { background: #FDA4AF; }
+.vab-dots .d-yellow { background: #FDE047; }
+.vab-dots .d-green { background: #86EFAC; }
+.vab-addr {
+    flex: 1;
+    background: #FFFFFF;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 5px 14px;
+    font-size: 12.5px;
+    color: #64748B;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: monospace;
+}
+.vab-ext-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #EFF6FF;
+    border: 1px solid #BFDBFE;
+    color: var(--green);
+    font-size: 11.5px;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: 999px;
+}
+.vab-player-mock {
+    background: #0B131E;
+    position: relative;
+    padding: 24px 20px 20px;
+    color: #FFFFFF;
+}
+.vab-player-screen {
+    background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%);
+    border-radius: 12px;
+    padding: 26px 20px;
+    text-align: center;
+    position: relative;
+    border: 1px solid rgba(255,255,255,0.08);
+}
+.vab-sponsor-alert {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(37, 99, 235, 0.12);
+    border: 1px solid var(--lime);
+    color: var(--lime);
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.3px;
+    margin-bottom: 12px;
+    animation: vab-pulse 2s infinite;
+}
+@keyframes vab-pulse {
+    0% { transform: scale(0.98); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(0.98); }
+}
+.vab-timeline {
+    height: 6px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 999px;
+    margin: 18px 0 10px;
+    position: relative;
+    overflow: hidden;
+}
+.vab-timeline-fill {
+    position: absolute;
+    top: 0; left: 0; bottom: 0; width: 45%;
+    background: var(--green);
+}
+.vab-timeline-skip {
+    position: absolute;
+    top: 0; left: 45%; bottom: 0; width: 25%;
+    background: #F59E0B;
+}
+.vab-toggles-row {
+    background: #FFFFFF;
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+.vab-toggle-pill {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #F8FAFC;
+    border: 1px solid var(--line);
+    padding: 8px 10px;
+    border-radius: 10px;
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--ink);
+}
+.vab-toggle-pill span.dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--green);
+}
+.vab-toast-float {
+    position: absolute;
+    bottom: -18px;
+    left: 20px;
+    right: 20px;
+    background: var(--ink-dark);
+    color: #FFFFFF;
+    border-radius: 12px;
+    padding: 12px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 14px 30px rgba(15, 23, 42, 0.18);
+    font-size: 13px;
+    z-index: 10;
+}
+
+/* ==========================================================================
+   📱 5 CORE MOBILE UX RULES (UX Engine Standard - Reels Compliance)
+   1. Under 640px: Table rows transform into sleek mobile cards (no hidden swipe).
+   2. Figures & amounts stay on one line (no orphan plus/currency), scaled with clamp().
+   3. 16px font-size on inputs for screens <=768px (eliminates iOS Safari auto-zoom) + proper keyboard types.
+   4. Minimum 44px touch targets on touchscreens (@media (pointer: coarse)) while desktop mouse keeps dense layout.
+   5. Fixed bottom bars padded with env(safe-area-inset-bottom) and leave room under content.
+   ========================================================================== */
+
+/* 2. Rule 2: Keep amounts & currencies on one line (no wrapped plus/currency sign) */
+.metric-val, .pricing-price, .pricing-amount, .amount, .currency,
+.stat-value, .dash-stat-val, .price-val, .plan-price, .big-figure,
+[data-figure], .badge-metric, .price-num, .summary-row span:last-child,
+.total-price, .fb-row-val {
+  white-space: nowrap !important;
+  word-break: keep-all !important;
+}
+
+/* 5. Rule 5: Safe area padding on fixed bottom elements & modals */
+.fixed-bottom-bar,
+.bulk-bar,
+#bulkBar,
+.mobile-bottom-bar,
+.toast,
+.modal-actions,
+.fb-modal,
+.modal {
+  padding-bottom: max(16px, env(safe-area-inset-bottom, 16px)) !important;
+  padding-left: max(16px, env(safe-area-inset-left, 16px)) !important;
+  padding-right: max(16px, env(safe-area-inset-right, 16px)) !important;
+}
+
+/* Leave room under scrollable content so fixed bottom bars never hide the last row */
+.main,
+.content-area,
+.dash-master-wrapper,
+.checkout-container,
+.site-main-wrap {
+  padding-bottom: calc(96px + env(safe-area-inset-bottom, 24px)) !important;
+}
+
+/* 3. Rule 3: 16px font size on inputs on mobile (Stops iOS Safari zoom) */
+@media (max-width: 768px) {
+  input, select, textarea,
+  input[type="text"], input[type="password"], input[type="email"],
+  input[type="number"], input[type="search"], input[type="tel"], input[type="url"],
+  .input-field, .form-control, .form-card-field input, .form-card-field select, .form-card-field textarea,
+  .coupon-input, .auth-input {
+    font-size: 16px !important;
+    line-height: 1.35 !important;
+  }
+}
+
+/* 4. Rule 4: 44px minimum touch targets on touchscreens (mouse keeps dense layout) */
+@media (pointer: coarse), (max-width: 768px) {
+  button,
+  .btn,
+  .btn-primary,
+  .btn-secondary,
+  .btn-danger,
+  .btn-primary-green,
+  .page-link,
+  .nav-item,
+  .tab-btn,
+  .close-btn,
+  .modal-close,
+  .fb-modal-close,
+  a.btn,
+  .dash-nav-link,
+  .table-actions button,
+  .table-actions a,
+  .plan-select-btn {
+    min-height: 44px !important;
+    min-width: 44px !important;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    touch-action: manipulation;
+  }
+
+  /* Form check targets */
+  input[type="checkbox"], input[type="radio"] {
+    min-width: 22px !important;
+    min-height: 22px !important;
+    accent-color: #2563EB;
+  }
+  label:has(input[type="checkbox"]), label:has(input[type="radio"]), .check-label, .form-checkbox-label {
+    min-height: 44px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    cursor: pointer;
+  }
+
+  /* Pagination touch */
+  .pagination .page-link {
+    min-width: 44px !important;
+    min-height: 44px !important;
+    margin: 0 4px !important;
+  }
+}
+
+/* 1. Rule 1 & 2: Under 640px - Tables transform into cards & figures scale down */
+@media (max-width: 640px) {
+  /* Dynamic shrink for big figures on phones */
+  .metric-val, .pricing-price, .hero-stat-val, .stat-value, .dash-stat-val, .big-figure, h1 {
+    font-size: clamp(1.4rem, 6.5vw, 2.2rem) !important;
+    line-height: 1.15 !important;
+    letter-spacing: -0.02em !important;
+    white-space: nowrap !important;
+  }
+  .pricing-price span, .metric-val span {
+    font-size: 0.55em !important;
+    white-space: nowrap !important;
+  }
+
+  .metrics-grid, .stats-tri-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+  }
+  .metric-card, .dash-stat-card {
+    padding: 14px 12px !important;
+  }
+
+  /* TABLES BECOME SLEEK MOBILE CARDS */
+  table, thead, tbody, th, td, tr,
+  .table-card table, .table-card thead, .table-card tbody, .table-card th, .table-card td, .table-card tr,
+  .dash-table, .dash-table thead, .dash-table tbody, .dash-table th, .dash-table td, .dash-table tr {
+    display: block !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  
+  /* Hide standard tabular headers on mobile phones */
+  thead, .table-card thead, .dash-table thead {
+    display: none !important;
+  }
+
+  /* Each row transforms into an elevated card */
+  tbody tr, .table-card tbody tr, .dash-table tbody tr {
+    margin-bottom: 14px !important;
+    background: #FFFFFF !important;
+    border: 1px solid #E2E8F0 !important;
+    border-radius: 16px !important;
+    padding: 14px 16px !important;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04) !important;
+    position: relative !important;
+  }
+
+  tbody tr:hover td, .table-card tbody tr:hover td, .dash-table tr:hover td {
+    background: transparent !important;
+  }
+
+  /* Key-value row formatting */
+  tbody td, .table-card tbody td, .dash-table tbody td {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 9px 0 !important;
+    border: none !important;
+    border-bottom: 1px solid #F1F5F9 !important;
+    font-size: 13.5px !important;
+    text-align: right !important;
+    min-height: 38px !important;
+  }
+
+  /* Action row at bottom of card */
+  tbody td:last-child, .table-card tbody td:last-child, .dash-table tbody td:last-child {
+    border-bottom: none !important;
+    padding-top: 12px !important;
+    justify-content: flex-end !important;
+    gap: 8px !important;
+    flex-wrap: wrap !important;
+  }
+
+  /* Header label injected via data-label */
+  tbody td[data-label]::before, .table-card tbody td[data-label]::before, .dash-table tbody td[data-label]::before {
+    content: attr(data-label) !important;
+    font-weight: 700 !important;
+    font-size: 11px !important;
+    color: #64748B !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+    text-align: left !important;
+    padding-right: 12px !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* Fixed Bulk Action Floating Bar */
+  #bulkBar {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    background: rgba(255, 255, 255, 0.98) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border-top: 1px solid rgba(15, 23, 42, 0.08) !important;
+    box-shadow: 0 -8px 24px rgba(15, 23, 42, 0.06) !important;
+    padding: 14px 16px max(16px, env(safe-area-inset-bottom, 16px)) !important;
+    z-index: 9999 !important;
+    justify-content: space-between !important;
+    flex-wrap: wrap !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .metrics-grid, .stats-tri-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+
+/* ========================================================
+   💎 ULTRA-PREMIUM BLUE & WHITE EDITORIAL SYSTEM
+   ======================================================== */
+:root {
+  --green: #2563EB !important;
+  --green-deep: #1D4ED8 !important;
+  --lime: #06B6D4 !important;
+  --ink: #0F172A !important;
+  --ink-dark: #0A192F !important;
+  --muted: #64748B !important;
+  --line: #E2E8F0 !important;
+  --bg: #FFFFFF !important;
+  --mint: #EFF6FF !important;
+  --mint-b: #BFDBFE !important;
+  --limebg: #F0FDFA !important;
+  --lime-b: #99F6E4 !important;
+  --pink: #F8FAFC !important;
+  --pink-b: #E2E8F0 !important;
+}
+
+body {
+  background: #FFFFFF !important;
+  color: #0F172A !important;
+}
+
+.hero {
+  background: radial-gradient(circle at 50% -10%, rgba(37, 99, 235, 0.08) 0%, rgba(6, 182, 212, 0.04) 40%, #FFFFFF 75%) !important;
+}
+.hero .eyebrow {
+  color: #2563EB !important;
+  background: #EFF6FF !important;
+  padding: 6px 14px !important;
+  border-radius: 999px !important;
+  border: 1px solid #BFDBFE !important;
+  display: inline-flex !important;
+  width: fit-content !important;
+}
+.hero .accent {
+  background: linear-gradient(135deg, #2563EB, #06B6D4) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+/* Feature Cards (Image 2 Fix) */
+.pow {
+  background: #FFFFFF !important;
+  border: 1px solid #E2E8F0 !important;
+  border-radius: 20px !important;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04) !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease !important;
+}
+.pow:hover {
+  transform: translateY(-4px) !important;
+  border-color: #93C5FD !important;
+  box-shadow: 0 16px 36px -8px rgba(37, 99, 235, 0.12) !important;
+}
+.pow-mint {
+  background: linear-gradient(180deg, #FFFFFF 0%, #F0F7FF 100%) !important;
+}
+.pow-lime {
+  background: linear-gradient(180deg, #FFFFFF 0%, #F0FDFA 100%) !important;
+}
+.pow-pink {
+  background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%) !important;
+}
+.pow-tag {
+  color: #2563EB !important;
+  background: #EFF6FF !important;
+  border: 1px solid #BFDBFE !important;
+  padding: 4px 10px !important;
+  border-radius: 6px !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+}
+.pow-link {
+  color: #2563EB !important;
+  font-weight: 700 !important;
+}
+.pow-link:hover {
+  color: #1D4ED8 !important;
+  text-decoration: underline !important;
+}
+.blocked-tag {
+  background: #EFF6FF !important;
+  color: #2563EB !important;
+  border: 1px solid #BFDBFE !important;
+}
+.back-read {
+  background: #F0FDFA !important;
+  color: #0D9488 !important;
+  border: 1px solid #99F6E4 !important;
+}
+
+/* Bottom CTA Band (Image 1 Fix) */
+.cta-band {
+  background: linear-gradient(135deg, #0A192F 0%, #0F2B5C 40%, #1D4ED8 80%, #2563EB 100%) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+  color: #FFFFFF !important;
+  padding: 88px 0 96px !important;
+}
+.cta-band h2 {
+  color: #FFFFFF !important;
+}
+.cta-band .lime-t {
+  color: #38BDF8 !important;
+}
+.cta-band p {
+  color: #BFDBFE !important;
+}
+.cta-under {
+  color: #93C5FD !important;
+}
+
+/* Primary Buttons */
+.btn-primary {
+  background: linear-gradient(135deg, #2563EB, #1D4ED8) !important;
+  box-shadow: 0 8px 24px -2px rgba(37, 99, 235, 0.45) !important;
+  color: #FFFFFF !important;
+}
+.btn-primary:hover {
+  background: linear-gradient(135deg, #1D4ED8, #1E40AF) !important;
+  box-shadow: 0 12px 28px rgba(37, 99, 235, 0.55) !important;
+}
+.btn-light {
+  background: #FFFFFF !important;
+  color: #1D4ED8 !important;
+  font-weight: 800 !important;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.25) !important;
+}
+.btn-light:hover {
+  background: #EFF6FF !important;
+  color: #1E40AF !important;
+}
+.btn-big .btn-ico {
+  background: #FFFFFF !important;
+}
+
+/* Pricing Cards */
+.pricing-card.featured {
+  border: 2px solid #2563EB !important;
+  box-shadow: 0 16px 40px -8px rgba(37, 99, 235, 0.2) !important;
+}
+.pricing-badge {
+  background: linear-gradient(135deg, #2563EB, #1D4ED8) !important;
+}
+
+/* Nav & Foot */
+.nav {
+  background: rgba(255, 255, 255, 0.94) !important;
+  backdrop-filter: blur(16px) !important;
+  border-bottom: 1px solid #E2E8F0 !important;
+}
+.nav-links a:hover {
+  color: #2563EB !important;
+}
+.brand b {
+  color: #2563EB !important;
+}
+.foot {
+  background: #0A192F !important;
+  color: #94A3B8 !important;
+}
+.foot .brand b {
+  color: #38BDF8 !important;
+}
+
+</style>
+
+<style>
+/* Blue & White Editorial Tech System */
+:root {
+  --blue-primary: #2563EB;
+  --blue-hover: #1D4ED8;
+  --blue-soft: #EFF6FF;
+  --cyan-accent: #06B6D4;
+  --navy-dark: #0F172A;
+}
+.hero {
+  background: radial-gradient(circle at 50% -10%, rgba(37, 99, 235, 0.08) 0%, rgba(6, 182, 212, 0.04) 40%, #FFFFFF 75%) !important;
+}
+.hero .eyebrow {
+  color: #2563EB !important;
+  background: #EFF6FF;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid #BFDBFE;
+  display: inline-flex !important;
+  width: fit-content;
+}
+.hero .accent {
+  background: linear-gradient(135deg, #2563EB, #06B6D4) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+.vab-hero-window {
+  border: 1px solid #BFDBFE !important;
+  box-shadow: 0 20px 50px -10px rgba(37, 99, 235, 0.12) !important;
+}
+.vab-sponsor-alert {
+  background: rgba(37, 99, 235, 0.1) !important;
+  color: #2563EB !important;
+  border: 1px solid rgba(37, 99, 235, 0.25) !important;
+}
+.vab-timeline-fill {
+  background: #2563EB !important;
+}
+.vab-timeline-skip {
+  background: #06B6D4 !important;
+}
+.vab-toggle-pill {
+  border: 1px solid #BFDBFE !important;
+  background: #EFF6FF !important;
+  color: #1D4ED8 !important;
+}
+.vab-toggle-pill .dot {
+  background: #2563EB !important;
+}
+.cta-band {
+  background: linear-gradient(135deg, #0A192F 0%, #0F2B5C 40%, #1D4ED8 80%, #2563EB 100%) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+}
+.cta-band .lime-t {
+  color: #38BDF8 !important;
+}
+.btn-primary {
+  background: linear-gradient(135deg, #2563EB, #1D4ED8) !important;
+  box-shadow: 0 8px 24px -2px rgba(37, 99, 235, 0.45) !important;
+}
+.btn-primary:hover {
+  background: linear-gradient(135deg, #1D4ED8, #1E40AF) !important;
+  box-shadow: 0 12px 28px rgba(37, 99, 235, 0.55) !important;
+}
+.btn-big .btn-ico {
+  background: #FFFFFF !important;
+}
+.pricing-card.featured {
+  border: 2px solid #2563EB !important;
+  box-shadow: 0 16px 40px -8px rgba(37, 99, 235, 0.2) !important;
+}
+.pricing-badge {
+  background: linear-gradient(135deg, #2563EB, #1D4ED8) !important;
+}
+.foot {
+  background: #0A192F !important;
+  color: #94A3B8 !important;
+}
+.foot .brand b {
+  color: #38BDF8 !important;
+}
+</style>
+
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="./" aria-label="vAdBlock Pro">
+      <img src="img/logo.png" alt="vAdBlock Pro" width="34" height="34" style="display:block; object-fit:contain; border-radius:8px;">
+      <span>vAdBlock <b>Pro</b></span>
+    </a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="#features">Features</a>
+      <a href="#sites">Supported sites</a>
+      <a href="#demo">Demo</a>
+      <a href="#how">How it works</a>
+      <a href="#pricing">Premium</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+        <div style="display:flex; align-items:center; gap:12px;">
+      <a href="auth.html" class="btn btn-ghost" style="padding:7px 16px; font-weight:700; color:#0F172A; text-decoration:none; font-size:14px; border:1px solid #E2E8F0; border-radius:999px; background:#fff; white-space:nowrap;">Giriş Yap</a>
+      <a href="lave_adblock_ext.zip" download class="btn btn-primary btn-nav"><span class="btn-ico"><img src="brand/favicon.svg" alt="" width="22" height="22"></span>Chrome'a Ekle</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- HERO SECTION -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <span class="eyebrow"><i style="display:inline-block; width:8px; height:8px; border-radius:50%; background:var(--green); margin-right:6px;"></i> YENİ NESİL CHROME REKLAM ENGELLEYİCİ</span>
+      <h1>İnternet, <br><span class="accent">fazlalıklardan arınmış</span> ve hızlı.</h1>
+      <p class="hero-sub">vAdBlock Pro; banner reklamları, sinir bozucu pop-up'ları, çerez uyarılarını ve YouTube video içi sponsorluklarını saniyesinde durdurur. Sıfır telemetri, sıfır gecikme.</p>
+      <div class="hero-cta">
+        <a href="lave_adblock_ext.zip" download class="btn btn-primary btn-big">
+          <span class="btn-ico"><img src="img/logo.png" alt="" width="22" height="22" style="object-fit:contain;"></span>
+          Chrome'a Ekle — Ücretsiz
+        </a>
+        <a class="btn-ghost" href="#demo"><span class="play-dot">▸</span> Canlı Önizlemeyi Gör</a>
+      </div>
+      <div class="hero-trust" style="margin-top:20px; font-size:13px; color:var(--muted); display:flex; align-items:center; gap:12px;">
+        <span>✓ %100 Ücretsiz Temel Sürüm</span>
+        <span class="dot">·</span>
+        <span>✓ Kayıt Zorunluluğu Yok</span>
+        <span class="dot">·</span>
+        <span>✓ Manifest V3 Hızı</span>
+      </div>
+    </div>
+
+    <!-- ÖZEL vAdBlock CANLI MOTOR SAHNESİ -->
+    <div class="hero-stage" aria-hidden="true" style="padding-bottom: 24px;">
+      <div class="vab-hero-window">
+        <div class="vab-win-bar">
+          <div class="vab-dots">
+            <span class="d-red"></span>
+            <span class="d-yellow"></span>
+            <span class="d-green"></span>
+          </div>
+          <div class="vab-addr">
+            <span style="color:#2563EB;">🔒</span>
+            <span>youtube.com/watch?v=tech_review</span>
+          </div>
+          <div class="vab-ext-badge">
+            <img src="img/logo.png" width="14" height="14" alt="" style="object-fit:contain;">
+            <span>18 Engellendi</span>
+          </div>
+        </div>
+
+        <div class="vab-player-mock">
+          <div class="vab-player-screen">
+            <div class="vab-sponsor-alert">
+              <span>⚡</span> SPONSORSKIP DEVREDE
+            </div>
+            <div style="font-size:15px; font-weight:700; margin-bottom:4px;">"01:14 - 02:40 Sponsor Bölümü Atlandı"</div>
+            <div style="font-size:12px; color:#94A3B8;">86 saniyelik zaman kaybı ve reklam geçildi ✓</div>
+            <div class="vab-timeline">
+              <div class="vab-timeline-fill"></div>
+              <div class="vab-timeline-skip"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="vab-toggles-row">
+          <div class="vab-toggle-pill"><span class="dot"></span> Video Reklamları: Kapalı</div>
+          <div class="vab-toggle-pill"><span class="dot"></span> SponsorSkip: Aktif</div>
+          <div class="vab-toggle-pill"><span class="dot"></span> İzleyiciler: Engellendi</div>
+        </div>
+
+        <div class="vab-toast-float">
+          <div>
+            <b style="display:block; font-size:13.5px;">vAdBlock Pro Aktif Korumada</b>
+            <span style="font-size:11.5px; opacity:0.8;">Cihaz içi filtreleme · RAM tüketimi &lt;15MB</span>
+          </div>
+          <span style="color:var(--lime); font-size:18px; font-weight:800;">✓</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap hero-strip">
+    <span class="strip-cap">NELER ENGELLENİR</span>
+    <span class="strip-f"><i>⛨</i> Banner & Pop-up'lar</span>
+    <span class="strip-f"><i>◔</i> Çerez Duvarları (Cookie Banners)</span>
+    <span class="strip-f"><i>↯</i> Gizli İzleyiciler & Telemetri</span>
+    <span class="strip-f"><i>▶</i> Video Reklamları & Sponsorlar</span>
+  </div>
+</section>
+
+<!-- ÖNE ÇIKAN ÖZELLİKLER (POWERS) -->
+<section class="sec sec-alt" id="features">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="eyebrow">GÜÇLÜ & HAFİF KORUMA</span>
+        <h2>Sessizce çalışır,<br>dikkat dağıtıcıları yok eder.</h2>
+      </div>
+      <p class="head-aside">54.000'den fazla yerel kural ile web sayfaları daha açılmadan temizlenir. Hiçbir gecikme hissetmezsiniz.</p>
+    </div>
+
+    <div class="pow-grid">
+      <!-- 01: SponsorSkip -->
+      <article class="pow pow-mint">
+        <header><span class="pow-tag">01 / SPONSORSKIP & VİDEO FİLTRESİ</span><span class="pow-ico">⚡</span></header>
+        <div class="pow-scene">
+          <div class="note n-blue"><span class="note-addr">youtube.com</span><b>"Bu videonun sponsoru..."</b></div>
+          <span class="blocked-tag">✓ Otomatik Olarak Atlandı</span>
+        </div>
+        <h3>Video içi sponsorlukları atlayın.</h3>
+        <p>YouTuber'ların video arasına yerleştirdiği 2-3 dakikalık sponsor tanıtımlarını, abone ol hatırlatmalarını ve introları otomatik atlar.</p>
+        <a class="pow-link" href="#demo">Canlı demoda gör <i>↗</i></a>
+      </article>
+
+      <!-- 02: Pop-up & Sahte Butonlar -->
+      <article class="pow pow-lime">
+        <header><span class="pow-tag">02 / POP-UP & SAHTE BUTON KALKANI</span><span class="pow-ico">⛨</span></header>
+        <div class="pow-scene">
+          <div class="note n-white"><span class="note-cookie">⊘</span><b>Sahte 'İndir' & Yeni Sekme Pop-up'ı</b><span class="note-sub">İstenmeyen yönlendirme tespit edildi</span></div>
+          <span class="back-read">✓ Tarayıcıya girmeden engellendi</span>
+        </div>
+        <h3>Tıklama tuzaklarına son verin.</h3>
+        <p>İndirme ve medya sitelerinde yeni sekme patlatan reklamları, sahte indirme butonlarını ve agresif yönlendirmeleri kökten durdurur.</p>
+        <a class="pow-link" href="#demo">Nasıl göründüğünü incele <i>↗</i></a>
+      </article>
+
+      <!-- 03: Çerez Duvarları & Canlı Sayaç -->
+      <article class="pow pow-pink">
+        <header><span class="pow-tag">03 / CANLI SAYAÇ & ÇEREZ KALKANI</span><span class="pow-ico">✦</span></header>
+        <div class="pow-scene">
+          <div class="counter-chip">
+            <span class="cc-ico">
+              <img src="img/logo.png" width="28" height="28" alt="" style="object-fit:contain;">
+              <em class="wbadge big">18</em>
+            </span>
+            <span class="cc-txt">Eklenti ikonu sayfadaki engellenen ögeleri <b>canlı olarak</b> gösterir.</span>
+          </div>
+        </div>
+        <h3>Gerçek zamanlı şeffaf koruma.</h3>
+        <p>İkon rozeti üzerinde geçerli sekmede engellenen reklam ve izleyici sayısını anlık görün. Çerez onay pencerelerini otomatik onaylar/temizler.</p>
+        <a class="pow-link" href="#how">Detayları gör <i>↗</i></a>
+      </article>
+    </div>
+
+    <div class="yt-banner">
+      <span class="yt-play">▶</span>
+      <div><b>Video reklamları dahil.</b><span>YouTube, Dailymotion ve diğer büyük video platformlarındaki video öncesi (pre-roll) ve video ortası (mid-roll) reklamlar otomatik olarak filtrelenir.</span></div>
+      <a href="#faq">Daha fazla bilgi <i>↗</i></a>
+    </div>
+  </div>
+</section>
+
+<!-- DESTEKLENEN SİTELER -->
+<section class="sec" id="sites">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="eyebrow">EVRENSEL DESTEK</span>
+        <h2>Gezindiğiniz her yerde<br>yanınızda.</h2>
+      </div>
+      <p class="head-aside">Dizi sitelerinden haber portallarına, video platformlarından sosyal medyaya kadar 200.000'den fazla sitede kusursuz çalışır.</p>
+    </div>
+
+    <div class="clouds">
+      <div class="cloud">
+        <span class="cloud-tag t-green">▶ İzleme & Akış</span>
+        <div class="cloud-icons">
+          <img src="brand/sites/youtube.ico" alt="YouTube" width="32" height="32" loading="lazy">
+          <img src="brand/sites/twitch.ico" alt="Twitch" width="32" height="32" loading="lazy">
+          <img src="brand/sites/netflix.ico" alt="Netflix" width="32" height="32" loading="lazy">
+          <img src="brand/sites/spotify.ico" alt="Spotify" width="32" height="32" loading="lazy">
+          <img src="brand/sites/dailymotion.ico" alt="Dailymotion" width="32" height="32" loading="lazy">
+          <img src="brand/sites/tiktok.ico" alt="TikTok" width="32" height="32" loading="lazy">
+          <img src="brand/sites/imdb.ico" alt="IMDb" width="32" height="32" loading="lazy">
+          <span class="more-chip">+ binlerce site</span>
+        </div>
+      </div>
+      <div class="cloud">
+        <span class="cloud-tag t-lime">◎ Haber & Sosyal Ağlar</span>
+        <div class="cloud-icons">
+          <img src="brand/sites/reddit.ico" alt="Reddit" width="32" height="32" loading="lazy">
+          <img src="brand/sites/x.ico" alt="X" width="32" height="32" loading="lazy">
+          <img src="brand/sites/facebook.ico" alt="Facebook" width="32" height="32" loading="lazy">
+          <img src="brand/sites/instagram.ico" alt="Instagram" width="32" height="32" loading="lazy">
+          <img src="brand/sites/wikipedia.ico" alt="Wikipedia" width="32" height="32" loading="lazy">
+          <img src="brand/sites/cnn.ico" alt="CNN" width="32" height="32" loading="lazy">
+          <img src="brand/sites/forbes.ico" alt="Forbes" width="32" height="32" loading="lazy">
+          <span class="more-chip">+ tüm web</span>
+        </div>
+      </div>
+    </div>
+    <p class="cloud-foot">Tüm ticari markalar ve logolar ilgili hak sahiplerine aittir.</p>
+  </div>
+</section>
+
+<!-- CANLI İNTERAKTİF SİMÜLASYON -->
+<section class="sec sec-alt" id="demo">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="eyebrow">İNTERAKTİF SİMÜLASYON</span>
+        <h2>Sayfanın nasıl<br><span class="accent">temizlendiğini görün.</span></h2>
+      </div>
+      <p class="head-aside">Korumayı açıp kapatarak tipik bir haber veya içerik sayfasındaki kirliliğin nasıl yok olduğunu test edin.</p>
+    </div>
+
+    <div class="pg">
+      <div class="pg-top">
+        <span class="pg-label">◦ ornek-haber-sayfasi.com</span>
+        <button class="pg-toggle" id="pgToggle" aria-pressed="false" data-on="vAdBlock Açık" data-off="vAdBlock Kapalı">
+          <span class="pg-knob">
+            <img class="pk-off" src="brand/icon-32.png" alt="" width="22" height="22" style="filter:grayscale(1);">
+            <img class="pk-on" src="img/logo.png" alt="" width="22" height="22" style="object-fit:contain;">
+          </span>
+          <span class="pg-state">vAdBlock Kapalı</span>
+        </button>
+        <span class="pg-hint" id="pgHint">Düğmeye tıklayıp farkı görün<i>▴</i></span>
+      </div>
+      <div class="pg-stage" id="pgStage">
+        <div class="pg-article">
+          <span class="sk sk-title"></span>
+          <span class="sk sk-90"></span><span class="sk sk-75"></span><span class="sk sk-85"></span>
+          <div class="sk-img"></div>
+          <span class="sk sk-80"></span><span class="sk sk-60"></span>
+        </div>
+        <div class="pg-ad pga-banner">REKLAM — FIRSATI KAÇIRMAYIN, ŞİMDİ TIKLAYIN!</div>
+        <div class="pg-ad pga-modal"><b>Okumaya devam etmeden önce</b><span>Bültenimize abone olun!</span><i>✕</i></div>
+        <div class="pg-ad pga-side">DEV<br>★<br>İNDİRİM<br>REKLAMI</div>
+        <div class="pg-ad pga-cookie">◔ Bu site çerez kullanmaktadır. 214 ortak izin tercihini onaylayın.</div>
+        <div class="pg-done" id="pgDone">
+          <img src="img/logo.png" width="22" height="22" alt="" style="object-fit:contain;">
+          <b>4 Rahatsız Edici Öge Kaldırıldı</b>
+          <span>Ziyaret ettiğiniz her sayfa bu hız ve temizlikle açılır</span>
+        </div>
+      </div>
+      <p class="pg-foot">Örnekleme amaçlı simülasyondur. Gerçek eklentide reklamlar milisaniyeler içinde engellendiği için sayfada hiç görünmez.</p>
+    </div>
+  </div>
+</section>
+
+<!-- NASIL ÇALIŞIR -->
+<section class="sec" id="how">
+  <div class="wrap">
+    <div class="dark-panel">
+      <div class="dp-left">
+        <span class="eyebrow lime">SADE & PRATİK</span>
+        <h2 class="light">Tek bir ikon.<br><span class="lime-t">Tam kontrol.</span></h2>
+        <p class="dp-sub">Karmaşık ayar sayfalarıyla uğraşmanıza gerek yok. Araç çubuğundaki kalkan tüm kontrolü tek tıkla elinize verir.</p>
+        <ul class="dp-list">
+          <li><span>1</span><div><b>İkonu Sabitleyin</b> — Chrome uzantı menüsünden raptiye simgesine tıklayarak vAdBlock'u sabitleyin.</div></li>
+          <li><span>2</span><div><b>Sayacı İzleyin</b> — Kalkan üzerindeki rozet, geçerli sayfada engellenen ögeleri canlı bildirir.</div></li>
+          <li><span>3</span><div><b>İstediğiniz Sitede İzin Verin</b> — Desteklemek istediğiniz bir içerik üreticisinde tek tıkla korumayı durdurabilirsiniz.</div></li>
+          <li><span>4</span><div><b>Tekrar Aktif Edin</b> — Tekrar tıkladığınızda kalkan yeşile döner ve koruma anında devam eder.</div></li>
+        </ul>
+      </div>
+      <div class="dp-right" aria-hidden="true">
+        <div class="dp-toolbar">
+          <span class="dp-addr">herhangi-bir-site.com</span>
+          <span class="dp-ico">
+            <img src="img/logo.png" width="30" height="30" alt="" style="object-fit:contain;">
+            <em class="wbadge big">23</em>
+          </span>
+        </div>
+        <div class="dp-tip">
+          <b>Koruma Aktif</b>
+          <span><i class="dot-on"></i> Bu sayfada 23 reklam & izleyici engellendi</span>
+          <span class="dp-hint">Yalnızca bu sitede reklamları açmak için ikona tıklayın</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FİYATLANDIRMA & VIP ÜYELİK -->
+<section class="sec sec-alt" id="pricing">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="eyebrow">VIP GÜÇ & AYRICALIKLAR</span>
+        <h2>İnternet deneyiminizi<br><span class="accent">VIP seviyesine taşıyın.</span></h2>
+      </div>
+      <p class="head-aside">Temel reklam ve izleyici engelleme sonsuza kadar %100 ücretsizdir. Anında SponsorSkip atlatmaları, bulut senkronizasyonu ve 7/24 öncelikli filtre güncellemeleri için VIP üyeliğe geçin.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <!-- 1 Ay -->
+      <div class="pricing-card">
+        <div class="pricing-plan">Aylık VIP</div>
+        <div class="pricing-desc">Esnek kullanım, dilediğiniz an iptal imkanı.</div>
+        <div class="pricing-price">49 ₺ <span>/ ay ($2.99)</span></div>
+        <ul class="pricing-feats">
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Tüm Reklam ve Pop-up Engelleme</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> YouTube Video Reklam Filtresi</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> VIP SponsorBlock Atlatma</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Standart Öncelikli Destek</li>
+        </ul>
+        <a href="#pricing" class="btn-pricing btn-pricing-secondary">Aylık Başla</a>
+      </div>
+
+      <!-- 1 Yıl (Featured) -->
+      <div class="pricing-card featured">
+        <span class="pricing-badge">%45 TASARRUF · EN POPÜLER</span>
+        <div class="pricing-plan">Yıllık VIP</div>
+        <div class="pricing-desc">En çok tercih edilen plan. Kesintisiz 365 gün koruma.</div>
+        <div class="pricing-price">399 ₺ <span>/ yıl ($19.99)</span></div>
+        <ul class="pricing-feats">
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> <b>Tüm Reklam ve Pop-up Engelleme</b></li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> <b>YouTube Sponsor & Reklam Atlatma</b></li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Bulut Beyaz Liste Senkronizasyonu</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> 7/24 Öncelikli Canlı Destek</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Özel VIP Üye Rozeti</li>
+        </ul>
+        <a href="#pricing" class="btn-pricing btn-pricing-primary">Yıllık Satın Al</a>
+      </div>
+
+      <!-- Ömür Boyu -->
+      <div class="pricing-card">
+        <span class="pricing-badge" style="background:#0F172A; color:#fff;">ÖMÜR BOYU</span>
+        <div class="pricing-plan">Ömür Boyu VIP</div>
+        <div class="pricing-desc">Tek seferlik ödeme, sonsuza kadar VIP erişim.</div>
+        <div class="pricing-price">799 ₺ <span>tek sefer ($39.99)</span></div>
+        <ul class="pricing-feats">
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Sınırsız Tüm Cihazlarda Koruma</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> VIP SponsorBlock Onay Muafiyeti</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Gelecek Tüm Güncellemelere Ücretsiz Erişim</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Kurucu VIP Rozeti ve Öncelikli Destek</li>
+        </ul>
+        <a href="#pricing" class="btn-pricing btn-pricing-secondary">Ömür Boyu Sahip Ol</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ŞERİT METRİKLERİ -->
+<section class="ribbon">
+  <div class="wrap ribbon-row">
+    <div><b>54,000+</b><span>otomatik filtreleme kuralı</span></div><i></i>
+    <div><b>200,000+</b><span>korunan web platformu</span></div><i></i>
+    <div><b>%100</b><span>cihaz içi yerel filtreleme</span></div><i></i>
+    <div><b>0 ms</b><span>sıfır gecikme ile ışık hızı</span></div>
+  </div>
+</section>
+
+<!-- SSS (FAQ) -->
+<section class="sec" id="faq">
+  <div class="wrap wrap-narrow">
+    <div class="sec-head">
+      <div>
+        <span class="eyebrow">SIKÇA SORULAN SORULAR</span>
+        <h2>Aklınıza takılanlar.</h2>
+      </div>
+    </div>
+    <div class="faq-list">
+      <details open>
+        <summary>vAdBlock Pro temel sürümü gerçekten ücretsiz mi?</summary>
+        <p>Evet, temel reklam ve izleyici engelleme tamamen ücretsizdir. Herhangi bir deneme süresi kısıtlaması yoktur. Yükleyin ve hemen kullanmaya başlayın.</p>
+      </details>
+      <details>
+        <summary>Tarayıcımı veya bilgisayarımı yavaşlatır mı?</summary>
+        <p>Aksine, gezinmenizi ciddi oranda hızlandırır. Google Chrome'un modern Manifest V3 (declarativeNetRequest) altyapısını kullandığı için RAM tüketimi son derece düşüktür. Reklamlar ve izleyici script'leri hiç indirilmediği için sayfalar 2-3 kat daha hızlı açılır.</p>
+      </details>
+      <details>
+        <summary>SponsorSkip özelliği nasıl çalışır?</summary>
+        <p>SponsorSkip, YouTube ve video platformlarındaki video içi sponsorlukları, introları ve abone olma hatırlatmalarını tespit eder. Video bu bölümlere geldiğinde oynatıcıyı otomatik olarak içeriğin devamına atlatır.</p>
+      </details>
+      <details>
+        <summary>Hangi tarayıcılar destekleniyor?</summary>
+        <p>Google Chrome başta olmak üzere; Brave, Microsoft Edge, Opera, Vivaldi gibi Chromium tabanlı tüm modern masaüstü tarayıcılarla %100 uyumludur.</p>
+      </details>
+      <details>
+        <summary>İstediğim sitelerde reklam engellemeyi kapatabilir miyim?</summary>
+        <p>Elbette. Desteklemek istediğiniz bir sitedeyken araç çubuğundaki vAdBlock ikonuna tıklayarak o siteye özel izin verebilirsiniz.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ALT ÇAĞRI BANDI -->
+<section class="cta-band">
+  <div class="wrap cta-inner">
+    <div class="cta-mascot" aria-hidden="true">
+      <img src="img/logo.png" alt="vAdBlock Pro" width="80" height="80" style="object-fit:contain; filter:drop-shadow(0 10px 25px rgba(0,0,0,0.3));">
+    </div>
+    <h2>İnternetinizi <span class="lime-t">geri kazanın.</span></h2>
+    <p>Saniyeler içinde yükleyin · Kurulum gerektirmez · Anında koruma</p>
+    <a href="lave_adblock_ext.zip" download class="btn btn-light btn-big">
+      <span class="btn-ico"><img src="img/logo.png" alt="" width="22" height="22" style="object-fit:contain;"></span>
+      Chrome'a Ekle — Ücretsiz
+    </a>
+    <span class="cta-under">Kayıt gerekmez · Sıfır telemetri · İstediğiniz an kaldırın</span>
+  </div>
+</section>
+
+</main>
+
+<script>
+(function () {
+  var tgl = document.getElementById('pgToggle'), stage = document.getElementById('pgStage');
+  if (tgl) {
+    tgl.addEventListener('click', function () {
+      var on = tgl.getAttribute('aria-pressed') !== 'true';
+      tgl.setAttribute('aria-pressed', on);
+      var h = document.getElementById('pgHint');
+      if (h) h.remove();
+      tgl.querySelector('.pg-state').textContent = tgl.getAttribute(on ? 'data-on' : 'data-off');
+      stage.classList.toggle('cleaned', on);
+    });
+  }
+  var faq = document.querySelectorAll('.faq-list details');
+  faq.forEach(function (d) {
+    d.addEventListener('toggle', function () {
+      if (d.open) faq.forEach(function (o) { if (o !== d) o.open = false; });
+    });
+  });
+})();
+
+
+  // 📱 Mobile UX Engine: Auto-inject data-label attributes for Under 640px Card Transformation
+  function applyMobileCardLabels() {
+    document.querySelectorAll('table').forEach(tbl => {
+      const ths = Array.from(tbl.querySelectorAll('thead th')).map(th => th.innerText.trim());
+      if (ths.length > 0) {
+        tbl.querySelectorAll('tbody tr').forEach(row => {
+          row.querySelectorAll('td').forEach((td, idx) => {
+            if (!td.getAttribute('data-label') && ths[idx]) {
+              td.setAttribute('data-label', ths[idx]);
+            }
+          });
+        });
+      }
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', applyMobileCardLabels);
+  } else {
+    applyMobileCardLabels();
+  }
+
+</script>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <a class="brand" href="./">
+        <img src="img/logo.png" alt="vAdBlock Pro" width="28" height="28" style="display:block; object-fit:contain; border-radius:6px;">
+        <span>vAdBlock <b>Pro</b></span>
+      </a>
+      <p>Banner reklamları, video reklamları, sinir bozucu pop-up'ları ve izleyicileri cihazınızda yerel olarak filtreleyen modern ve hafif Chrome eklentisi.</p>
+    </div>
+    <div class="foot-col">
+      <span class="foot-label">Ürün &amp; Özellikler</span>
+      <a href="#features">Özellikler</a>
+      <a href="#how">Nasıl Çalışır</a>
+      <a href="#sites">Desteklenen Platformlar</a>
+      <a href="#pricing">VIP Üyelik</a>
+      <a href="lave_adblock_ext.zip" download>Eklentiyi İndir (.ZIP)</a>
+    </div>
+    <div class="foot-col">
+      <span class="foot-label">Bilgi &amp; Kurumsal</span>
+      <a href="privacy.html">Gizlilik Politikası</a>
+      <a href="terms.html">Kullanım Koşulları</a>
+      <a href="contact.html">Destek &amp; İletişim</a>
+      <a href="whats-new.html">Yenilikler &amp; Güncellemeler</a>
+    </div>
+    <div class="foot-col">
+      <span class="foot-label">Hesap</span>
+      <a href="auth.html">Giriş Yap</a>
+      <a href="auth.html?mode=register">Ücretsiz Kayıt Ol</a>
+    </div>
+  </div>
+  <div class="foot-legal wrap">&copy; 2026 vAdBlock Pro · Tüm hakları saklıdır. Google Chrome, Google LLC'nin tescilli ticari markasıdır.</div>
+</footer>
+
+</body>
+</html>

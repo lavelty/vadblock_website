@@ -1,0 +1,1737 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kontrol Paneli — vAdBlock Pro</title>
+<meta name="description" content="vAdBlock Pro kullanıcı paneli. Hesap özetiniz, destek talepleriniz, siparişleriniz ve SponsorSkip topluluk katkılarınız.">
+<link rel="icon" type="image/svg+xml" href="brand/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="brand/icon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Manrope:wght@500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<!-- Site Master Stylesheet (Same as Homepage and Support) -->
+<link rel="stylesheet" href="skin/home.css?v=20261020">
+<style>
+/* Reset & Modern SaaS Foundation */
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: #FAFBFB;
+  color: #0F172A;
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Master Hero Header (Matching Support Page Design) */
+.dash-hero-banner {
+  padding: 50px 24px 30px;
+  text-align: center;
+  position: relative;
+  background: radial-gradient(circle at 50% 0%, rgba(37, 99, 235, 0.12) 0%, rgba(37, 99, 235, 0.05) 40%, transparent 75%);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+  margin-bottom: 32px;
+}
+.dash-hero-wrap {
+  max-width: 980px;
+  margin: 0 auto;
+}
+.dash-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #EFF6FF;
+  border: 1px solid #BFDBFE;
+  color: #2563EB;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 800;
+  font-size: 11.5px;
+  padding: 5px 14px;
+  border-radius: 999px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.dash-hero-title {
+  font-family: 'Manrope', sans-serif;
+  font-size: 36px;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.2;
+  color: #0F172A;
+  margin: 0 0 10px 0;
+}
+.dash-hero-title span {
+  color: #2563EB;
+}
+.dash-hero-desc {
+  font-size: 15px;
+  color: #475569;
+  max-width: 600px;
+  margin: 0 auto 20px;
+  line-height: 1.5;
+}
+.dash-trust-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.dash-trust-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #0F172A;
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  padding: 6px 14px;
+  border-radius: 999px;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03);
+}
+.dash-trust-pill svg { color: #2563EB; }
+
+/* 1240px Perfect Master Container */
+.dash-master-wrapper {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 32px 80px;
+}
+
+/* Categorized 2-Column Layout: Sidebar (280px) + Main Content (1fr) */
+.dash-layout-grid {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+/* Categorized Sidebar */
+.dash-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: sticky;
+  top: 96px;
+}
+
+.sidebar-profile-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 20px;
+  padding: 22px;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.03);
+}
+
+.sidebar-user-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #F1F5F9;
+}
+
+.sidebar-avatar-wrap {
+  position: relative;
+  flex-shrink: 0;
+}
+.sidebar-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #0F172A 0%, #2563EB 100%);
+  color: #FFFFFF;
+  display: grid;
+  place-items: center;
+  font-family: 'Manrope', sans-serif;
+  font-size: 21px;
+  font-weight: 800;
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.22);
+}
+.sidebar-online-dot {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  width: 13px;
+  height: 13px;
+  background: #10B981;
+  border: 2.5px solid #FFFFFF;
+  border-radius: 50%;
+}
+
+.sidebar-user-info h3 {
+  font-family: 'Manrope', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0 0 4px 0;
+  letter-spacing: -0.02em !important;
+}
+
+.role-pill-badge {
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 9px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.role-pill-badge.admin { background: #0F172A; color: #06B6D4; border: 1px solid #06B6D4; }
+.role-pill-badge.user  { background: #EFF6FF; color: #2563EB; border: 1px solid #BFDBFE; }
+
+/* Category Navigation Menu */
+.sidebar-category-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.category-nav-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-radius: 14px;
+  font-family: 'Manrope', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #475569;
+  text-decoration: none;
+  background: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.category-nav-link:hover {
+  background: #F8FAFC;
+  color: #0F172A;
+  transform: translateX(3px);
+}
+
+.category-nav-link.active {
+  background: #EFF6FF;
+  border-color: #BFDBFE;
+  color: #2563EB;
+  font-weight: 800;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.08);
+}
+
+.category-link-left {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+.category-nav-link svg {
+  transition: transform 0.2s ease;
+}
+.category-nav-link:hover svg {
+  transform: scale(1.08);
+}
+
+.category-badge-count {
+  font-size: 11.5px;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #F1F5F9;
+  color: #475569;
+}
+.category-nav-link.active .category-badge-count {
+  background: #2563EB;
+  color: #FFFFFF;
+}
+
+/* Sidebar Helper Card */
+.sidebar-helper-card {
+  background: linear-gradient(135deg, #0F172A 0%, #0c3e2b 100%);
+  border-radius: 18px;
+  padding: 18px;
+  color: #FFFFFF;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+.sidebar-helper-card::before {
+  content: "";
+  position: absolute;
+  top: -30px;
+  right: -30px;
+  width: 90px;
+  height: 90px;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.18) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.sidebar-helper-card h4 {
+  font-family: 'Manrope', sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  margin: 0 0 6px 0;
+  color: #FFFFFF;
+}
+.sidebar-helper-card p {
+  font-size: 12px;
+  color: #94A3B8;
+  margin: 0 0 14px 0;
+  line-height: 1.45;
+}
+.sidebar-helper-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #2563EB;
+  color: #FFFFFF;
+  font-family: 'Manrope', sans-serif;
+  font-size: 12px;
+  font-weight: 800;
+  padding: 7px 14px;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+.sidebar-helper-btn:hover {
+  background: #007c46;
+  transform: translateY(-1px);
+}
+
+/* Main Dashboard Canvas */
+.dash-main-canvas {
+  min-width: 0;
+}
+
+/* Feedback Alert */
+.alert-box-banner {
+  padding: 16px 20px;
+  border-radius: 16px;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+}
+.alert-box-banner.success { background: #EFF6FF; border: 1px solid #BFDBFE; color: #1E40AF; }
+.alert-box-banner.error   { background: #FEF2F2; border: 1px solid #FECACA; color: #991B1B; }
+
+/* Panels and Cards */
+.panel-card-white {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 20px;
+  padding: 28px;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.03);
+  margin-bottom: 28px;
+  transition: border-color 0.2s ease;
+}
+.panel-card-white:hover {
+  border-color: #CBD5E1;
+}
+
+.panel-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 22px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #F1F5F9;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.panel-title-text {
+  font-family: 'Manrope', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  color: #0F172A;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  letter-spacing: -0.015em !important;
+}
+
+/* Top Gamification & Referral 2-Grid */
+.overview-top-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.gamification-widget {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.03);
+  position: relative;
+  overflow: hidden;
+}
+.gamification-widget::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #2563EB 0%, #06B6D4 100%);
+}
+
+.level-progress-track {
+  width: 100%;
+  height: 10px;
+  background: #F1F5F9;
+  border-radius: 999px;
+  overflow: hidden;
+  margin: 14px 0 10px;
+  position: relative;
+}
+
+.level-progress-indicator {
+  height: 100%;
+  background: linear-gradient(90deg, #2563EB 0%, #06B6D4 100%);
+  border-radius: 999px;
+  transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 0 12px rgba(37, 99, 235, 0.3);
+}
+
+.referral-widget {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.03);
+  position: relative;
+  overflow: hidden;
+}
+.referral-widget::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #3B82F6 0%, #2563EB 100%);
+}
+
+.ref-code-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #F8FAFC;
+  border: 1px dashed #CBD5E1;
+  border-radius: 12px;
+  padding: 10px 14px;
+  margin-top: 12px;
+  gap: 10px;
+}
+
+.copy-pill-btn {
+  background: #2563EB;
+  color: #FFFFFF;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 800;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+.copy-pill-btn:hover {
+  background: #007c46;
+  transform: translateY(-1px);
+}
+
+/* 3 KPI Stats Grid */
+.stats-tri-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-bottom: 24px;
+}
+
+.kpi-mini-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 20px;
+  padding: 22px 20px;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.25s ease;
+}
+.kpi-mini-card:hover {
+  transform: translateY(-3px);
+  border-color: #2563EB;
+  box-shadow: 0 10px 24px rgba(37, 99, 235, 0.08);
+}
+
+.kpi-mini-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 12px;
+}
+.kpi-mini-icon.green { background: #EFF6FF; color: #2563EB; }
+.kpi-mini-icon.blue  { background: #EFF6FF; color: #2563EB; }
+.kpi-mini-icon.purple{ background: #F5F3FF; color: #7C3AED; }
+
+.kpi-mini-val {
+  font-family: 'Manrope', sans-serif;
+  font-size: 30px;
+  font-weight: 800;
+  color: #0F172A;
+  line-height: 1.1;
+  margin-bottom: 6px;
+  letter-spacing: -0.025em !important;
+}
+
+.kpi-mini-label {
+  font-size: 12px;
+  font-weight: 800;
+  color: #64748B;
+  text-transform: uppercase;
+  letter-spacing: 0.04em !important;
+}
+
+/* Sponsor Developer 3 Stats */
+.sponsors-dev-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.dev-stat-box {
+  border-radius: 18px;
+  padding: 20px 18px;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+.dev-stat-box:hover {
+  transform: translateY(-2px);
+}
+.dev-stat-box.app { background: #EFF6FF; border: 1px solid #BFDBFE; }
+.dev-stat-box.pen { background: #FFFBEB; border: 1px solid #FDE68A; }
+.dev-stat-box.rej { background: #FEF2F2; border: 1px solid #FECACA; }
+
+.dev-stat-num {
+  font-family: 'Manrope', sans-serif;
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.dev-stat-box.app .dev-stat-num { color: #2563EB; }
+.dev-stat-box.pen .dev-stat-num { color: #D97706; }
+.dev-stat-box.rej .dev-stat-num { color: #DC2626; }
+
+.dev-stat-lbl {
+  font-family: 'Manrope', sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  color: #0F172A;
+}
+
+/* Clean Tables */
+.dash-table-wrap {
+  overflow-x: auto;
+  border: 1px solid #E2E8F0;
+  border-radius: 16px;
+}
+.dash-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+  text-align: left;
+}
+.dash-table th {
+  background: #F8FAFC;
+  padding: 13px 18px;
+  font-family: 'Manrope', sans-serif;
+  font-size: 11.5px;
+  font-weight: 800;
+  color: #64748B;
+  text-transform: uppercase;
+  letter-spacing: 0.04em !important;
+  border-bottom: 1px solid #E2E8F0;
+}
+.dash-table td {
+  padding: 14px 18px;
+  border-bottom: 1px solid #F1F5F9;
+  color: #334155;
+  vertical-align: middle;
+}
+.dash-table tr:last-child td {
+  border-bottom: none;
+}
+.dash-table tr:hover td {
+  background: #FAFBFB;
+}
+
+/* Badges */
+.status-tag-pill {
+  font-size: 11px;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+}
+.status-tag-pill.approved, .status-tag-pill.paid, .status-tag-pill.open { background: #EFF6FF; color: #2563EB; border: 1px solid #BFDBFE; }
+.status-tag-pill.pending, .status-tag-pill.awaiting, .status-tag-pill.answered { background: #FFFBEB; color: #D97706; border: 1px solid #FDE68A; }
+.status-tag-pill.rejected, .status-tag-pill.closed, .status-tag-pill.cancelled { background: #FEF2F2; color: #DC2626; border: 1px solid #FECACA; }
+
+/* Forms */
+.form-card-field {
+  margin-bottom: 20px;
+}
+.form-card-field label {
+  display: block;
+  font-family: 'Manrope', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: #334155;
+  margin-bottom: 7px;
+}
+.form-card-field input, .form-card-field select, .form-card-field textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #CBD5E1;
+  border-radius: 12px;
+  font-size: 14px;
+  color: #0F172A;
+  background: #FFFFFF;
+  outline: none;
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+.form-card-field input:focus, .form-card-field select:focus, .form-card-field textarea:focus {
+  border-color: #2563EB;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.btn-primary-green {
+  padding: 12px 24px;
+  background: #2563EB;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 12px;
+  font-family: 'Manrope', sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.2);
+}
+.btn-primary-green:hover {
+  background: #007c46;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(37, 99, 235, 0.28);
+}
+
+.btn-danger-red {
+  padding: 12px 24px;
+  background: #FEF2F2;
+  color: #DC2626;
+  border: 1px solid #FECACA;
+  border-radius: 12px;
+  font-family: 'Manrope', sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.btn-danger-red:hover {
+  background: #DC2626;
+  color: #FFFFFF;
+}
+
+/* Chat Bubbles in Tickets */
+.chat-bubbles-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+  max-height: 520px;
+  overflow-y: auto;
+  padding: 12px 6px;
+}
+
+.ticket-chat-bubble {
+  max-width: 82%;
+  padding: 16px 20px;
+  border-radius: 18px;
+  font-size: 14px;
+  line-height: 1.55;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+}
+
+.ticket-chat-bubble.user-sent {
+  align-self: flex-end;
+  background: #F1F5F9;
+  border: 1px solid #E2E8F0;
+  color: #0F172A;
+  border-bottom-right-radius: 4px;
+}
+
+.ticket-chat-bubble.admin-sent {
+  align-self: flex-start;
+  background: #EFF6FF;
+  border: 1px solid #BFDBFE;
+  color: #1E40AF;
+  border-bottom-left-radius: 4px;
+}
+
+.chat-bubble-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #64748B;
+}
+
+/* Responsive */
+@media (max-width: 960px) {
+  .dash-layout-grid { grid-template-columns: 1fr; }
+  .dash-sidebar { position: static; }
+  .overview-top-grid { grid-template-columns: 1fr; }
+  .stats-tri-grid { grid-template-columns: 1fr; }
+  .sponsors-dev-grid { grid-template-columns: 1fr; }
+  .dash-master-wrapper { padding-left: 16px; padding-right: 16px; }
+  .dash-hero-title { font-size: 28px; }
+}
+
+/* ==========================================================================
+   📱 5 CORE MOBILE UX RULES (UX Engine Standard - Reels Compliance)
+   1. Under 640px: Table rows transform into sleek mobile cards (no hidden swipe).
+   2. Figures & amounts stay on one line (no orphan plus/currency), scaled with clamp().
+   3. 16px font-size on inputs for screens <=768px (eliminates iOS Safari auto-zoom) + proper keyboard types.
+   4. Minimum 44px touch targets on touchscreens (@media (pointer: coarse)) while desktop mouse keeps dense layout.
+   5. Fixed bottom bars padded with env(safe-area-inset-bottom) and leave room under content.
+   ========================================================================== */
+
+/* 2. Rule 2: Keep amounts & currencies on one line (no wrapped plus/currency sign) */
+.metric-val, .pricing-price, .pricing-amount, .amount, .currency,
+.stat-value, .dash-stat-val, .price-val, .plan-price, .big-figure,
+[data-figure], .badge-metric, .price-num, .summary-row span:last-child,
+.total-price, .fb-row-val {
+  white-space: nowrap !important;
+  word-break: keep-all !important;
+}
+
+/* 5. Rule 5: Safe area padding on fixed bottom elements & modals */
+.fixed-bottom-bar,
+.bulk-bar,
+#bulkBar,
+.mobile-bottom-bar,
+.toast,
+.modal-actions,
+.fb-modal,
+.modal {
+  padding-bottom: max(16px, env(safe-area-inset-bottom, 16px)) !important;
+  padding-left: max(16px, env(safe-area-inset-left, 16px)) !important;
+  padding-right: max(16px, env(safe-area-inset-right, 16px)) !important;
+}
+
+/* Leave room under scrollable content so fixed bottom bars never hide the last row */
+.main,
+.content-area,
+.dash-master-wrapper,
+.checkout-container,
+.site-main-wrap {
+  padding-bottom: calc(96px + env(safe-area-inset-bottom, 24px)) !important;
+}
+
+/* 3. Rule 3: 16px font size on inputs on mobile (Stops iOS Safari zoom) */
+@media (max-width: 768px) {
+  input, select, textarea,
+  input[type="text"], input[type="password"], input[type="email"],
+  input[type="number"], input[type="search"], input[type="tel"], input[type="url"],
+  .input-field, .form-control, .form-card-field input, .form-card-field select, .form-card-field textarea,
+  .coupon-input, .auth-input {
+    font-size: 16px !important;
+    line-height: 1.35 !important;
+  }
+}
+
+/* 4. Rule 4: 44px minimum touch targets on touchscreens (mouse keeps dense layout) */
+@media (pointer: coarse), (max-width: 768px) {
+  button,
+  .btn,
+  .btn-primary,
+  .btn-secondary,
+  .btn-danger,
+  .btn-primary-green,
+  .page-link,
+  .nav-item,
+  .tab-btn,
+  .close-btn,
+  .modal-close,
+  .fb-modal-close,
+  a.btn,
+  .dash-nav-link,
+  .table-actions button,
+  .table-actions a,
+  .plan-select-btn {
+    min-height: 44px !important;
+    min-width: 44px !important;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    touch-action: manipulation;
+  }
+
+  /* Form check targets */
+  input[type="checkbox"], input[type="radio"] {
+    min-width: 22px !important;
+    min-height: 22px !important;
+    accent-color: #2563EB;
+  }
+  label:has(input[type="checkbox"]), label:has(input[type="radio"]), .check-label, .form-checkbox-label {
+    min-height: 44px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    cursor: pointer;
+  }
+
+  /* Pagination touch */
+  .pagination .page-link {
+    min-width: 44px !important;
+    min-height: 44px !important;
+    margin: 0 4px !important;
+  }
+}
+
+/* 1. Rule 1 & 2: Under 640px - Tables transform into cards & figures scale down */
+@media (max-width: 640px) {
+  /* Dynamic shrink for big figures on phones */
+  .metric-val, .pricing-price, .hero-stat-val, .stat-value, .dash-stat-val, .big-figure, h1 {
+    font-size: clamp(1.4rem, 6.5vw, 2.2rem) !important;
+    line-height: 1.15 !important;
+    letter-spacing: -0.02em !important;
+    white-space: nowrap !important;
+  }
+  .pricing-price span, .metric-val span {
+    font-size: 0.55em !important;
+    white-space: nowrap !important;
+  }
+
+  .metrics-grid, .stats-tri-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+  }
+  .metric-card, .dash-stat-card {
+    padding: 14px 12px !important;
+  }
+
+  /* TABLES BECOME SLEEK MOBILE CARDS */
+  table, thead, tbody, th, td, tr,
+  .table-card table, .table-card thead, .table-card tbody, .table-card th, .table-card td, .table-card tr,
+  .dash-table, .dash-table thead, .dash-table tbody, .dash-table th, .dash-table td, .dash-table tr {
+    display: block !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  
+  /* Hide standard tabular headers on mobile phones */
+  thead, .table-card thead, .dash-table thead {
+    display: none !important;
+  }
+
+  /* Each row transforms into an elevated card */
+  tbody tr, .table-card tbody tr, .dash-table tbody tr {
+    margin-bottom: 14px !important;
+    background: #FFFFFF !important;
+    border: 1px solid #E2E8F0 !important;
+    border-radius: 16px !important;
+    padding: 14px 16px !important;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04) !important;
+    position: relative !important;
+  }
+
+  tbody tr:hover td, .table-card tbody tr:hover td, .dash-table tr:hover td {
+    background: transparent !important;
+  }
+
+  /* Key-value row formatting */
+  tbody td, .table-card tbody td, .dash-table tbody td {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 9px 0 !important;
+    border: none !important;
+    border-bottom: 1px solid #F1F5F9 !important;
+    font-size: 13.5px !important;
+    text-align: right !important;
+    min-height: 38px !important;
+  }
+
+  /* Action row at bottom of card */
+  tbody td:last-child, .table-card tbody td:last-child, .dash-table tbody td:last-child {
+    border-bottom: none !important;
+    padding-top: 12px !important;
+    justify-content: flex-end !important;
+    gap: 8px !important;
+    flex-wrap: wrap !important;
+  }
+
+  /* Header label injected via data-label */
+  tbody td[data-label]::before, .table-card tbody td[data-label]::before, .dash-table tbody td[data-label]::before {
+    content: attr(data-label) !important;
+    font-weight: 700 !important;
+    font-size: 11px !important;
+    color: #64748B !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+    text-align: left !important;
+    padding-right: 12px !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* Fixed Bulk Action Floating Bar */
+  #bulkBar {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    background: rgba(255, 255, 255, 0.98) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border-top: 1px solid rgba(15, 23, 42, 0.12) !important;
+    box-shadow: 0 -8px 24px rgba(15, 23, 42, 0.08) !important;
+    padding: 14px 16px max(16px, env(safe-area-inset-bottom, 16px)) !important;
+    z-index: 9999 !important;
+    justify-content: space-between !important;
+    flex-wrap: wrap !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .metrics-grid, .stats-tri-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+</style>
+</head>
+<body>
+
+<!-- Master Site Fixed Navbar (1:1 with Homepage and Support Page from home.css) -->
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="./" aria-label="vAdBlock Pro">
+      <img src="img/logo.png" alt="vAdBlock Pro" width="34" height="34" style="display:block; object-fit:contain; border-radius:8px;">
+      <span>vAdBlock <b>Pro</b></span>
+    </a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="#features">Features</a>
+      <a href="#sites">Supported sites</a>
+      <a href="#demo">Demo</a>
+      <a href="#how">How it works</a>
+      <a href="#pricing">Premium</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div style="display:flex; align-items:center; gap:12px;">
+      
+        <a href="account.html" class="btn btn-ghost" style="display:inline-flex; align-items:center; gap:8px; padding:6px 14px; font-weight:700; color:#0F172A; text-decoration:none; background:rgba(37, 99, 235, 0.06); border:1px solid #E2E8F0; border-radius:999px; font-size:13.5px; white-space:nowrap;">
+          <span style="width:22px; height:22px; border-radius:50%; background:#2563EB; color:#fff; display:grid; place-items:center; font-size:11px; font-weight:800;"></span>
+          <span>Hesabım</span>
+        </a>
+      
+        <a href="auth.html" class="btn btn-ghost" style="padding:7px 16px; font-weight:700; color:#0F172A; text-decoration:none; font-size:14px; border:1px solid #E2E8F0; border-radius:999px; background:#fff; white-space:nowrap;">Giriş Yap</a>
+      
+      <a href="lave_adblock_ext.zip" download class="btn btn-primary btn-nav"><span class="btn-ico"><img src="brand/favicon.svg" alt="" width="22" height="22"></span>Add to Chrome</a>
+    </div>
+  </div>
+</header>
+
+<!-- Hero Section Matching Support Page -->
+<section class="dash-hero-banner">
+  <div class="dash-hero-wrap">
+    <div class="dash-hero-badge">
+      <span style="display:inline-block; width:6px; height:6px; border-radius:50%; background:#2563EB;"></span>
+      <span>HESAP & KONTROL PANELİ</span>
+    </div>
+    <h1 class="dash-hero-title">Hoş Geldiniz, <span></span> 👋</h1>
+    <p class="dash-hero-desc">vAdBlock Pro hesap merkezinizdesiniz. Topluluk katkılarınızı, tasarruf edilen verilerinizi, destek taleplerinizi ve ayarlarınızı yönetin.</p>
+    
+    <div class="dash-trust-row">
+      <div class="dash-trust-pill">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+        <span>Reklam Koruması: <strong>Aktif</strong></span>
+      </div>
+      <div class="dash-trust-pill">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+        <span>SponsorSkip: <strong>Devrede</strong></span>
+      </div>
+      <div class="dash-trust-pill">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+        <span>Son Senkronizasyon: <strong>Bugün</strong></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="dash-master-wrapper">
+  
+  
+    <div class="alert-box-banner ">
+      <span style="font-size:18px;"></span>
+      <span></span>
+    </div>
+  
+
+  <div class="dash-layout-grid">
+    
+    <!-- ====================================================================
+         LEFT SIDEBAR CATEGORIES (Kategorili Sol Menü)
+         ==================================================================== -->
+    <aside class="dash-sidebar">
+      
+      <div class="sidebar-profile-card">
+        <div class="sidebar-user-header">
+          <div class="sidebar-avatar-wrap">
+            <div class="sidebar-avatar"></div>
+            <div class="sidebar-online-dot"></div>
+          </div>
+          <div class="sidebar-user-info">
+            <h3></h3>
+            <span class="role-pill-badge ">
+              
+            </span>
+          </div>
+        </div>
+
+        <nav class="sidebar-category-nav">
+          <a href="?tab=overview" class="category-nav-link ">
+            <div class="category-link-left">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+              <span>Genel Bakış</span>
+            </div>
+          </a>
+
+          <a href="?tab=tickets" class="category-nav-link ">
+            <div class="category-link-left">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+              <span>Destek Taleplerim</span>
+            </div>
+            
+              <span class="category-badge-count"></span>
+            
+          </a>
+
+          <a href="?tab=orders" class="category-nav-link ">
+            <div class="category-link-left">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+              <span>Siparişlerim</span>
+            </div>
+            
+              <span class="category-badge-count"></span>
+            
+          </a>
+
+          <a href="?tab=settings" class="category-nav-link ">
+            <div class="category-link-left">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+              <span>Hesap Ayarları</span>
+            </div>
+          </a>
+
+          
+            <a href="/admin" class="category-nav-link" style="color:#2563EB; background:rgba(37, 99, 235, 0.06); border:1px dashed #BFDBFE;">
+              <div class="category-link-left">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                <span>Yönetici Paneli</span>
+              </div>
+              <span style="font-size:12px; font-weight:800;">›</span>
+            </a>
+          
+
+          <div style="height:1px; background:#F1F5F9; margin:8px 0;"></div>
+
+          <a href="/?logout=1" class="category-nav-link" style="color:#DC2626;">
+            <div class="category-link-left">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+              <span>Güvenli Çıkış Yap</span>
+            </div>
+          </a>
+        </nav>
+      </div>
+
+      <!-- Quick Support Card in Sidebar -->
+      <div class="sidebar-helper-card">
+        <h4>Yardıma mı İhtiyacınız Var?</h4>
+        <p>Karşılaştığınız bir sorunu veya kaçan bir reklamı bildirmek için destek talebi oluşturun.</p>
+        <a href="?tab=tickets" class="sidebar-helper-btn">
+          <span>Destek Talebi Aç</span>
+          <span>›</span>
+        </a>
+      </div>
+
+    </aside>
+
+    <!-- ====================================================================
+         RIGHT MAIN CANVAS (Kategori İçerikleri)
+         ==================================================================== -->
+    <main class="dash-main-canvas">
+
+      <!-- ====================================================================
+           KATEGORİ 1: GENEL BAKIŞ (OVERVIEW)
+           ==================================================================== -->
+      
+        
+        <div style="margin-bottom: 24px;">
+          <h2 style="font-family:'Manrope',sans-serif; font-size:24px; font-weight:800; color:#0F172A; margin:0 0 4px 0; letter-spacing:-0.025em !important;">Genel Bakış</h2>
+          <p style="font-size:14px; color:#64748B; margin:0;">Hesap özetiniz, reklam engelleme veriminiz ve SponsorSkip topluluk katkılarınız.</p>
+        </div>
+
+        <!-- Gamification & Referral Grid -->
+        <div class="overview-top-grid">
+          
+          <!-- Topluluk Katkısı (Gamification) -->
+          <div class="gamification-widget">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+              <div>
+                <div style="font-size:11px; font-weight:800; text-transform:uppercase; color:#64748B; letter-spacing:0.04em;">Topluluk Katkısı</div>
+                <div style="font-family:'Manrope',sans-serif; font-size:18px; font-weight:800; color:#0F172A; margin-top:2px;">Seviye  Katkıcı</div>
+              </div>
+              <span style="background:#EFF6FF; border:1px solid #BFDBFE; color:#2563EB; font-size:11px; font-weight:800; padding:4px 10px; border-radius:999px;">
+                🏆 
+              </span>
+            </div>
+
+            <div class="level-progress-track">
+              <div class="level-progress-indicator" style="width: %;"></div>
+            </div>
+
+            <div style="display:flex; justify-content:space-between; font-size:12px; color:#64748B; font-weight:600;">
+              <span>İlerleme: <strong></strong> onaylı segment</span>
+              <span><strong>%</strong></span>
+            </div>
+            
+            <div style="font-size:11.5px; color:#94A3B8; margin-top:10px;">
+              
+            </div>
+          </div>
+
+          <!-- Arkadaşını Davet Et (Referral) -->
+          <div class="referral-widget">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+              <div>
+                <div style="font-size:11px; font-weight:800; text-transform:uppercase; color:#64748B; letter-spacing:0.04em;">Arkadaşını Davet Et</div>
+                <div style="font-family:'Manrope',sans-serif; font-size:18px; font-weight:800; color:#0F172A; margin-top:2px;">Referans Bağlantısı</div>
+              </div>
+              <span style="background:#EFF6FF; border:1px solid #BFDBFE; color:#2563EB; font-size:11px; font-weight:800; padding:4px 10px; border-radius:999px;">
+                🎁 1 Ay VIP Hediye
+              </span>
+            </div>
+            
+            <div class="ref-code-box">
+              <span id="refCodeText" style="font-family:'JetBrains Mono',monospace; font-size:12.5px; font-weight:700; color:#2563EB; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">vadblock.com/?ref=</span>
+              <button onclick="copyReferralLink()" class="copy-pill-btn" id="copyBtn">Kopyala</button>
+            </div>
+            <div style="font-size:11.5px; color:#94A3B8; margin-top:8px;">
+              Bağlantınızla kayıt olan her kullanıcı için hesabınıza 1 ay VIP üyelik tanımlanır.
+            </div>
+          </div>
+
+        </div>
+
+        <!-- 3 Kullanıcı KPI İstatistiği -->
+        <div class="panel-card-white">
+          <div class="panel-header-row">
+            <h3 class="panel-title-text">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+              <span>Kullanıcı İstatistikleri & Tasarruf</span>
+            </h3>
+            <span style="font-size:12px; font-weight:700; color:#64748B; background:#F8FAFC; padding:4px 10px; border-radius:8px; border:1px solid #E2E8F0;">
+              Uzantı Senkronizasyonu
+            </span>
+          </div>
+
+          <div class="stats-tri-grid">
+            <div class="kpi-mini-card">
+              <div class="kpi-mini-icon green">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+              </div>
+              <div class="kpi-mini-val"></div>
+              <div class="kpi-mini-label">Engellenen Reklam & İzleyici</div>
+            </div>
+            <div class="kpi-mini-card">
+              <div class="kpi-mini-icon blue">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+              </div>
+              <div class="kpi-mini-val"></div>
+              <div class="kpi-mini-label">Tasarruf Edilen İnternet Verisi</div>
+            </div>
+            <div class="kpi-mini-card">
+              <div class="kpi-mini-icon purple">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+              </div>
+              <div class="kpi-mini-val"></div>
+              <div class="kpi-mini-label">Kazanılan Net Yaşam Zamanı</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SponsorGeliştirici İstatistikleri & Segmentler -->
+        <div class="panel-card-white">
+          <div class="panel-header-row">
+            <h3 class="panel-title-text">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+              <span>SponsorSkip Topluluk Katkılarınız</span>
+            </h3>
+            <span style="font-size:12px; font-weight:700; color:#2563EB; background:#EFF6FF; border:1px solid #BFDBFE; padding:4px 10px; border-radius:999px;">
+              Toplam  Segment
+            </span>
+          </div>
+
+          <div class="sponsors-dev-grid">
+            <div class="dev-stat-box app">
+              <div class="dev-stat-num"></div>
+              <div class="dev-stat-lbl">✓ Onaylı Segmentler</div>
+            </div>
+            <div class="dev-stat-box pen">
+              <div class="dev-stat-num"></div>
+              <div class="dev-stat-lbl">⏳ İncelenen / Beklemede</div>
+            </div>
+            <div class="dev-stat-box rej">
+              <div class="dev-stat-num"></div>
+              <div class="dev-stat-lbl">✕ Reddedilen Segmentler</div>
+            </div>
+          </div>
+
+          <!-- Son Gönderiler Tablosu -->
+          <div style="font-family:'Manrope',sans-serif; font-size:15px; font-weight:800; color:#0F172A; margin:24px 0 12px; display:flex; justify-content:space-between; align-items:center;">
+            <span>Son Gönderilen Sponsor Aralıkları</span>
+            <span style="font-size:12px; font-weight:600; color:#94A3B8;">Son 15 gönderim listelenmektedir</span>
+          </div>
+          
+          <div class="dash-table-wrap">
+            <table class="dash-table">
+              <thead>
+                <tr>
+                  <th>Video Bilgisi</th>
+                  <th>Kategori</th>
+                  <th>Süre Aralığı</th>
+                  <th>Durum</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+                  <tr>
+                    <td colspan="4" style="text-align:center; padding:36px; color:#64748B;">
+                      <div style="font-size:28px; margin-bottom:8px;">🎬</div>
+                      <div style="font-weight:700; color:#0F172A; margin-bottom:4px;">Henüz sponsor aralığı göndermediniz</div>
+                      <div style="font-size:13px; max-width:440px; margin:0 auto;">
+                        vAdBlock eklentisinin YouTube üzerindeki SponsorSkip butonunu kullanarak videoların sponsorlu aralıklarını işaretleyebilir, onaylandıkça topluluk puanı kazanabilirsiniz.
+                      </div>
+                    </td>
+                  </tr>
+                
+                  
+                    <tr>
+                      <td>
+                        <div style="font-weight:700; color:#0F172A;"></div>
+                        <div style="font-size:11.5px; color:#94A3B8;"> · ID: </div>
+                      </td>
+                      <td><span style="background:#F1F5F9; border:1px solid #E2E8F0; padding:4px 9px; border-radius:8px; font-weight:700; font-size:11.5px; color:#475569;"></span></td>
+                      <td style="font-family:'JetBrains Mono',monospace; font-size:13px; font-weight:700; color:#0F172A;">
+                         - 
+                      </td>
+                      <td>
+                        
+                          <span class="status-tag-pill approved">✓ Onaylandı</span>
+                        
+                          <span class="status-tag-pill rejected" title="">✕ Reddedildi</span>
+                        
+                          <span class="status-tag-pill pending">⏳ İnceleniyor</span>
+                        
+                      </td>
+                    </tr>
+                  
+                
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+
+      
+
+      <!-- ====================================================================
+           KATEGORİ 2: DESTEK TALEPLERİM (TICKETS)
+           ==================================================================== -->
+      
+        
+        
+          <!-- Ticket Message View (Detay & Sohbet Görünümü) -->
+          <div class="panel-card-white">
+            <div class="panel-header-row">
+              <div>
+                <a href="?tab=tickets" style="display:inline-flex; align-items:center; gap:5px; font-size:13px; font-weight:800; color:#2563EB; text-decoration:none; margin-bottom:8px;">
+                  <span>‹</span>
+                  <span>Tüm Destek Taleplerine Dön</span>
+                </a>
+                <h2 style="font-family:'Manrope',sans-serif; font-size:22px; font-weight:800; color:#0F172A; margin:0 0 4px 0; letter-spacing:-0.02em;">
+                  # · 
+                </h2>
+                <div style="font-size:12.5px; color:#64748B;">
+                  Tarih: 
+                </div>
+              </div>
+              <div>
+                <span class="status-tag-pill " style="font-size:12.5px; padding:6px 14px;">
+                  
+                </span>
+              </div>
+            </div>
+
+            <!-- Messages Stream -->
+            <div class="chat-bubbles-container">
+              
+                
+                <div class="ticket-chat-bubble ">
+                  <div class="chat-bubble-meta">
+                    <span></span>
+                    <span>·</span>
+                    <span></span>
+                  </div>
+                  <div style="white-space:pre-wrap;"></div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Reply Form -->
+              <form method="POST" action="?tab=tickets&t=" style="margin-top:20px; border-top:1px solid #F1F5F9; padding-top:20px;">
+                <input type="hidden" name="form" value="reply_ticket">
+                <input type="hidden" name="ticket_id" value="">
+                <div class="form-card-field">
+                  <label>Cevabınız / Ek Açıklamanız</label>
+                  <textarea name="message" rows="4" required placeholder="Destek ekibimize yanıtınızı buraya yazın..."></textarea>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+                  <button type="submit" class="btn-primary-green">Yanıtı Gönder</button>
+                  <button type="submit" form="closeTicketForm" class="btn-danger-red" style="padding:10px 18px; font-size:13px;" onclick="return confirm('Bu destek talebini kapatmak istediğinize emin misiniz?');">Talebi Kapat</button>
+                </div>
+              </form>
+              <form id="closeTicketForm" method="POST" action="?tab=tickets&t=" style="display:none;">
+                <input type="hidden" name="form" value="close_ticket">
+                <input type="hidden" name="ticket_id" value="">
+              </form>
+            
+              <div style="padding:16px; background:#F8FAFC; border:1px solid #E2E8F0; border-radius:14px; font-size:13.5px; color:#64748B; text-align:center;">
+                🔒 Bu destek talebi kapatılmıştır. Yeni bir konuda yardım almak için lütfen yeni bir destek talebi oluşturun.
+              </div>
+            
+
+          </div>
+
+        
+          <!-- Tickets List View (Tüm Talepler) -->
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; flex-wrap:wrap; gap:12px;">
+            <div>
+              <h2 style="font-family:'Manrope',sans-serif; font-size:24px; font-weight:800; color:#0F172A; margin:0 0 4px 0; letter-spacing:-0.025em !important;">Destek Taleplerim</h2>
+              <p style="font-size:14px; color:#64748B; margin:0;">Teknik destek, kırık site bildirimleri ve arıza kayıtlarınızı buradan yönetin.</p>
+            </div>
+            <button onclick="toggleNewTicketForm()" class="btn-primary-green">+ Yeni Destek Talebi Aç</button>
+          </div>
+
+          <!-- New Ticket Form (Collapsible Box) -->
+          <div id="newTicketFormBox" class="panel-card-white" style="display:none; margin-bottom:28px; border:2px solid #2563EB;">
+            <div class="panel-header-row">
+              <h3 class="panel-title-text">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                <span>Yeni Destek Talebi Oluştur</span>
+              </h3>
+              <button onclick="toggleNewTicketForm()" style="background:none; border:none; font-size:20px; font-weight:800; color:#64748B; cursor:pointer;">✕</button>
+            </div>
+            <form method="POST" action="?tab=tickets">
+              <input type="hidden" name="form" value="create_ticket">
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+                <div class="form-card-field">
+                  <label>Kategori</label>
+                  <select name="category">
+                    <option value="KirikSite">🌐 Kırık Web Sitesi / Kaçan Reklam</option>
+                    <option value="VIP">👑 VIP Premium & Ödeme Desteği</option>
+                    <option value="Oneri">💡 Yeni Özellik / Filtre Kuralı Önerisi</option>
+                    <option value="Genel">💬 Genel Soru / Hesap Sorunu</option>
+                  </select>
+                </div>
+                <div class="form-card-field">
+                  <label>Konu</label>
+                  <input type="text" name="subject" required placeholder="Sorununuzu kısaca özetleyin">
+                </div>
+              </div>
+              <div class="form-card-field">
+                <label>Mesajınız</label>
+                <textarea name="message" rows="5" required placeholder="Sorunu yaşadığınız web sitesini ve detayları mümkün olduğunca net açıklayın..."></textarea>
+              </div>
+              <div style="display:flex; justify-content:flex-end; gap:12px;">
+                <button type="button" onclick="toggleNewTicketForm()" style="padding:11px 18px; background:#F1F5F9; border:none; border-radius:12px; font-weight:700; color:#475569; cursor:pointer;">İptal</button>
+                <button type="submit" class="btn-primary-green">Talebi Gönder</button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Tickets Table -->
+          <div class="panel-card-white">
+            <div class="dash-table-wrap">
+              <table class="dash-table">
+                <thead>
+                  <tr>
+                    <th>Talep No</th>
+                    <th>Konu & Başlık</th>
+                    <th>Durum</th>
+                    <th>Oluşturulma Tarihi</th>
+                    <th style="text-align:right;">İşlem</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  
+                    <tr>
+                      <td colspan="5" style="text-align:center; padding:44px; color:#64748B;">
+                        <div style="font-size:32px; margin-bottom:8px;">💬</div>
+                        <div style="font-family:'Manrope',sans-serif; font-size:16px; font-weight:800; color:#0F172A; margin-bottom:4px;">Henüz bir destek talebiniz bulunmuyor</div>
+                        <div style="font-size:13px; max-width:440px; margin:0 auto 16px;">
+                          Karşılaştığınız herhangi bir teknik sorunu, kaçan reklamları veya önerilerinizi bize iletmek için yukarıdaki "+ Yeni Destek Talebi Aç" butonunu kullanabilirsiniz.
+                        </div>
+                        <button onclick="toggleNewTicketForm()" class="btn-primary-green">+ Talep Oluştur</button>
+                      </td>
+                    </tr>
+                  
+                    
+                      <tr>
+                        <td style="font-family:'JetBrains Mono',monospace; font-weight:700; color:#2563EB;">#</td>
+                        <td style="font-weight:700; color:#0F172A;"></td>
+                        <td>
+                          <span class="status-tag-pill ">
+                            
+                          </span>
+                        </td>
+                        <td style="font-size:12.5px; color:#64748B;"></td>
+                        <td style="text-align:right;">
+                          <a href="?tab=tickets&t=" style="display:inline-flex; align-items:center; gap:4px; color:#2563EB; font-weight:800; font-size:13px; text-decoration:none; padding:5px 12px; background:#EFF6FF; border-radius:8px;">
+                            <span>Görüntüle</span>
+                            <span>›</span>
+                          </a>
+                        </td>
+                      </tr>
+                    
+                  
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        
+
+      
+
+      <!-- ====================================================================
+           KATEGORİ 3: SİPARİŞLERİM (ORDERS)
+           ==================================================================== -->
+      
+        
+        <div style="margin-bottom: 24px;">
+          <h2 style="font-family:'Manrope',sans-serif; font-size:24px; font-weight:800; color:#0F172A; margin:0 0 4px 0; letter-spacing:-0.025em !important;">Siparişlerim & VIP Üyelik</h2>
+          <p style="font-size:14px; color:#64748B; margin:0;">Geçmiş ve devam eden tüm siparişlerinizi, faturalarınızı ve lisans durumunuzu inceleyin.</p>
+        </div>
+
+        <div class="panel-card-white">
+          <div class="panel-header-row">
+            <h3 class="panel-title-text">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2.5"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+              <span>Sipariş Geçmişi</span>
+            </h3>
+            <a href="#pricing" class="btn-primary-green" style="padding:7px 16px; font-size:12.5px;">VIP Planları İncele ›</a>
+          </div>
+
+          <div class="dash-table-wrap">
+            <table class="dash-table">
+              <thead>
+                <tr>
+                  <th>Sipariş No</th>
+                  <th>Paket Adı</th>
+                  <th>Tutar</th>
+                  <th>Ödeme Durumu</th>
+                  <th>Tarih</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+                  <tr>
+                    <td colspan="5" style="text-align:center; padding:44px; color:#64748B;">
+                      <div style="font-size:36px; margin-bottom:8px;">📦</div>
+                      <div style="font-family:'Manrope',sans-serif; font-size:16px; font-weight:800; color:#0F172A; margin-bottom:4px;">Kayıtlı bir siparişiniz bulunmuyor</div>
+                      <div style="font-size:13px; max-width:440px; margin:0 auto 18px;">
+                        vAdBlock Pro VIP üyelik planlarına geçiş yaparak sınırsız bulut kuralı, otomatik güncelleme ve öncelikli destek ayrıcalıklarına sahip olabilirsiniz.
+                      </div>
+                      <a href="#pricing" class="btn-primary-green">👑 VIP Planları İncele ›</a>
+                    </td>
+                  </tr>
+                
+                  
+                    <tr>
+                      <td style="font-family:'JetBrains Mono',monospace; font-weight:700; color:#0F172A;">#</td>
+                      <td style="font-weight:700; color:#0F172A;">
+                        
+                      </td>
+                      <td style="font-family:'JetBrains Mono',monospace; font-weight:800; color:#2563EB;">₺</td>
+                      <td>
+                        
+                          <span class="status-tag-pill paid">✓ Aktif / Ödendi</span>
+                        
+                          <span class="status-tag-pill awaiting">⏳ Havale/EFT Onayı Bekliyor</span>
+                        
+                          <span class="status-tag-pill cancelled">✕ İptal Edildi</span>
+                        
+                          <span class="status-tag-pill pending">⚠️ Ödeme Bekleniyor</span>
+                        
+                      </td>
+                      <td style="font-size:12.5px; color:#64748B;"></td>
+                    </tr>
+                  
+                
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      
+
+      <!-- ====================================================================
+           KATEGORİ 4: HESAP AYARLARI (SETTINGS)
+           ==================================================================== -->
+      
+        
+        <div style="margin-bottom: 24px;">
+          <h2 style="font-family:'Manrope',sans-serif; font-size:24px; font-weight:800; color:#0F172A; margin:0 0 4px 0; letter-spacing:-0.025em !important;">Hesap ve Güvenlik Ayarları</h2>
+          <p style="font-size:14px; color:#64748B; margin:0;">Tarayıcı uzantısı eşleştirmesi, hesap şifresi ve e-posta güncellemelerinizi yapın.</p>
+        </div>
+
+        <!-- 1. Uzantı / Eklenti Bağlantısı -->
+        <div class="panel-card-white">
+          <div class="panel-header-row">
+            <div>
+              <h3 class="panel-title-text">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2.5"><path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"></path><line x1="16" y1="8" x2="2" y2="22"></line><line x1="17.5" y1="15" x2="9" y2="15"></line></svg>
+                <span>Uzantı Bağlantısı (Extension Pairing)</span>
+              </h3>
+              <p style="font-size:13px; color:#64748B; margin:4px 0 0 0;">
+                Bu kimlik, tarayıcınızdaki vAdBlock eklentisinin engellediği reklam ve veri tasarrufunu bu hesaba anlık olarak senkronize eder.
+              </p>
+            </div>
+            
+              <span class="status-tag-pill approved">● Eklenti Bağlı</span>
+            
+              <span class="status-tag-pill pending">○ Eşleştirilmedi</span>
+            
+          </div>
+
+          <form method="POST" action="?tab=settings">
+            <input type="hidden" name="form" value="link_extension">
+            <div style="display:flex; gap:12px; max-width:600px; flex-wrap:wrap;">
+              <input type="text" name="extension_user_id" value="" placeholder="Örn: 32 karakterlik uzantı kimliği" style="flex:1; min-width:240px; padding:12px 16px; border:1px solid #CBD5E1; border-radius:12px; font-family:'JetBrains Mono',monospace; font-size:13.5px;">
+              <button type="submit" class="btn-primary-green">Eşleştir & Kaydet</button>
+            </div>
+            <div style="font-size:12px; color:#94A3B8; margin-top:8px;">
+              💡 Kimliğinizi bulmak için: Tarayıcınızda vAdBlock simgesine tıklayın > Ayarlar (Dişli çark) > "Kullanıcı Kimliği" satırındaki kodu kopyalayın.
+            </div>
+          </form>
+        </div>
+
+        <!-- 2. Şifre Değiştir -->
+        <div class="panel-card-white">
+          <div class="panel-header-row">
+            <h3 class="panel-title-text">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+              <span>Hesap Şifresini Güncelle</span>
+            </h3>
+          </div>
+
+          <form method="POST" action="?tab=settings" style="max-width:540px;">
+            <input type="hidden" name="form" value="password">
+            <div class="form-card-field">
+              <label>Mevcut Şifreniz</label>
+              <input type="password" name="current_password" autocomplete="current-password" required placeholder="••••••••">
+            </div>
+            <div class="form-card-field">
+              <label>Yeni Şifre</label>
+              <input type="password" name="new_password" autocomplete="new-password" required minlength="6" placeholder="En az 6 karakter girin">
+            </div>
+            <div class="form-card-field">
+              <label>Yeni Şifre (Tekrar)</label>
+              <input type="password" name="confirm_password" autocomplete="new-password" required minlength="6" placeholder="Yeni şifrenizi tekrar yazın">
+            </div>
+            <button type="submit" class="btn-primary-green">Şifreyi Güncelle</button>
+          </form>
+        </div>
+
+        <!-- 3. E-posta Değiştir -->
+        <div class="panel-card-white">
+          <div class="panel-header-row">
+            <h3 class="panel-title-text">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              <span>E-posta Adresini Değiştir</span>
+            </h3>
+          </div>
+
+          <div style="font-size:13.5px; color:#64748B; margin-bottom:18px;">
+            Şu anki kayıtlı e-posta adresiniz: <strong style="color:#0F172A;"></strong>
+          </div>
+
+          <form method="POST" action="?tab=settings" style="max-width:540px;">
+            <input type="hidden" name="form" value="email">
+            <div class="form-card-field">
+              <label>Yeni E-posta Adresi</label>
+              <input type="email" name="new_email" type="email" inputmode="email" autocomplete="email" required placeholder="yeni@eposta.com">
+            </div>
+            <div class="form-card-field">
+              <label>Mevcut Şifreniz</label>
+              <input type="password" name="current_password" autocomplete="current-password" required placeholder="••••••••">
+            </div>
+            <button type="submit" class="btn-primary-green">E-postayı Güncelle</button>
+          </form>
+        </div>
+
+        <!-- 4. Hesabı Kalıcı Olarak Sil (Danger Zone) -->
+        <div class="panel-card-white" style="border-color:#FECACA; background:#FFFDFD;">
+          <div class="panel-header-row" style="border-bottom-color:#FEE2E2;">
+            <div>
+              <h3 class="panel-title-text" style="color:#DC2626;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                <span>Tehlikeli Bölge: Hesabı Kalıcı Olarak Sil</span>
+              </h3>
+              <p style="font-size:13px; color:#64748B; margin:4px 0 0 0;">
+                Hesabınız, kayıtlı verileriniz, gönderdiğiniz segmentler ve sipariş geçmişiniz kalıcı olarak silinir. Bu işlem kesinlikle geri alınamaz.
+              </p>
+            </div>
+          </div>
+
+          <div style="background:#FEF2F2; border:1px solid #FECACA; padding:14px 18px; border-radius:12px; font-size:13px; color:#991B1B; margin-bottom:18px;">
+            Hesabınızı silmeyi onaylamak için aşağıdaki kutuya büyük harflerle <strong>SIL</strong> yazın ve mevcut şifrenizi girin.
+          </div>
+
+          <form method="POST" action="?tab=settings" style="max-width:540px;" onsubmit="return confirm('Hesabınızı kalıcı olarak silmek istediğinize emin misiniz? Bu işlem geri alınamaz!');">
+            <input type="hidden" name="form" value="delete_account">
+            <div class="form-card-field">
+              <label>Onay Metni (SIL)</label>
+              <input type="text" name="confirm" required placeholder="SIL">
+            </div>
+            <div class="form-card-field">
+              <label>Mevcut Şifreniz</label>
+              <input type="password" name="current_password" autocomplete="current-password" required placeholder="••••••••">
+            </div>
+            <button type="submit" class="btn-danger-red">Hesabımı Kalıcı Olarak Sil</button>
+          </form>
+        </div>
+
+      
+
+    </main>
+
+  </div>
+
+</div>
+
+<!-- Master Footer (1:1 with Homepage and Support Page) -->
+<footer style="background:#FFFFFF; border-top:1px solid #E2E8F0; padding:44px 0; text-align:center;">
+  <div style="max-width:1240px; margin:0 auto; padding:0 32px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;">
+    <div style="display:flex; align-items:center; gap:10px;">
+      <img src="img/logo.png" alt="vAdBlock Pro" width="28" height="28" style="display:block; object-fit:contain; border-radius:8px;">
+      <span style="font-family:'Manrope',sans-serif; font-weight:800; font-size:16px; color:#0F172A;">vAdBlock <b style="color:#2563EB;">Pro</b></span>
+    </div>
+    <div style="display:flex; gap:22px; font-size:13.5px; font-weight:600; color:#64748B;">
+      <a href="privacy.html" style="color:#64748B; text-decoration:none;">Gizlilik Politikası</a>
+      <a href="terms.html" style="color:#64748B; text-decoration:none;">Kullanım Koşulları</a>
+      <a href="contact.html" style="color:#64748B; text-decoration:none;">Destek Merkezi</a>
+      <a href="#pricing" style="color:#64748B; text-decoration:none;">VIP Fiyatlandırma</a>
+    </div>
+    <div style="font-size:13px; color:#94A3B8;">
+      ©  vAdBlock Pro. Tüm hakları saklıdır.
+    </div>
+  </div>
+</footer>
+
+<script>
+function toggleNewTicketForm() {
+  var el = document.getElementById('newTicketFormBox');
+  if (el) {
+    var isHidden = (el.style.display === 'none' || el.style.display === '');
+    el.style.display = isHidden ? 'block' : 'none';
+    if (isHidden) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+}
+
+function copyReferralLink() {
+  var el = document.getElementById('refCodeText');
+  var btn = document.getElementById('copyBtn');
+  if (el) {
+    var text = el.innerText.trim();
+    navigator.clipboard.writeText(text).then(function() {
+      if (btn) {
+        var orig = btn.innerText;
+        btn.innerText = '✓ Kopyalandı!';
+        btn.style.background = '#0F172A';
+        setTimeout(function() {
+          btn.innerText = orig;
+          btn.style.background = '#2563EB';
+        }, 2200);
+      }
+    }).catch(function() {
+      alert('Referans bağlantınız: ' + text);
+    });
+  }
+}
+
+
+  // 📱 Mobile UX Engine: Auto-inject data-label attributes for Under 640px Card Transformation
+  function applyMobileCardLabels() {
+    document.querySelectorAll('table').forEach(tbl => {
+      const ths = Array.from(tbl.querySelectorAll('thead th')).map(th => th.innerText.trim());
+      if (ths.length > 0) {
+        tbl.querySelectorAll('tbody tr').forEach(row => {
+          row.querySelectorAll('td').forEach((td, idx) => {
+            if (!td.getAttribute('data-label') && ths[idx]) {
+              td.setAttribute('data-label', ths[idx]);
+            }
+          });
+        });
+      }
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', applyMobileCardLabels);
+  } else {
+    applyMobileCardLabels();
+  }
+
+</script>
+
+</body>
+</html>

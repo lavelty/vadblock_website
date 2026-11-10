@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Destek ve Çözüm Merkezi — vAdBlock Pro</title>
+<meta name="description" content="vAdBlock Pro destek ve çözüm merkezi. Kırık web sitelerini bildirin, yeni filtre kuralları önerin veya VIP üyelik desteği alın.">
+<link rel="icon" type="image/svg+xml" href="brand/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="brand/icon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="skin/home.css">
+<style>
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: #FAFBFB;
+  color: #0F172A;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Hero Section */
+.sup-hero {
+  padding: 80px 24px 40px;
+  text-align: center;
+  position: relative;
+  background: radial-gradient(circle at 50% 0%, rgba(37, 99, 235, 0.12) 0%, rgba(59, 130, 246, 0.04) 40%, transparent 75%);
+}
+.sup-wrap {
+  max-width: 980px;
+  margin: 0 auto;
+}
+.sup-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #EFF6FF;
+  border: 1px solid #BFDBFE;
+  color: #2563EB;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 800;
+  font-size: 12px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.sup-title {
+  font-family: 'Manrope', sans-serif;
+  font-size: 44px;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.15;
+  color: #0F172A;
+  margin-bottom: 16px;
+}
+.sup-title span {
+  color: #2563EB;
+}
+.sup-desc {
+  font-size: 17px;
+  color: #475569;
+  max-width: 640px;
+  margin: 0 auto 32px;
+  line-height: 1.6;
+}
+
+/* Trust Pill Indicators */
+.sup-trust-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+.sup-trust-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #0F172A;
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  padding: 8px 16px;
+  border-radius: 999px;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+}
+.sup-trust-pill svg {
+  color: #2563EB;
+}
+
+/* Category Grid */
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 50px;
+}
+.cat-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 20px;
+  padding: 24px 20px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
+  position: relative;
+  overflow: hidden;
+}
+.cat-card:hover {
+  transform: translateY(-3px);
+  border-color: #2563EB;
+  box-shadow: 0 12px 28px rgba(37, 99, 235, 0.12);
+}
+.cat-card.active {
+  border-color: #2563EB;
+  background: #EFF6FF;
+  box-shadow: 0 0 0 2px #2563EB;
+}
+.cat-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: #EFF6FF;
+  color: #2563EB;
+  display: grid;
+  place-items: center;
+  margin-bottom: 14px;
+}
+.cat-icon.blue { background: #E0F2FE; color: #0284C7; }
+.cat-icon.amber { background: #FEF3C7; color: #D97706; }
+.cat-icon.purple { background: #F3E8FF; color: #9333EA; }
+.cat-card h3 {
+  font-family: 'Manrope', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  color: #0F172A;
+  margin-bottom: 6px;
+}
+.cat-card p {
+  font-size: 13px;
+  color: #64748B;
+  line-height: 1.45;
+}
+
+/* Form Container Layout */
+.sup-content-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 32px;
+  align-items: start;
+  margin-bottom: 70px;
+}
+.sup-form-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 24px;
+  padding: 36px 34px;
+  box-shadow: 0 20px 50px -15px rgba(15, 23, 42, 0.06);
+  text-align: left;
+}
+.sup-form-head {
+  margin-bottom: 24px;
+}
+.sup-form-head h2 {
+  font-family: 'Manrope', sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  color: #0F172A;
+  margin-bottom: 6px;
+}
+.sup-form-head p {
+  font-size: 14px;
+  color: #64748B;
+}
+
+/* Success Card */
+.sup-success {
+  background: #EFF6FF;
+  border: 1px solid #BFDBFE;
+  border-radius: 20px;
+  padding: 30px;
+  text-align: center;
+  margin-bottom: 24px;
+  animation: fadeIn 0.3s ease;
+}
+.sup-success-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #2563EB;
+  color: #FFFFFF;
+  display: grid;
+  place-items: center;
+  margin: 0 auto 16px;
+  font-size: 24px;
+}
+.sup-success h3 {
+  font-family: 'Manrope', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  color: #0F172A;
+  margin-bottom: 8px;
+}
+.sup-success p {
+  font-size: 14px;
+  color: #1E40AF;
+  max-width: 440px;
+  margin: 0 auto;
+}
+
+/* Form inputs */
+.sup-group {
+  margin-bottom: 18px;
+}
+.sup-label {
+  display: block;
+  font-family: 'Manrope', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: #334155;
+  margin-bottom: 6px;
+}
+.sup-input, .sup-select, .sup-textarea {
+  width: 100%;
+  padding: 12px 16px;
+  background: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  border-radius: 12px;
+  font-family: inherit;
+  font-size: 14px;
+  color: #0F172A;
+  transition: all 0.2s ease;
+  outline: none;
+  box-sizing: border-box;
+}
+.sup-input:focus, .sup-select:focus, .sup-textarea:focus {
+  border-color: #2563EB;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+}
+.sup-textarea {
+  resize: vertical;
+  min-height: 120px;
+  line-height: 1.5;
+}
+.sup-diag-pill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 12px;
+  color: #64748B;
+  margin-bottom: 22px;
+}
+.sup-diag-pill svg {
+  color: #2563EB;
+  flex-shrink: 0;
+}
+.btn-sup-submit {
+  width: 100%;
+  height: 50px;
+  background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%); box-shadow: 0 8px 24px -2px rgba(37, 99, 235, 0.35);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 999px;
+  font-family: 'Manrope', sans-serif;
+  font-size: 15.5px;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+}
+.btn-sup-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.45);
+  background: linear-gradient(135deg, #05A858 0%, #038243 100%);
+}
+
+/* Right Sidebar: Direct Info & Quick FAQ */
+.sup-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.sup-info-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 20px;
+  padding: 26px 24px;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
+  text-align: left;
+}
+.sup-info-card h3 {
+  font-family: 'Manrope', sans-serif;
+  font-size: 17px;
+  font-weight: 800;
+  color: #0F172A;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.sup-info-card p {
+  font-size: 13.5px;
+  color: #64748B;
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+.sup-channel-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  text-decoration: none;
+  color: #0F172A;
+  font-weight: 700;
+  font-size: 13.5px;
+  transition: all 0.2s ease;
+  margin-bottom: 10px;
+}
+.sup-channel-link:hover {
+  background: #EFF6FF;
+  border-color: #BFDBFE;
+  color: #2563EB;
+  transform: translateX(3px);
+}
+
+/* Accordion FAQ */
+.faq-box {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 20px;
+  padding: 24px;
+  text-align: left;
+}
+.faq-box h3 {
+  font-family: 'Manrope', sans-serif;
+  font-size: 17px;
+  font-weight: 800;
+  color: #0F172A;
+  margin-bottom: 16px;
+}
+.faq-item {
+  border-bottom: 1px solid #F1F5F9;
+  padding: 14px 0;
+}
+.faq-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+.faq-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: none;
+  background: none;
+  font-family: 'Manrope', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #0F172A;
+  cursor: pointer;
+  text-align: left;
+  padding: 0;
+}
+.faq-btn svg {
+  transition: transform 0.25s ease;
+  color: #94A3B8;
+  flex-shrink: 0;
+}
+.faq-item.open .faq-btn svg {
+  transform: rotate(180deg);
+  color: #2563EB;
+}
+.faq-ans {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  font-size: 13px;
+  color: #64748B;
+  line-height: 1.5;
+  padding-top: 0;
+}
+.faq-item.open .faq-ans {
+  padding-top: 8px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 900px) {
+  .cat-grid { grid-template-columns: repeat(2, 1fr); }
+  .sup-content-grid { grid-template-columns: 1fr; }
+  .sup-title { font-size: 34px; }
+}
+@media (max-width: 540px) {
+  .cat-grid { grid-template-columns: 1fr; }
+  .sup-hero { padding: 60px 16px 30px; }
+  .sup-form-card { padding: 26px 20px; border-radius: 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="./" aria-label="vAdBlock Pro">
+      <img src="img/logo.png" alt="vAdBlock Pro" width="34" height="34" style="display:block; object-fit:contain; border-radius:8px;">
+      <span>vAdBlock <b>Pro</b></span>
+    </a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="#features">Features</a>
+      <a href="#sites">Supported sites</a>
+      <a href="#demo">Demo</a>
+      <a href="#how">How it works</a>
+      <a href="#pricing">Premium</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div style="display:flex; align-items:center; gap:12px;">
+      <a href="auth.html" class="btn btn-ghost" style="padding:7px 16px; font-weight:700; color:#0F172A; text-decoration:none; font-size:14px; border:1px solid #E2E8F0; border-radius:999px; background:#fff; white-space:nowrap;">Giriş Yap</a>
+      <a href="lave_adblock_ext.zip" download class="btn btn-primary btn-nav"><span class="btn-ico"><img src="brand/favicon.svg" alt="" width="22" height="22"></span>Add to Chrome</a>
+    </div>
+  </div>
+</header>
+
+<main class="sup-hero">
+  <div class="sup-wrap">
+    <span class="sup-badge">● DESTEK VE ÇÖZÜM MERKEZİ</span>
+    <h1 class="sup-title">Nasıl <span>yardımcı olabiliriz?</span></h1>
+    <p class="sup-desc">Kırık web siteleri, reklam kaçırma bildirimleri, özel filtre talepleri veya VIP Premium üyeliğinizle ilgili tüm sorularınız için buradayız.</p>
+
+    <!-- Trust Stats -->
+    <div class="sup-trust-row">
+      <span class="sup-trust-pill">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+        Ortalama Yanıt Süresi: &lt; 2 Saat
+      </span>
+      <span class="sup-trust-pill">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+        54,000+ Aktif Filtre
+      </span>
+      <span class="sup-trust-pill">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+        Haftanın 7 Günü Destek
+      </span>
+    </div>
+
+    <!-- 4 Interactive Problem Categories -->
+    <div class="cat-grid">
+      <div class="cat-card" onclick="selectCategory('Kırık Sayfa / Reklam Kaçırma', this)">
+        <div class="cat-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+        </div>
+        <h3>Kırık Sayfa / Reklam</h3>
+        <p>Bir web sitesi açılmıyor veya reklamlar ekranda görünüyor mu?</p>
+      </div>
+
+      <div class="cat-card" onclick="selectCategory('Özel Filtre & Kural Talebi', this)">
+        <div class="cat-icon blue">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg>
+        </div>
+        <h3>Özel Filtre Listesi</h3>
+        <p>Eklemek istediğiniz yeni bir filtre URL'si veya gizleme kuralı önerin.</p>
+      </div>
+
+      <div class="cat-card" onclick="selectCategory('VIP Premium & Lisans', this)">
+        <div class="cat-icon amber">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+        </div>
+        <h3>VIP Premium & Lisans</h3>
+        <p>Üyelik, faturalandırma veya cihazlar arası senkronizasyon.</p>
+      </div>
+
+      <div class="cat-card" onclick="selectCategory('Genel Soru & Geri Bildirim', this)">
+        <div class="cat-icon purple">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        </div>
+        <h3>Genel Geri Bildirim</h3>
+        <p>Önerileriniz, ortaklık talepleri ve diğer tüm sorularınız.</p>
+      </div>
+    </div>
+
+    <!-- Main Content Grid -->
+    <div class="sup-content-grid" id="supportFormSection">
+      
+      <!-- Support Request Form -->
+      <div class="sup-form-card">
+        <div class="sup-form-head">
+          <h2>Destek Talebi Oluşturun</h2>
+          <p>Mühendis ekibimiz sorununuzu inceleyip e-posta ile dönüş yapacaktır.</p>
+        </div>
+
+        
+          
+
+          <form method="POST" onsubmit="event.preventDefault(); alert('Mesajınız başarıyla iletildi! Ekibimiz en kısa sürede size dönüş yapacaktır.'); this.reset();" action="/support">
+            <div class="sup-group">
+              <label class="sup-label" for="supCat">Konu Kategorisi</label>
+              <select name="category" id="supCat" class="sup-select" required>
+                <option value="Kırık Sayfa / Reklam Kaçırma">⛨ Kırık Sayfa / Reklam Kaçırma</option>
+                <option value="Özel Filtre & Kural Talebi">⚡ Özel Filtre & Kural Talebi</option>
+                <option value="VIP Premium & Lisans">★ VIP Premium & Lisans</option>
+                <option value="Genel Soru & Geri Bildirim">💬 Genel Soru & Geri Bildirim</option>
+              </select>
+            </div>
+
+            <div class="sup-group">
+              <label class="sup-label" for="supUrl">Sorun Yaşanan Web Sitesi (URL)</label>
+              <input type="text" name="url" id="supUrl" class="sup-input" placeholder="https://ornek-site.com/sayfa" value="">
+            </div>
+
+            <div class="sup-group">
+              <label class="sup-label" for="supEmail">E-posta Adresiniz</label>
+              <input type="email" name="email" id="supEmail" required class="sup-input" placeholder="adiniz@domain.com" value="">
+            </div>
+
+            <div class="sup-group">
+              <label class="sup-label" for="supMsg">Açıklama & Hata Detayları</label>
+              <textarea name="message" id="supMsg" required class="sup-textarea" placeholder="Sorunun nasıl gerçekleştiğini, ekranda çıkan hata uyarısını veya önerinizi detaylıca açıklayın..."></textarea>
+            </div>
+
+            <div class="sup-diag-pill">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+              <span>Otomatik Tanılama: <b>Google Chrome</b> · <b>vAdBlock Pro v4.2</b></span>
+            </div>
+
+            <button type="submit" class="btn-sup-submit">
+              <span>Destek Talebini Gönder</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+            </button>
+          </form>
+        
+      </div>
+
+      <!-- Right Column: Direct Info & Quick FAQ -->
+      <div class="sup-sidebar">
+        
+        <div class="sup-info-card">
+          <h3>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            Doğrudan İletişim
+          </h3>
+          <p>Acil durumlar veya doğrudan mühendislerimizle görüşmek için e-posta gönderebilirsiniz.</p>
+          <a href="mailto:admin@vadblock.com" class="sup-channel-link">
+            <span>admin@vadblock.com</span>
+            <span>↗</span>
+          </a>
+          <a href="https://github.com" target="_blank" rel="noopener" class="sup-channel-link">
+            <span>GitHub Filtre Bildirimi</span>
+            <span>↗</span>
+          </a>
+        </div>
+
+        <!-- Quick FAQ Accordion -->
+        <div class="faq-box">
+          <h3>Sıkça Sorulan Sorular</h3>
+          
+          <div class="faq-item open">
+            <button class="faq-btn" onclick="toggleFaq(this)">
+              <span>Bir web sayfası bozulursa ne yapmalıyım?</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="faq-ans" style="max-height:120px;">
+              Tarayıcınızın araç çubuğundaki vAdBlock kalkan ikonuna tıklayarak o web sitesi için korumayı tek tıkla geçici olarak duraklatabilir ve sorunu bize yukarıdaki formdan iletebilirsiniz.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-btn" onclick="toggleFaq(this)">
+              <span>Özel filtre listesi (URL) nasıl eklenir?</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="faq-ans">
+              Eklenti Seçenekler (Ayarlar) menüsündeki "Özel Filtreler" sekmesine giderek dilediğiniz filtre listesi URL'sini yapıştırabilir ve otomatik senkronize edebilirsiniz.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-btn" onclick="toggleFaq(this)">
+              <span>SponsorSkip segmentleri nasıl çalışır?</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="faq-ans">
+              Topluluk üyeleri tarafından işaretlenen video içi sponsor veya introlar otomatik olarak atlanır. Siz de panelinizden katkı verip seviyenizi yükseltebilirsiniz.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-btn" onclick="toggleFaq(this)">
+              <span>vAdBlock kişisel verilerimi kaydeder mi?</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="faq-ans">
+              Kesinlikle hayır. Tüm kural eşlemeleri ve filtreleme doğrudan cihazınızın belleğinde gerçekleşir; tarama geçmişiniz veya gizli verileriniz asla sunucularımıza gitmez.
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <a class="brand" href="./"><img src="img/logo.png" alt="vAdBlock Pro" width="26" height="26" style="display:block; object-fit:contain; border-radius:8px;">
+      <span>vAdBlock <b>Pro</b></span></a>
+      <p>A free Chrome extension that blocks banner ads, video ads, pop-ups and trackers — for a cleaner, faster, quieter web.</p>
+    </div>
+    <div class="foot-col"><span class="foot-label">Product</span><a href="#features">Features</a><a href="#sites">Supported sites</a><a href="#how">How it works</a><a href="#pricing">Premium</a><a href="lave_adblock_ext.zip" download>Download Extension</a></div>
+    <div class="foot-col"><span class="foot-label">Legal & Info</span><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Service</a><a href="contact.html">Support & Contact</a></div>
+    <div class="foot-col"><span class="foot-label">Hesap</span><a href="auth.html">Giriş Yap</a><a href="auth.html?mode=register">Ücretsiz Kayıt Ol</a></div>
+  </div>
+  <div class="foot-legal wrap">&copy; 2026 vAdBlock Pro · Not affiliated with Google or Chrome. All trademarks belong to their respective owners.</div>
+</footer>
+
+<script>
+function selectCategory(catName, cardEl) {
+  var select = document.getElementById('supCat');
+  if (select) {
+    select.value = catName;
+  }
+  var cards = document.querySelectorAll('.cat-card');
+  cards.forEach(function(c) { c.classList.remove('active'); });
+  if (cardEl) {
+    cardEl.classList.add('active');
+  }
+  var section = document.getElementById('supportFormSection');
+  if (section) {
+    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+function toggleFaq(btn) {
+  var item = btn.closest('.faq-item');
+  var ans = item.querySelector('.faq-ans');
+  var isOpen = item.classList.contains('open');
+
+  document.querySelectorAll('.faq-item').forEach(function(el) {
+    el.classList.remove('open');
+    var a = el.querySelector('.faq-ans');
+    if (a) a.style.maxHeight = null;
+  });
+
+  if (!isOpen) {
+    item.classList.add('open');
+    ans.style.maxHeight = ans.scrollHeight + 16 + 'px';
+  }
+}
+</script>
+
+</body>
+</html>

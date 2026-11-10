@@ -1,0 +1,3087 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>vAdBlock — İnternet, gürültüsüz. Ücretsiz Chrome Eklentisi</title>
+  <meta name="description" content="vAdBlock banner reklamları, video reklamları, pop-up'ları ve izleyicileri yüklenmeden önce durdurur — böylece her sayfa daha hızlı açılır, daha temiz okunur.">
+  <meta name="theme-color" content="#FFFFFF">
+
+  <!-- Open Graph / Meta -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="vAdBlock — İnternet, gürültüsüz.">
+  <meta property="og:description" content="Banner, video reklam, pop-up ve izleyicileri durduran hafif, modern ve ücretsiz Chrome eklentisi.">
+  <meta property="og:url" content="https://vadblock.com">
+
+  <style>
+    /* ══════════════════════════════════════════════════════════════════
+       DESIGN TOKENS & RESET
+       Linear / Vercel Modern Swiss Editorial Tech Style
+       ══════════════════════════════════════════════════════════════════ */
+    :root {
+      --bg-white: #FFFFFF;
+      --bg-alt: #FAFAFA;
+      --bg-dark: #0F172A;
+      --bg-dark-card: #1E293B;
+      
+      --card-bg: #FFFFFF;
+      --card-border: #E2E8F0;
+      --card-border-hover: #CBD5E1;
+      
+      --text-primary: #0F172A;
+      --text-secondary: #475569;
+      --text-muted: #94A3B8;
+      --text-inverse: #FFFFFF;
+      
+      --accent-green: #10B981;
+      --accent-green-bg: #ECFDF5;
+      --accent-green-border: #A7F3D0;
+      --accent-green-dark: #047857;
+      
+      --brand-purple: #8B5CF6;
+      --brand-purple-bg: #EDE9FE;
+      --brand-purple-hover: #7C3AED;
+      
+      --blocked-red: #EF4444;
+      --blocked-red-bg: #FEF2F2;
+      --blocked-red-border: #FECACA;
+      
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      
+      --container-max: 1200px;
+      --header-height: 72px;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --radius-full: 9999px;
+      
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      --shadow-lg: 0 10px 25px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+      --shadow-xl: 0 20px 35px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+      
+      --transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg-white);
+      color: var(--text-primary);
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    /* ══════════════════════════════════════════════════════════════════
+       UTILITY & TYPOGRAPHY
+       ══════════════════════════════════════════════════════════════════ */
+    .container {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 24px;
+      width: 100%;
+    }
+
+    .section-tag {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent-green-dark);
+      background-color: var(--accent-green-bg);
+      border: 1px solid var(--accent-green-border);
+      padding: 4px 12px;
+      border-radius: var(--radius-full);
+      margin-bottom: 16px;
+    }
+
+    .section-tag.tag-dark {
+      background-color: rgba(16, 185, 129, 0.12);
+      border-color: rgba(16, 185, 129, 0.3);
+      color: #34D399;
+    }
+
+    .section-heading {
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+    }
+
+    .section-heading.text-white {
+      color: var(--text-inverse);
+    }
+
+    .section-aside {
+      font-size: 1.125rem;
+      color: var(--text-secondary);
+      max-width: 620px;
+      line-height: 1.6;
+    }
+
+    .section-header {
+      margin-bottom: 56px;
+    }
+
+    .section-header.text-center {
+      text-align: center;
+    }
+    .section-header.text-center .section-aside {
+      margin: 0 auto;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      padding: 12px 22px;
+      border-radius: var(--radius-full);
+      transition: var(--transition);
+      white-space: nowrap;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background-color: var(--text-primary);
+      color: var(--text-inverse);
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+    }
+    .btn-primary:hover {
+      background-color: #1E293B;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(15, 23, 42, 0.2);
+    }
+
+    .btn-ghost {
+      background-color: transparent;
+      color: var(--text-secondary);
+      border: 1px solid var(--card-border);
+    }
+    .btn-ghost:hover {
+      background-color: #F8FAFC;
+      color: var(--text-primary);
+      border-color: var(--card-border-hover);
+      transform: translateY(-1px);
+    }
+
+    .btn-white {
+      background-color: #FFFFFF;
+      color: var(--text-primary);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+    }
+    .btn-white:hover {
+      background-color: #F8FAFC;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    /* ══════════════════════════════════════════════════════════════════
+       STICKY NAVBAR
+       ══════════════════════════════════════════════════════════════════ */
+    .navbar {
+      position: sticky;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--header-height);
+      background-color: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 1000;
+      transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+      border-bottom: 1px solid transparent;
+    }
+
+    .navbar.scrolled {
+      background-color: rgba(255, 255, 255, 0.88);
+      border-bottom: 1px solid var(--card-border);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+    }
+
+    .navbar-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 1.25rem;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+    }
+
+    .brand-shield {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      border-radius: var(--radius-sm);
+      color: var(--brand-purple);
+      flex-shrink: 0;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.925rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      transition: var(--transition);
+      position: relative;
+      padding: 6px 0;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-primary);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      padding: 8px;
+      color: var(--text-primary);
+      border-radius: var(--radius-sm);
+    }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: var(--header-height);
+      left: 0;
+      right: 0;
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--card-border);
+      padding: 24px;
+      box-shadow: var(--shadow-lg);
+      flex-direction: column;
+      gap: 20px;
+      z-index: 999;
+    }
+
+    .mobile-menu.open {
+      display: flex;
+    }
+
+    .mobile-menu a {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      padding: 8px 0;
+      border-bottom: 1px solid #F1F5F9;
+    }
+    .mobile-menu a:hover {
+      color: var(--text-primary);
+    }
+
+    /* ══════════════════════════════════════════════════════════════════
+       SECTION 1: HERO
+       ══════════════════════════════════════════════════════════════════ */
+    .hero-section {
+      background-color: var(--bg-white);
+      padding: 60px 0 80px;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background-color: var(--accent-green-bg);
+      border: 1px solid var(--accent-green-border);
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent-green-dark);
+      margin-bottom: 28px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .badge-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background-color: var(--accent-green);
+      border-radius: 50%;
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25);
+      animation: pulseDot 2s infinite ease-in-out;
+    }
+
+    @keyframes pulseDot {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.15); opacity: 0.8; }
+    }
+
+    .hero-title {
+      font-size: clamp(2.75rem, 6.5vw, 4.75rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.05;
+      color: var(--text-primary);
+      margin-bottom: 24px;
+    }
+
+    .hero-sub {
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
+      color: var(--text-secondary);
+      max-width: 680px;
+      margin: 0 auto 36px;
+      line-height: 1.6;
+      font-weight: 400;
+    }
+
+    .hero-cta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+
+    .hero-trust {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 60px;
+    }
+
+    .hero-trust-divider {
+      color: #CBD5E1;
+    }
+
+    /* Mockup Browser */
+    .mockup-wrapper {
+      max-width: 980px;
+      margin: 0 auto;
+      perspective: 1000px;
+    }
+
+    .mockup-window {
+      background: #FFFFFF;
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-xl);
+      overflow: hidden;
+      text-align: left;
+      position: relative;
+    }
+
+    .mockup-chrome {
+      background: #F8FAFC;
+      padding: 12px 18px;
+      border-bottom: 1px solid var(--card-border);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .window-controls {
+      display: flex;
+      gap: 7px;
+    }
+
+    .window-dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+    }
+    .window-dot.dot-red { background: #FF5F56; border: 1px solid #E0443E; }
+    .window-dot.dot-yellow { background: #FFBD2E; border: 1px solid #DEA123; }
+    .window-dot.dot-green { background: #27C93F; border: 1px solid #1AAB29; }
+
+    .mockup-addressbar {
+      flex: 1;
+      background: #FFFFFF;
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-sm);
+      padding: 6px 14px;
+      font-size: 0.825rem;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .address-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.775rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .address-lock {
+      color: var(--accent-green);
+      display: flex;
+    }
+
+    .address-extension {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--brand-purple-bg);
+      border: 1px solid rgba(139, 92, 246, 0.25);
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--brand-purple);
+      letter-spacing: -0.01em;
+    }
+
+    .mockup-content {
+      padding: 36px 44px;
+      background: #FFFFFF;
+      position: relative;
+    }
+
+    .mockup-article-header {
+      margin-bottom: 24px;
+    }
+
+    .mockup-category {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--accent-green-dark);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .mockup-headline {
+      font-size: clamp(1.4rem, 2.5vw, 1.85rem);
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+      line-height: 1.25;
+    }
+
+    .mockup-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.825rem;
+      color: var(--text-muted);
+    }
+
+    .mockup-article-body {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 32px;
+      align-items: start;
+    }
+
+    .mockup-text-lines {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .mockup-text-line {
+      height: 12px;
+      background: #F1F5F9;
+      border-radius: 4px;
+      width: 100%;
+    }
+    .mockup-text-line.short { width: 70%; }
+    .mockup-text-line.medium { width: 88%; }
+
+    .mockup-image-placeholder {
+      background: linear-gradient(135deg, #F8FAFC 0%, #EEF2F6 100%);
+      border: 1px dashed #CBD5E1;
+      border-radius: var(--radius-md);
+      height: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--text-muted);
+      font-size: 0.825rem;
+    }
+
+    /* Floating Toast inside Mockup */
+    .mockup-toast {
+      position: absolute;
+      bottom: 24px;
+      right: 28px;
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid var(--accent-green-border);
+      padding: 12px 18px;
+      border-radius: var(--radius-full);
+      box-shadow: 0 10px 25px -4px rgba(16, 185, 129, 0.15), 0 4px 10px rgba(0, 0, 0, 0.05);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--accent-green-dark);
+      backdrop-filter: blur(8px);
+      z-index: 10;
+      animation: floatToast 4s infinite ease-in-out;
+    }
+
+    @keyframes floatToast {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
+
+    .toast-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      background: var(--accent-green);
+      color: #FFFFFF;
+      border-radius: 50%;
+    }
+
+    /* Strip Below Hero */
+    .hero-strip {
+      border-top: 1px solid var(--card-border);
+      border-bottom: 1px solid var(--card-border);
+      background: #FFFFFF;
+      padding: 20px 0;
+      margin-top: 60px;
+    }
+
+    .strip-content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+      flex-wrap: wrap;
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    .strip-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .strip-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-primary);
+    }
+
+    .strip-item svg {
+      color: var(--accent-green);
+      flex-shrink: 0;
+    }
+
+    .strip-divider {
+      color: #E2E8F0;
+      user-select: none;
+    }
+
+    /* ══════════════════════════════════════════════════════════════════
+       SECTION 2: FEATURES
+       ══════════════════════════════════════════════════════════════════ */
+    .features-section {
+      background-color: var(--bg-alt);
+      padding: 100px 0;
+      border-top: 1px solid var(--card-border);
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+
+    .feature-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      padding: 36px 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card:hover {
+      border-color: var(--card-border-hover);
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-2px);
+    }
+
+    .feature-step {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      text-transform: uppercase;
+    }
+
+    .feature-scene {
+      background: #F8FAFC;
+      border: 1px solid #F1F5F9;
+      border-radius: var(--radius-md);
+      padding: 24px 20px;
+      margin-bottom: 28px;
+      min-height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 12px;
+      position: relative;
+    }
+
+    .scene-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: var(--radius-full);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .scene-badge.badge-blocked {
+      background: var(--blocked-red-bg);
+      color: var(--blocked-red);
+      border: 1px solid var(--blocked-red-border);
+    }
+
+    .scene-badge.badge-dismissed {
+      background: var(--accent-green-bg);
+      color: var(--accent-green-dark);
+      border: 1px solid var(--accent-green-border);
+    }
+
+    .scene-counter-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #FFFFFF;
+      border: 1px solid var(--card-border);
+      padding: 10px 18px;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .counter-shield {
+      color: var(--brand-purple);
+      display: flex;
+    }
+
+    .counter-badge {
+      background: var(--accent-green);
+      color: #FFFFFF;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+    }
+
+    .feature-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+    }
+
+    .feature-desc {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* Video ads banner */
+    .video-banner-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      padding: 24px 32px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .video-banner-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--blocked-red-bg);
+      color: var(--blocked-red);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .video-banner-text {
+      font-size: 1rem;
+      color: var(--text-primary);
+      line-height: 1.5;
+    }
+    .video-banner-text strong {
+      font-weight: 700;
+    }
+
+    /* ══════════════════════════════════════════════════════════════════
+       SECTION 3: SUPPORTED SITES
+       ══════════════════════════════════════════════════════════════════ */
+    .supported-section {
+      background-color: var(--bg-white);
+      padding: 100px 0;
+    }
+
+    .sites-clouds {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+
+    .cloud-card {
+      background: #FFFFFF;
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      padding: 36px 32px;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+    }
+
+    .cloud-card:hover {
+      border-color: var(--card-border-hover);
+      box-shadow: var(--shadow-md);
+    }
+
+    .cloud-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #F1F5F9;
+    }
+
+    .cloud-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+    }
+
+    .cloud-icon {
+      color: var(--brand-purple);
+      display: flex;
+    }
+
+    .chips-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .site-chip {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 16px;
+      background: #F8FAFC;
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-full);
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      transition: var(--transition);
+      cursor: default;
+    }
+
+    .site-chip:hover {
+      background: #FFFFFF;
+      color: var(--text-primary);
+      border-color: #94A3B8;
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .site-chip.special-chip {
+      background: var(--accent-green-bg);
+      color: var(--accent-green-dark);
+      border-color: var(--accent-green-border);
+      font-weight: 700;
+    }
+
+    /* ══════════════════════════════════════════════════════════════════
+       SECTION 4: INTERACTIVE DEMO
+       ══════════════════════════════════════════════════════════════════ */
+    .demo-section {
+      background-color: var(--bg-alt);
+      padding: 100px 0;
+      border-top: 1px solid var(--card-border);
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .demo-control-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .demo-toggle-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      background: #FFFFFF;
+      border: 1px solid var(--card-border);
+      padding: 10px 22px;
+      border-radius: var(--radius-full);
+      box-shadow: var(--shadow-md);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .demo-toggle-btn:hover {
+      border-color: #94A3B8;
+      transform: translateY(-1px);
+    }
+
+    .toggle-track {
+      width: 48px;
+      height: 26px;
+      background: #CBD5E1;
+      border-radius: var(--radius-full);
+      position: relative;
+      transition: background-color 0.3s ease;
+    }
+
+    .toggle-track.active {
+      background: var(--accent-green);
+    }
+
+    .toggle-thumb {
+      width: 20px;
+      height: 20px;
+      background: #FFFFFF;
+      border-radius: 50%;
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .toggle-track.active .toggle-thumb {
+      transform: translateX(22px);
+    }
+
+    .toggle-label {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--text-primary);
+      min-width: 120px;
+      text-align: left;
+    }
+
+    /* Demo Sandbox Container */
+    .demo-sandbox {
+      background: #FFFFFF;
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-xl);
+      overflow: hidden;
+      position: relative;
+      max-width: 980px;
+      margin: 0 auto 20px;
+      transition: var(--transition);
+    }
+
+    .demo-browser-bar {
+      background: #F8FAFC;
+      border-bottom: 1px solid var(--card-border);
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .demo-url-box {
+      flex: 1;
+      background: #FFFFFF;
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-sm);
+      padding: 6px 14px;
+      font-size: 0.8rem;
+      font-family: var(--font-mono);
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .demo-status-pill {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      transition: var(--transition);
+    }
+
+    .demo-status-pill.status-off {
+      background: #F1F5F9;
+      color: var(--text-muted);
+      border: 1px solid #E2E8F0;
+    }
+
+    .demo-status-pill.status-on {
+      background: var(--brand-purple-bg);
+      color: var(--brand-purple);
+      border: 1px solid rgba(139, 92, 246, 0.3);
+    }
+
+    /* Page Inside Demo */
+    .demo-page-viewport {
+      padding: 28px 36px;
+      position: relative;
+      min-height: 440px;
+      background: #FFFFFF;
+    }
+
+    /* Banner Ad */
+    .demo-ad-banner {
+      background: linear-gradient(90deg, #FFFBEB 0%, #FEF3C7 100%);
+      border: 2px dashed #F59E0B;
+      border-radius: var(--radius-md);
+      padding: 14px 20px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      overflow: hidden;
+      max-height: 120px;
+      opacity: 1;
+    }
+
+    .demo-ad-banner.blocked {
+      max-height: 0;
+      opacity: 0;
+      margin-bottom: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+      border-width: 0;
+      pointer-events: none;
+    }
+
+    .ad-tag-warning {
+      background: #F59E0B;
+      color: #FFFFFF;
+      font-size: 10px;
+      font-weight: 800;
+      font-family: var(--font-mono);
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-right: 8px;
+    }
+
+    .ad-cta-btn {
+      background: #EF4444;
+      color: #FFFFFF;
+      font-weight: 800;
+      font-size: 0.8rem;
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      animation: pulseBtn 1.5s infinite;
+    }
+
+    @keyframes pulseBtn {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    /* Layout inside page */
+    .demo-content-layout {
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 32px;
+      align-items: start;
+      transition: all 0.4s ease;
+    }
+
+    .demo-content-layout.expanded {
+      grid-template-columns: 1fr;
+    }
+
+    .demo-article h4 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+      color: var(--text-primary);
+    }
+
+    .demo-article p {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+
+    /* Sidebar Ad */
+    .demo-sidebar-ad {
+      background: #FFF1F2;
+      border: 2px dashed #E11D48;
+      border-radius: var(--radius-md);
+      padding: 20px;
+      text-align: center;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      max-height: 300px;
+      opacity: 1;
+      overflow: hidden;
+    }
+
+    .demo-sidebar-ad.blocked {
+      max-height: 0;
+      opacity: 0;
+      padding: 0;
+      border-width: 0;
+      pointer-events: none;
+    }
+
+    /* Popup Modal Ad */
+    .demo-newsletter-popup {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(1);
+      width: 86%;
+      max-width: 440px;
+      background: #FFFFFF;
+      border: 2px solid #3B82F6;
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      text-align: center;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+      z-index: 50;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      opacity: 1;
+    }
+
+    .demo-newsletter-popup.blocked {
+      transform: translate(-50%, -50%) scale(0.85);
+      opacity: 0;
+      pointer-events: none;
+      visibility: hidden;
+    }
+
+    /* Cookie Notice Banner */
+    .demo-cookie-banner {
+      position: absolute;
+      bottom: 16px;
+      left: 20px;
+      right: 20px;
+      background: rgba(15, 23, 42, 0.96);
+      color: #FFFFFF;
+      padding: 16px 22px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      z-index: 40;
+      box-shadow: var(--shadow-lg);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .demo-cookie-banner.blocked {
+      opacity: 0;
+      transform: translateY(30px);
+      pointer-events: none;
+      visibility: hidden;
+    }
+
+    .cookie-accept-btn {
+      background: var(--accent-green);
+      color: #FFFFFF;
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 0.8rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    /* Green Cleaned Badge (On State) */
+    .demo-cleaned-toast {
+      background: var(--accent-green-bg);
+      border: 1px solid var(--accent-green-border);
+      color: var(--accent-green-dark);
+      padding: 12px 20px;
+      border-radius: var(--radius-md);
+      font-size: 0.9rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 24px;
+      transition: all 0.4s ease;
+      opacity: 0;
+      max-height: 0;
+      overflow: hidden;
+      padding-top: 0;
+      padding-bottom: 0;
+      border-width: 0;
+    }
+
+    .demo-cleaned-toast.visible {
+      opacity: 1;
+      max-height: 80px;
+      padding: 12px 20px;
+      border-width: 1px;
+      margin-bottom: 24px;
+    }
+
+    .demo-footer-note {
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+    }
+
+    /* ══════════════════════════════════════════════════════════════════
+       SECTION 5: HOW IT WORKS - DARK PANEL
+       ══════════════════════════════════════════════════════════════════ */
+    .how-it-works-panel {
+      background-color: var(--bg-dark);
+      color: #FFFFFF;
+      padding: 110px 0;
+      position: relative;
+    }
+
+    .panel-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .panel-steps-list {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      margin-top: 40px;
+    }
+
+    .panel-step-item {
+      display: flex;
+      gap: 20px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 20px 24px;
+      border-radius: var(--radius-md);
+      transition: var(--transition);
+    }
+
+    .panel-step-item:hover {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(255, 255, 255, 0.16);
+      transform: translateX(4px);
+    }
+
+    .step-number-badge {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 700;
+      color: #34D399;
+      background: rgba(16, 185, 129, 0.12);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      border: 1px solid rgba(52, 211, 153, 0.3);
+    }
+
+    .step-text-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin-bottom: 4px;
+    }
+
+    .step-text-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* Mock Extension Popup */
+    .mock-popup-card {
+      background: #1E293B;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: var(--radius-xl);
+      padding: 32px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+      position: relative;
+    }
+
+    .mock-popup-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      margin-bottom: 24px;
+    }
+
+    .mock-popup-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #FFFFFF;
+    }
+
+    .mock-site-pill {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.06);
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      font-size: 0.775rem;
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+    }
+
+    .mock-status-circle {
+      text-align: center;
+      padding: 24px 0 28px;
+    }
+
+    .mock-big-count {
+      font-size: 4.5rem;
+      font-weight: 900;
+      letter-spacing: -0.05em;
+      line-height: 1;
+      color: var(--accent-green);
+      margin-bottom: 8px;
+    }
+
+    .mock-status-text {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #F8FAFC;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .status-live-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--accent-green);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--accent-green);
+    }
+
+    .mock-popup-stats {
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .stat-mini-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .stat-mini-val {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      font-family: var(--font-mono);
+    }
+
+    .mock-popup-action {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #FFFFFF;
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding: 12px;
+      border-radius: var(--radius-md);
+      text-align: center;
+      transition: var(--transition);
+    }
+
+    .mock-popup-action:hover {
+      background: rgba(255, 255, 255, 0.14);
+    }
+
+    /* ══════════════════════════════════════════════════════════════════
+       SECTION 6: GETTING STARTED & STATS
+       ══════════════════════════════════════════════════════════════════ */
+    .getting-started-section {
+      background-color: var(--bg-white);
+      padding: 100px 0;
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-bottom: 72px;
+    }
+
+    .step-card {
+      background: #FFFFFF;
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      padding: 40px 32px;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .step-card:hover {
+      border-color: var(--card-border-hover);
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-2px);
+    }
+
+    .step-card-num {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--brand-purple);
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .step-card-title {
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+    }
+
+    .step-card-desc {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* Stats Ribbon */
+    .stats-ribbon {
+      background: var(--bg-alt);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-xl);
+      padding: 44px 36px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+
+    .stat-col {
+      text-align: center;
+      position: relative;
+    }
+
+    .stat-col:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      top: 15%;
+      height: 70%;
+      width: 1px;
+      background: var(--card-border);
+    }
+
+    .stat-number {
+      font-size: clamp(2rem, 3.5vw, 2.75rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+      line-height: 1.1;
+    }
+
+    .stat-label-text {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    /* ══════════════════════════════════════════════════════════════════
+       SECTION 7: FAQ
+       ══════════════════════════════════════════════════════════════════ */
+    .faq-section {
+      background-color: var(--bg-alt);
+      padding: 100px 0;
+      border-top: 1px solid var(--card-border);
+    }
+
+    .faq-container {
+      max-width: 820px;
+      margin: 0 auto;
+    }
+
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .faq-item {
+      background: #FFFFFF;
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .faq-item.active {
+      border-color: #CBD5E1;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .faq-trigger {
+      width: 100%;
+      padding: 22px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .faq-trigger:hover {
+      color: var(--accent-green-dark);
+    }
+
+    .faq-chevron {
+      color: var(--text-muted);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      flex-shrink: 0;
+    }
+
+    .faq-item.active .faq-chevron {
+      transform: rotate(180deg);
+      color: var(--accent-green);
+    }
+
+    .faq-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .faq-body {
+      padding: 0 28px 24px;
+      font-size: 0.975rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* ══════════════════════════════════════════════════════════════════
+       SECTION 8: FINAL CTA
+       ══════════════════════════════════════════════════════════════════ */
+    .final-cta-section {
+      background-color: var(--bg-white);
+      padding: 100px 0 120px;
+    }
+
+    .cta-card {
+      background-color: var(--bg-dark);
+      border: 1px solid #1E293B;
+      border-radius: var(--radius-xl);
+      padding: 80px 40px;
+      text-align: center;
+      color: #FFFFFF;
+      box-shadow: var(--shadow-xl);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-shield-wrapper {
+      width: 72px;
+      height: 72px;
+      background: rgba(139, 92, 246, 0.12);
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 28px;
+      color: var(--brand-purple);
+      box-shadow: 0 0 40px rgba(139, 92, 246, 0.25);
+    }
+
+    .cta-title {
+      font-size: clamp(2.25rem, 5vw, 3.25rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 16px;
+      color: #FFFFFF;
+    }
+
+    .cta-sub {
+      font-size: 1.125rem;
+      color: #94A3B8;
+      max-width: 540px;
+      margin: 0 auto 36px;
+      line-height: 1.6;
+    }
+
+    .cta-action-area {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .cta-under-text {
+      font-size: 0.85rem;
+      color: #64748B;
+    }
+
+    /* ══════════════════════════════════════════════════════════════════
+       FOOTER
+       ══════════════════════════════════════════════════════════════════ */
+    .footer {
+      background: #FFFFFF;
+      border-top: 1px solid var(--card-border);
+      padding: 80px 0 40px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 60px;
+    }
+
+    .footer-brand-desc {
+      font-size: 0.925rem;
+      color: var(--text-secondary);
+      max-width: 380px;
+      line-height: 1.6;
+      margin-top: 16px;
+    }
+
+    .footer-col-title {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .footer-menu {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .footer-menu a {
+      font-size: 0.925rem;
+      color: var(--text-secondary);
+      transition: var(--transition);
+    }
+
+    .footer-menu a:hover {
+      color: var(--text-primary);
+    }
+
+    .footer-bottom {
+      padding-top: 32px;
+      border-top: 1px solid var(--card-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    /* ══════════════════════════════════════════════════════════════════
+       RESPONSIVE BREAKPOINTS
+       ══════════════════════════════════════════════════════════════════ */
+    @media (max-width: 992px) {
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+      .panel-grid {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+      .steps-grid {
+        grid-template-columns: 1fr;
+      }
+      .stats-ribbon {
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+      }
+      .stat-col:nth-child(2)::after {
+        display: none;
+      }
+      .sites-clouds {
+        grid-template-columns: 1fr;
+      }
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links, .nav-actions .btn {
+        display: none;
+      }
+      .mobile-menu-btn {
+        display: block;
+      }
+      .mockup-article-body {
+        grid-template-columns: 1fr;
+      }
+      .demo-content-layout {
+        grid-template-columns: 1fr;
+      }
+      .stats-ribbon {
+        grid-template-columns: 1fr;
+        padding: 32px 20px;
+      }
+      .stat-col::after {
+        display: none !important;
+      }
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+      .cta-card {
+        padding: 56px 24px;
+      }
+      .mockup-content {
+        padding: 24px 20px;
+      }
+      .demo-page-viewport {
+        padding: 20px;
+      }
+    }
+
+    /* Modal Styles */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+      opacity: 1;
+    }
+
+    .modal-card {
+      background: #FFFFFF;
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      max-width: 640px;
+      width: 100%;
+      max-height: 85vh;
+      overflow-y: auto;
+      box-shadow: var(--shadow-xl);
+      padding: 36px 32px;
+      position: relative;
+      transform: translateY(16px);
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .modal-backdrop.open .modal-card {
+      transform: translateY(0);
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #F1F5F9;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border: none;
+      transition: var(--transition);
+    }
+
+    .modal-close-btn:hover {
+      background: #E2E8F0;
+      color: var(--text-primary);
+    }
+
+    .modal-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    .modal-date {
+      font-size: 0.825rem;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+      font-family: var(--font-mono);
+    }
+
+    .modal-body-text {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    .modal-body-text h5 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 20px 0 8px;
+    }
+
+    .modal-body-text p {
+      margin-bottom: 12px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════════════════════════════════
+       STICKY NAVBAR
+       ══════════════════════════════════════════════════════════════════ -->
+  <header class="navbar" id="navbar">
+    <div class="container navbar-container">
+      <a href="#" class="brand-logo" aria-label="vAdBlock Anasayfa">
+        <span class="brand-shield">
+          <!-- Shield SVG in Purple #8B5CF6 -->
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2.5L4 6.2V12.3C4 17.7 7.4 22.8 12 24C16.6 22.8 20 17.7 20 12.3V6.2L12 2.5Z" fill="#EDE9FE" stroke="#8B5CF6" stroke-width="2" stroke-linejoin="round"/>
+            <path d="M8.5 11.8L11 14.3L15.8 9.5" stroke="#8B5CF6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        vAdBlock
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#ozellikler">Özellikler</a></li>
+          <li><a href="#desteklenen-siteler">Desteklenen Siteler</a></li>
+          <li><a href="#demo">Demo</a></li>
+          <li><a href="#nasil-calisir">Nasıl Çalışır</a></li>
+          <li><a href="#sss">SSS</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="#" class="btn btn-primary" id="navCta">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          Chrome'a Ekle
+        </a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" type="button" aria-label="Menüyü Aç/Kapat">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#ozellikler" class="mobile-nav-link">Özellikler</a>
+      <a href="#desteklenen-siteler" class="mobile-nav-link">Desteklenen Siteler</a>
+      <a href="#demo" class="mobile-nav-link">Demo</a>
+      <a href="#nasil-calisir" class="mobile-nav-link">Nasıl Çalışır</a>
+      <a href="#sss" class="mobile-nav-link">SSS</a>
+      <a href="#" class="btn btn-primary" style="margin-top: 12px; width: 100%;">
+        Chrome'a Ekle — ücretsiz
+      </a>
+    </div>
+  </header>
+
+  <!-- ══════════════════════════════════════════════════════════════════
+       SECTION 1: HERO
+       ══════════════════════════════════════════════════════════════════ -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        Ücretsiz Chrome eklentisi
+      </div>
+
+      <h1 class="hero-title">
+        İnternet,<br>gürültüsüz.
+      </h1>
+
+      <p class="hero-sub">
+        vAdBlock banner reklamları, video reklamları, pop-up'ları ve izleyicileri yüklenmeden önce durdurur — böylece her sayfa daha hızlı açılır, daha temiz okunur.
+      </p>
+
+      <div class="hero-cta">
+        <a href="#" class="btn btn-primary" style="padding: 14px 28px; font-size: 1rem;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <circle cx="12" cy="12" r="4"></circle>
+            <line x1="21.17" y1="8" x2="12" y2="8"></line>
+            <line x1="3.95" y1="6.06" x2="8.54" y2="14"></line>
+            <line x1="10.88" y1="21.94" x2="15.46" y2="14"></line>
+          </svg>
+          Chrome'a Ekle — ücretsiz
+        </a>
+        <a href="#demo" class="btn btn-ghost" style="padding: 14px 26px; font-size: 1rem;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+          </svg>
+          Nasıl çalıştığını gör
+        </a>
+      </div>
+
+      <div class="hero-trust">
+        <span>Sonsuza kadar ücretsiz</span>
+        <span class="hero-trust-divider">·</span>
+        <span>Hesap gerekmez</span>
+      </div>
+
+      <!-- Mockup Browser Window -->
+      <div class="mockup-wrapper">
+        <div class="mockup-window">
+          <div class="mockup-chrome">
+            <div class="window-controls">
+              <span class="window-dot dot-red"></span>
+              <span class="window-dot dot-yellow"></span>
+              <span class="window-dot dot-green"></span>
+            </div>
+            <div class="mockup-addressbar">
+              <div class="address-left">
+                <span class="address-lock">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                  </svg>
+                </span>
+                <span>ornek-haber.com/teknoloji-yapay-zeka-ve-gelecek</span>
+              </div>
+              <div class="address-extension" title="vAdBlock Koruma Aktif">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#8B5CF6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2L4 5v6c0 5 3.5 9.5 8 11 4.5-1.5 8-6 8-11V5l-8-3z"></path>
+                </svg>
+                <span>12</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mockup-content">
+            <div class="mockup-article-header">
+              <div class="mockup-category">GÜNCEL TEKNOLOJİ</div>
+              <h2 class="mockup-headline">Yapay Zeka ve Geleceğin Web Mimarisi: Daha Hızlı, Sade ve Güvenli</h2>
+              <div class="mockup-meta">
+                <span>5 dakika okuma</span>
+                <span>·</span>
+                <span>Ahmet Yılmaz</span>
+                <span>·</span>
+                <span>Bugün güncellendi</span>
+              </div>
+            </div>
+
+            <div class="mockup-article-body">
+              <div class="mockup-text-lines">
+                <div class="mockup-text-line"></div>
+                <div class="mockup-text-line"></div>
+                <div class="mockup-text-line short"></div>
+                <div style="height: 12px;"></div>
+                <div class="mockup-text-line medium"></div>
+                <div class="mockup-text-line"></div>
+                <div class="mockup-text-line short"></div>
+              </div>
+              <div class="mockup-image-placeholder">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                  <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                  <polyline points="21 15 16 10 5 21"></polyline>
+                </svg>
+                <span>Temiz Makale Görseli</span>
+              </div>
+            </div>
+
+            <!-- Floating Shield Toast -->
+            <div class="mockup-toast">
+              <span class="toast-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </span>
+              Bu sayfada 12 reklam engellendi
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Strip Below Hero -->
+    <div class="hero-strip">
+      <div class="container">
+        <div class="strip-content">
+          <span class="strip-label">NELER ENGELLENİR:</span>
+          
+          <div class="strip-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+            Reklamlar & pop-up'lar
+          </div>
+          
+          <span class="strip-divider">|</span>
+
+          <div class="strip-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="M12 6v6l4 2"></path>
+            </svg>
+            Çerez duvarları
+          </div>
+
+          <span class="strip-divider">|</span>
+
+          <div class="strip-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+            </svg>
+            İzleyiciler
+          </div>
+
+          <span class="strip-divider">|</span>
+
+          <div class="strip-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+            Video reklamları
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════
+       SECTION 2: FEATURES
+       ══════════════════════════════════════════════════════════════════ -->
+  <section class="features-section" id="ozellikler">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">ENGELLEMEYE ADANMIŞ</span>
+        <h2 class="section-heading">Sessiz ama güçlü engelleme.</h2>
+        <p class="section-aside">30.000+ filtreleme kuralı kesintileri halleder, dikkatiniz sizde kalır.</p>
+      </div>
+
+      <div class="features-grid">
+        <!-- Card 1 -->
+        <div class="feature-card">
+          <div>
+            <div class="feature-step">01 / POP-UP'LAR & YÖNLENDİRMELER</div>
+            <div class="feature-scene">
+              <div class="scene-badge badge-blocked">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line>
+                </svg>
+                Gösterilmeden engellendi
+              </div>
+              <div style="font-size: 0.775rem; color: var(--text-muted); font-family: var(--font-mono);">
+                network_layer_abort()
+              </div>
+            </div>
+            <h3 class="feature-title">Kesintiler, durduruldu.</h3>
+            <p class="feature-desc">
+              Araya giren ekranlar, çıkış uyarıları ve zorla yönlendirmeler ağ seviyesinde durdurulur — hiç render edilmez, hiç yanıp sönmez.
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="feature-card">
+          <div>
+            <div class="feature-step">02 / ÇEREZ DUVARLARI & KATMANLAR</div>
+            <div class="feature-scene">
+              <div class="scene-badge badge-dismissed">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                Otomatik olarak kapatıldı
+              </div>
+              <div style="font-size: 0.775rem; color: var(--text-muted); font-family: var(--font-mono);">
+                dom_overlay_auto_dismiss()
+              </div>
+            </div>
+            <h3 class="feature-title">Kesintisiz okuma.</h3>
+            <p class="feature-desc">
+              Onay bannerları, bülten perdeleri ve abonelik katmanları desteklenen sitelerde sayfa yüklenmeden temizlenir.
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="feature-card">
+          <div>
+            <div class="feature-step">03 / CANLI SAYAÇ</div>
+            <div class="feature-scene">
+              <div class="scene-counter-box">
+                <span class="counter-shield">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8B5CF6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                  </svg>
+                </span>
+                <span style="font-size: 0.85rem; font-weight: 700; color: var(--text-primary);">vAdBlock</span>
+                <span class="counter-badge">47</span>
+              </div>
+              <div style="font-size: 0.775rem; color: var(--text-muted); font-family: var(--font-mono);">
+                gercek_zamanli_istatistik
+              </div>
+            </div>
+            <h3 class="feature-title">Gerçek zamanlı kanıt.</h3>
+            <p class="feature-desc">
+              Araç çubuğu ikonundaki canlı sayaç, okuduğunuz sayfadan kaç reklam ve izleyicinin kaldırıldığını gösterir.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Video Ads Banner -->
+      <div class="video-banner-card">
+        <div class="video-banner-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+          </svg>
+        </div>
+        <div class="video-banner-text">
+          <strong>Video reklamlar da dahil.</strong> YouTube ve büyük video platformlarındaki ön-gösterim ve ara reklamlar aynı filtrelerle kapsanır.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════
+       SECTION 3: SUPPORTED SITES
+       ══════════════════════════════════════════════════════════════════ -->
+  <section class="supported-section" id="desteklenen-siteler">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">KAPSAM</span>
+        <h2 class="section-heading">Gezdiğin her yerde çalışır.</h2>
+        <p class="section-aside">Yayın, haber, sosyal medya, forumlar — aynı koruma 200.000+ sitede sizi takip eder.</p>
+      </div>
+
+      <div class="sites-clouds">
+        <!-- Cloud 1: Watch & Stream -->
+        <div class="cloud-card">
+          <div class="cloud-header">
+            <span class="cloud-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+            </span>
+            <h3 class="cloud-title">İzle & Yayınla</h3>
+          </div>
+          <div class="chips-container">
+            <span class="site-chip">YouTube</span>
+            <span class="site-chip">Twitch</span>
+            <span class="site-chip">Netflix</span>
+            <span class="site-chip">Spotify</span>
+            <span class="site-chip">Dailymotion</span>
+            <span class="site-chip">TikTok</span>
+            <span class="site-chip">Exxen</span>
+            <span class="site-chip">BluTV</span>
+            <span class="site-chip">Gain</span>
+            <span class="site-chip">Vimeo</span>
+            <span class="site-chip special-chip">+ binlerce site daha</span>
+          </div>
+        </div>
+
+        <!-- Cloud 2: Read & Discover -->
+        <div class="cloud-card">
+          <div class="cloud-header">
+            <span class="cloud-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+            </span>
+            <h3 class="cloud-title">Oku & Keşfet</h3>
+          </div>
+          <div class="chips-container">
+            <span class="site-chip">Reddit</span>
+            <span class="site-chip">X (Twitter)</span>
+            <span class="site-chip">Facebook</span>
+            <span class="site-chip">Instagram</span>
+            <span class="site-chip">Ekşi Sözlük</span>
+            <span class="site-chip">Hürriyet</span>
+            <span class="site-chip">Sözcü</span>
+            <span class="site-chip">Trendyol</span>
+            <span class="site-chip">Hepsiburada</span>
+            <span class="site-chip">DonanımHaber</span>
+            <span class="site-chip">Onedio</span>
+            <span class="site-chip special-chip">+ neredeyse her yerde</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════
+       SECTION 4: INTERACTIVE DEMO
+       ══════════════════════════════════════════════════════════════════ -->
+  <section class="demo-section" id="demo">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-tag">İNTERAKTİF DEMO</span>
+        <h2 class="section-heading">Bir sayfanın kendini temizlemesini izle.</h2>
+        <p class="section-aside">Korumayı aç ve reklam dolu bir sayfaya ne olduğunu gör.</p>
+      </div>
+
+      <!-- Toggle Switch Control -->
+      <div class="demo-control-bar">
+        <button class="demo-toggle-btn" id="demoToggleBtn" type="button" aria-pressed="false" aria-label="vAdBlock Korumasını Aç veya Kapat">
+          <div class="toggle-track" id="toggleTrack">
+            <div class="toggle-thumb"></div>
+          </div>
+          <span class="toggle-label" id="toggleLabel">Koruma kapalı</span>
+        </button>
+      </div>
+
+      <!-- Demo Sandbox Window -->
+      <div class="demo-sandbox">
+        <div class="demo-browser-bar">
+          <div class="window-controls">
+            <span class="window-dot dot-red"></span>
+            <span class="window-dot dot-yellow"></span>
+            <span class="window-dot dot-green"></span>
+          </div>
+          <div class="demo-url-box">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+            <span>ornek-haber-sitesi.com/gundem/teknoloji-yapay-zeka</span>
+          </div>
+          <div class="demo-status-pill status-off" id="demoExtensionStatus">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+            <span id="demoBadgeCount">0 engellendi</span>
+          </div>
+        </div>
+
+        <div class="demo-page-viewport">
+          <!-- Banner Ad (OFF state) -->
+          <div class="demo-ad-banner" id="adBanner">
+            <div style="display: flex; align-items: center;">
+              <span class="ad-tag-warning">REKLAM</span>
+              <span style="font-size: 0.85rem; font-weight: 700; color: #92400E;">
+                🔥 BÜYÜK FIRSAT! Tıkla ve 50.000 TL Nakit Hediye Çeki Kazan!
+              </span>
+            </div>
+            <button class="ad-cta-btn" type="button">Hemen Al!</button>
+          </div>
+
+          <!-- Cleaned Notification Toast (ON state) -->
+          <div class="demo-cleaned-toast" id="cleanedToast">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            <span>✓ 4 dikkat dağıtıcı kaldırıldı (Banner, Pop-up, Yan Reklam, Çerez Duvarı)</span>
+          </div>
+
+          <!-- Content Layout -->
+          <div class="demo-content-layout" id="demoContentLayout">
+            <article class="demo-article">
+              <div style="font-family: var(--font-mono); font-size: 11px; color: var(--accent-green-dark); font-weight: 700; margin-bottom: 6px;">
+                BİLİM & GELECEK
+              </div>
+              <h4>Yapay Zeka Destekli Yeni Nesil Web Tarayıcıları</h4>
+              <p>
+                İnternetin ilk günlerinden bu yana sayfa yükleme süreleri ve veri güvenliği en önemli kriterler arasında yer aldı. Ancak modern web sitelerinin büyük kısmı, asıl içerikten kat kat daha ağır üçüncü parti takip kodları ve reklam ağlarıyla dolup taştı.
+              </p>
+              <p>
+                Kullanıcılar bir haberi okurken aniden çıkan pencereler, sürekli izin isteyen çerez duvarları ve video aralarına sıkıştırılan reklamlar yüzünden dikkati dağılıyor. vAdBlock gibi yeni nesil cihaz üstü filtreleme motorları, bu gereksiz trafiği doğrudan ağ düzeyinde sonlandırarak hem sayfaların 3 kata kadar daha hızlı açılmasını sağlıyor hem de cihaz pil ömrünü koruyor.
+              </p>
+              <p>
+                Yapılan testlerde, gereksiz reklam kodları arındırılmış bir web sayfasının veri tüketiminin %60'a varan oranda azaldığı ve tarayıcı belleğindeki şişkinliğin ortadan kalktığı gözlemlendi.
+              </p>
+            </article>
+
+            <!-- Sidebar Ad (OFF state) -->
+            <aside class="demo-sidebar-ad" id="sidebarAd">
+              <div style="font-size: 10px; font-family: var(--font-mono); color: #E11D48; font-weight: 700; margin-bottom: 8px;">
+                SPONSORLU İÇERİK
+              </div>
+              <div style="font-size: 0.85rem; font-weight: 700; color: #9F1239; margin-bottom: 12px; line-height: 1.3;">
+                Doktorlar şokta! Bu yöntemi uygulayanlar 10 yaş gençleşiyor!
+              </div>
+              <div style="background: #FEE2E2; height: 90px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; color: #991B1B; margin-bottom: 12px;">
+                [Yanıltıcı Reklam Görseli]
+              </div>
+              <button class="ad-cta-btn" style="width: 100%; background: #E11D48;" type="button">Detayları Gör</button>
+            </aside>
+          </div>
+
+          <!-- Newsletter Popup Modal (OFF state) -->
+          <div class="demo-newsletter-popup" id="newsletterPopup">
+            <div style="font-size: 1.5rem; margin-bottom: 8px;">📩</div>
+            <div style="font-size: 1.15rem; font-weight: 800; color: var(--text-primary); margin-bottom: 6px;">
+              Bültenimize Abone Olun!
+            </div>
+            <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 16px;">
+              Sayfadan ayrılmadan önce e-postanızı bırakın, haftalık indirim fırsatlarını kaçırmayın.
+            </p>
+            <div style="display: flex; gap: 8px;">
+              <input type="text" placeholder="E-posta adresiniz..." style="flex: 1; padding: 8px 12px; border: 1px solid var(--card-border); border-radius: 6px; font-size: 0.85rem;" readonly value="ornek@mail.com">
+              <button class="btn btn-primary" style="padding: 8px 16px; font-size: 0.85rem;" type="button">Gönder</button>
+            </div>
+          </div>
+
+          <!-- Cookie Wall Banner (OFF state) -->
+          <div class="demo-cookie-banner" id="cookieBanner">
+            <div style="font-size: 0.825rem; line-height: 1.4;">
+              🍪 <strong>Çerez İzni Uyarısı:</strong> Sitemiz 380 adet iş ortağımızın kişiselleştirilmiş reklam verilerinizi toplamasına izin vermenizi rica ediyor.
+            </div>
+            <button class="cookie-accept-btn" type="button">Tümünü Kabul Et</button>
+          </div>
+        </div>
+      </div>
+
+      <p class="demo-footer-note">
+        Gösterim amaçlı simülasyon. Gerçek eklenti istekleri milisaniyeler içinde filtreler.
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════
+       SECTION 5: HOW IT WORKS - DARK PANEL
+       ══════════════════════════════════════════════════════════════════ -->
+  <section class="how-it-works-panel">
+    <div class="container">
+      <div class="panel-grid">
+        <!-- Left Side: Content & Steps -->
+        <div>
+          <span class="section-tag tag-dark">TASARIMDA BASİTLİK</span>
+          <h2 class="section-heading text-white">Tek ikon. Tam kontrol.</h2>
+          <p class="section-aside" style="color: #94A3B8;">
+            Panel yok, ayar labirenti yok, ücretli yükseltme yok. Araç çubuğundaki kalkan tüm arayüzdür.
+          </p>
+
+          <div class="panel-steps-list">
+            <div class="panel-step-item">
+              <div class="step-number-badge">01</div>
+              <div>
+                <div class="step-text-title">Bir kez sabitle</div>
+                <div class="step-text-desc">Chrome araç çubuğundaki puzzle ikonuna tıklayıp vAdBlock'u sabitleyin.</div>
+              </div>
+            </div>
+
+            <div class="panel-step-item">
+              <div class="step-number-badge">02</div>
+              <div>
+                <div class="step-text-title">Rozeti oku</div>
+                <div class="step-text-desc">Sayaç mevcut sayfada engellenen reklamları canlı gösterir.</div>
+              </div>
+            </div>
+
+            <div class="panel-step-item">
+              <div class="step-number-badge">03</div>
+              <div>
+                <div class="step-text-title">Siteye izin ver</div>
+                <div class="step-text-desc">Bir yayıncıyı desteklemek mi istiyorsun? Tek tıkla o sitede reklamlara izin ver.</div>
+              </div>
+            </div>
+
+            <div class="panel-step-item">
+              <div class="step-number-badge">04</div>
+              <div>
+                <div class="step-text-title">Yeniden etkinleştir</div>
+                <div class="step-text-desc">Kalkan yeşile döner ve engelleme anında devam eder.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Side: Mock Popup Card -->
+        <div>
+          <div class="mock-popup-card">
+            <div class="mock-popup-top">
+              <div class="mock-popup-brand">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8B5CF6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2.5L4 6.2V12.3C4 17.7 7.4 22.8 12 24C16.6 22.8 20 17.7 20 12.3V6.2L12 2.5Z" fill="#EDE9FE" stroke="#8B5CF6" stroke-width="2"/>
+                  <path d="M8.5 11.8L11 14.3L15.8 9.5" stroke="#8B5CF6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>vAdBlock</span>
+              </div>
+              <div class="mock-site-pill">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+                <span>herhangi-site.com</span>
+              </div>
+            </div>
+
+            <div class="mock-status-circle">
+              <div class="mock-big-count">23</div>
+              <div class="mock-status-text">
+                <span class="status-live-dot"></span>
+                Koruma açık · 23 reklam engellendi
+              </div>
+            </div>
+
+            <div class="mock-popup-stats">
+              <div>
+                <div class="stat-mini-label">ENGELLENEN REKLAMLAR</div>
+                <div class="stat-mini-val">18 adet</div>
+              </div>
+              <div>
+                <div class="stat-mini-label">İZLEYİCİ ENGELİ</div>
+                <div class="stat-mini-val">5 adet</div>
+              </div>
+              <div>
+                <div class="stat-mini-label">TASARRUF EDİLEN VERİ</div>
+                <div class="stat-mini-val">2.4 MB</div>
+              </div>
+              <div>
+                <div class="stat-mini-label">SAYFA HIZ ARTIŞI</div>
+                <div class="stat-mini-val" style="color: #34D399;">%42 daha hızlı</div>
+              </div>
+            </div>
+
+            <button class="mock-popup-action" id="mockWhitelistBtn" type="button">
+              Bu sitede duraklat (Beyaz Liste)
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════
+       SECTION 6: GETTING STARTED & STATS
+       ══════════════════════════════════════════════════════════════════ -->
+  <section class="getting-started-section" id="nasil-calisir">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">BAŞLANGIÇ</span>
+        <h2 class="section-heading">Bir dakikadan kısa sürede başla.</h2>
+        <p class="section-aside">Tek tıkla kur. Ayar yapma. Sonra bakım yok.</p>
+      </div>
+
+      <div class="steps-grid">
+        <div class="step-card">
+          <div>
+            <div class="step-card-num">01 / KUR</div>
+            <h3 class="step-card-title">Chrome'a ekle.</h3>
+            <p class="step-card-desc">
+              Chrome Web Mağazası'nda tek tık. Hesap yok, e-posta yok, kurulum ekranı yok.
+            </p>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div>
+            <div class="step-card-num">02 / SABİTLE</div>
+            <h3 class="step-card-title">İkonu sabitle.</h3>
+            <p class="step-card-desc">
+              Canlı sayacı ve tek tıklık site kontrolünü her zaman elinizin altında tutun.
+            </p>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div>
+            <div class="step-card-num">03 / GEZİN</div>
+            <h3 class="step-card-title">Her zamanki gibi gezin.</h3>
+            <p class="step-card-desc">
+              Filtreler haftada birkaç kez kendini günceller. Yönetecek hiçbir şey yok.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats Ribbon (4 Columns) -->
+      <div class="stats-ribbon">
+        <div class="stat-col">
+          <div class="stat-number">30.000+</div>
+          <div class="stat-label-text">engelleme kuralı, otomatik güncellenir</div>
+        </div>
+        <div class="stat-col">
+          <div class="stat-number">200.000+</div>
+          <div class="stat-label-text">kapsanan web sitesi</div>
+        </div>
+        <div class="stat-col">
+          <div class="stat-number">100%</div>
+          <div class="stat-label-text">cihaz üstü filtreleme</div>
+        </div>
+        <div class="stat-col">
+          <div class="stat-number">₺0</div>
+          <div class="stat-label-text">ücretsiz, premium katman yok</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════
+       SECTION 7: FAQ
+       ══════════════════════════════════════════════════════════════════ -->
+  <section class="faq-section" id="sss">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-tag">SSS</span>
+        <h2 class="section-heading">Sık sorulan sorular.</h2>
+      </div>
+
+      <div class="faq-container">
+        <div class="faq-list" id="faqAccordion">
+
+          <!-- FAQ Item 1 -->
+          <div class="faq-item">
+            <button class="faq-trigger" type="button" aria-expanded="false">
+              <span>vAdBlock gerçekten ücretsiz mi?</span>
+              <span class="faq-chevron">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </span>
+            </button>
+            <div class="faq-content">
+              <div class="faq-body">
+                Evet — tamamen. Deneme süresi yok, premium katman yok, ücretli yükseltme yok.
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ Item 2 -->
+          <div class="faq-item">
+            <button class="faq-trigger" type="button" aria-expanded="false">
+              <span>Tarayıcımı yavaşlatır mı?</span>
+              <span class="faq-chevron">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </span>
+            </button>
+            <div class="faq-content">
+              <div class="faq-body">
+                Hayır — genellikle gezinmeyi hızlandırır. Engelleme Chrome'un yerel filtreleme motorunu (Manifest V3) kullanır, ağır reklam scriptleri hiç indirilmez.
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ Item 3 -->
+          <div class="faq-item">
+            <button class="faq-trigger" type="button" aria-expanded="false">
+              <span>Hangi verileri gönderir?</span>
+              <span class="faq-chevron">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </span>
+            </button>
+            <div class="faq-content">
+              <div class="faq-body">
+                Reklam filtreleme cihazınızda gerçekleşir. Veri satmayız, kullanıcı profili oluşturmayız.
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ Item 4 -->
+          <div class="faq-item">
+            <button class="faq-trigger" type="button" aria-expanded="false">
+              <span>Desteklemek istediğim sitelerde reklamlara izin verebilir miyim?</span>
+              <span class="faq-chevron">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </span>
+            </button>
+            <div class="faq-content">
+              <div class="faq-body">
+                Evet. Sitedeyken kalkan ikonuna tıklayın, o sitenin reklamlarına izin verilir; diğer her site korunmaya devam eder.
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ Item 5 -->
+          <div class="faq-item">
+            <button class="faq-trigger" type="button" aria-expanded="false">
+              <span>YouTube'da çalışıyor mu?</span>
+              <span class="faq-chevron">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </span>
+            </button>
+            <div class="faq-content">
+              <div class="faq-body">
+                Evet — ön-gösterim ve ara video reklamları, oynatıcı bannerları kapsanır.
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ Item 6 -->
+          <div class="faq-item">
+            <button class="faq-trigger" type="button" aria-expanded="false">
+              <span>Hangi tarayıcılar destekleniyor?</span>
+              <span class="faq-chevron">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </span>
+            </button>
+            <div class="faq-content">
+              <div class="faq-body">
+                Google Chrome ve Chrome Web Mağazası'ndan eklenti yükleyen Chromium tabanlı tarayıcılar — Edge, Brave ve Opera dahil.
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ Item 7 -->
+          <div class="faq-item">
+            <button class="faq-trigger" type="button" aria-expanded="false">
+              <span>Bir web sitesi düzgün görüntülenmiyor — ne yapmalıyım?</span>
+              <span class="faq-chevron">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </span>
+            </button>
+            <div class="faq-content">
+              <div class="faq-body">
+                Bazen bir site reklamları kaldırıldığında hatalı davranabilir. O sitede reklamlara izin vermek için kalkana tıklayın. info@vadblock.com adresine bildirirseniz birkaç gün içinde filtre düzeltmesi yapabiliriz.
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════
+       SECTION 8: FINAL CTA
+       ══════════════════════════════════════════════════════════════════ -->
+  <section class="final-cta-section">
+    <div class="container">
+      <div class="cta-card">
+        <div class="cta-shield-wrapper">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#8B5CF6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2.5L4 6.2V12.3C4 17.7 7.4 22.8 12 24C16.6 22.8 20 17.7 20 12.3V6.2L12 2.5Z" fill="#EDE9FE" stroke="#8B5CF6" stroke-width="2"/>
+            <path d="M8.5 11.8L11 14.3L15.8 9.5" stroke="#8B5CF6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+
+        <h2 class="cta-title">İnternetini geri al.</h2>
+        <p class="cta-sub">
+          Sonsuza kadar ücretsiz · saniyeler içinde kurulur · anında çalışır
+        </p>
+
+        <div class="cta-action-area">
+          <a href="#" class="btn btn-white" style="padding: 16px 36px; font-size: 1.05rem;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <circle cx="12" cy="12" r="4"></circle>
+              <line x1="21.17" y1="8" x2="12" y2="8"></line>
+              <line x1="3.95" y1="6.06" x2="8.54" y2="14"></line>
+              <line x1="10.88" y1="21.94" x2="15.46" y2="14"></line>
+            </svg>
+            Chrome'a Ekle — ücretsiz
+          </a>
+          <span class="cta-under-text">Hesap yok · Kayıt yok · İstediğin zaman kaldır</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════
+       FOOTER
+       ══════════════════════════════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- Brand Column -->
+        <div>
+          <a href="#" class="brand-logo" style="margin-bottom: 12px; display: inline-flex;">
+            <span class="brand-shield">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8B5CF6" stroke-width="2">
+                <path d="M12 2.5L4 6.2V12.3C4 17.7 7.4 22.8 12 24C16.6 22.8 20 17.7 20 12.3V6.2L12 2.5Z" fill="#EDE9FE" stroke="#8B5CF6"/>
+                <path d="M8.5 11.8L11 14.3L15.8 9.5" stroke="#8B5CF6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            vAdBlock
+          </a>
+          <p class="footer-brand-desc">
+            vAdBlock, internetteki reklamları, pop-up'ları ve izleyicileri cihaz seviyesinde durduran hafif, modern ve tamamen ücretsiz bir Chrome eklentisidir.
+          </p>
+        </div>
+
+        <!-- Product Menu -->
+        <div>
+          <div class="footer-col-title">ÜRÜN</div>
+          <ul class="footer-menu">
+            <li><a href="#ozellikler">Özellikler</a></li>
+            <li><a href="#desteklenen-siteler">Desteklenen Siteler</a></li>
+            <li><a href="#demo">Demo</a></li>
+            <li><a href="#nasil-calisir">Nasıl Çalışır</a></li>
+            <li><a href="#">Chrome Web Store</a></li>
+          </ul>
+        </div>
+
+        <!-- Legal & Contact -->
+        <div>
+          <div class="footer-col-title">YASAL & İLETİŞİM</div>
+          <ul class="footer-menu">
+            <li><a href="#" id="privacyModalBtn">Gizlilik Politikası</a></li>
+            <li><a href="#" id="termsModalBtn">Kullanım Şartları</a></li>
+            <li><a href="mailto:info@vadblock.com">info@vadblock.com</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>© 2026 vAdBlock · Google veya Chrome ile bağlantılı değildir.</div>
+        <div style="font-family: var(--font-mono); font-size: 0.8rem;">Sürüm 1.4.0 (Manifest V3)</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ══════════════════════════════════════════════════════════════════
+       EMBEDDED VANILLA JAVASCRIPT
+       Interactive Demo, FAQ Accordion, Sticky Navbar, Mobile Menu
+       ══════════════════════════════════════════════════════════════════ -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Sticky Navbar Blur & Shadow on Scroll
+      const navbar = document.getElementById('navbar');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 20) {
+          navbar.classList.add('scrolled');
+        } else {
+          navbar.classList.remove('scrolled');
+        }
+      });
+
+      // 2. Mobile Menu Toggle
+      const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+      const mobileMenu = document.getElementById('mobileMenu');
+      const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+      if (mobileMenuBtn && mobileMenu) {
+        mobileMenuBtn.addEventListener('click', () => {
+          mobileMenu.classList.toggle('open');
+        });
+
+        mobileNavLinks.forEach(link => {
+          link.addEventListener('click', () => {
+            mobileMenu.classList.remove('open');
+          });
+        });
+      }
+
+      // 3. Interactive Demo Toggle
+      const demoToggleBtn = document.getElementById('demoToggleBtn');
+      const toggleTrack = document.getElementById('toggleTrack');
+      const toggleLabel = document.getElementById('toggleLabel');
+      const adBanner = document.getElementById('adBanner');
+      const sidebarAd = document.getElementById('sidebarAd');
+      const newsletterPopup = document.getElementById('newsletterPopup');
+      const cookieBanner = document.getElementById('cookieBanner');
+      const cleanedToast = document.getElementById('cleanedToast');
+      const demoExtensionStatus = document.getElementById('demoExtensionStatus');
+      const demoBadgeCount = document.getElementById('demoBadgeCount');
+      const demoContentLayout = document.getElementById('demoContentLayout');
+
+      let isProtectionActive = false;
+
+      function updateProtectionState(active) {
+        isProtectionActive = active;
+        demoToggleBtn.setAttribute('aria-pressed', active ? 'true' : 'false');
+
+        if (active) {
+          // Track & Label
+          toggleTrack.classList.add('active');
+          toggleLabel.textContent = 'Koruma açık';
+          toggleLabel.style.color = '#047857';
+
+          // Block all annoying ads
+          adBanner.classList.add('blocked');
+          sidebarAd.classList.add('blocked');
+          newsletterPopup.classList.add('blocked');
+          cookieBanner.classList.add('blocked');
+
+          // Expand content & show green toast
+          demoContentLayout.classList.add('expanded');
+          cleanedToast.classList.add('visible');
+
+          // Update extension status badge in mock browser bar
+          demoExtensionStatus.classList.remove('status-off');
+          demoExtensionStatus.classList.add('status-on');
+          demoBadgeCount.textContent = '4 engellendi';
+        } else {
+          // Track & Label
+          toggleTrack.classList.remove('active');
+          toggleLabel.textContent = 'Koruma kapalı';
+          toggleLabel.style.color = '#0F172A';
+
+          // Restore ads
+          adBanner.classList.remove('blocked');
+          sidebarAd.classList.remove('blocked');
+          newsletterPopup.classList.remove('blocked');
+          cookieBanner.classList.remove('blocked');
+
+          // Reset content & hide green toast
+          demoContentLayout.classList.remove('expanded');
+          cleanedToast.classList.remove('visible');
+
+          // Update extension status badge in mock browser bar
+          demoExtensionStatus.classList.remove('status-on');
+          demoExtensionStatus.classList.add('status-off');
+          demoBadgeCount.textContent = '0 engellendi';
+        }
+      }
+
+      if (demoToggleBtn) {
+        demoToggleBtn.addEventListener('click', () => {
+          updateProtectionState(!isProtectionActive);
+        });
+      }
+
+      // 4. FAQ Accordion (Single item open at a time)
+      const faqItems = document.querySelectorAll('.faq-item');
+
+      faqItems.forEach(item => {
+        const trigger = item.querySelector('.faq-trigger');
+        const content = item.querySelector('.faq-content');
+
+        trigger.addEventListener('click', () => {
+          const isOpen = item.classList.contains('active');
+
+          // Close all items
+          faqItems.forEach(otherItem => {
+            otherItem.classList.remove('active');
+            const otherTrigger = otherItem.querySelector('.faq-trigger');
+            const otherContent = otherItem.querySelector('.faq-content');
+            if (otherTrigger) otherTrigger.setAttribute('aria-expanded', 'false');
+            if (otherContent) otherContent.style.maxHeight = null;
+          });
+
+          // If was closed, open it now
+          if (!isOpen) {
+            item.classList.add('active');
+            trigger.setAttribute('aria-expanded', 'true');
+            content.style.maxHeight = content.scrollHeight + 'px';
+          }
+        });
+      });
+
+      
+      // 6. Privacy & Terms Modals
+      const privacyModal = document.getElementById('privacyModal');
+      const termsModal = document.getElementById('termsModal');
+      const privacyModalBtn = document.getElementById('privacyModalBtn');
+      const termsModalBtn = document.getElementById('termsModalBtn');
+      const closePrivacyBtn = document.getElementById('closePrivacyBtn');
+      const closeTermsBtn = document.getElementById('closeTermsBtn');
+
+      function openModal(modal) {
+        if (modal) {
+          modal.classList.add('open');
+          document.body.style.overflow = 'hidden';
+        }
+      }
+
+      function closeModal(modal) {
+        if (modal) {
+          modal.classList.remove('open');
+          document.body.style.overflow = '';
+        }
+      }
+
+      if (privacyModalBtn) {
+        privacyModalBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          openModal(privacyModal);
+        });
+      }
+
+      if (termsModalBtn) {
+        termsModalBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          openModal(termsModal);
+        });
+      }
+
+      if (closePrivacyBtn) {
+        closePrivacyBtn.addEventListener('click', () => closeModal(privacyModal));
+      }
+      if (closeTermsBtn) {
+        closeTermsBtn.addEventListener('click', () => closeModal(termsModal));
+      }
+
+      [privacyModal, termsModal].forEach(m => {
+        if (m) {
+          m.addEventListener('click', (e) => {
+            if (e.target === m) closeModal(m);
+          });
+        }
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          closeModal(privacyModal);
+          closeModal(termsModal);
+        }
+      });
+
+      // 7. Interactive Mock Popup Whitelist Button
+      const mockWhitelistBtn = document.getElementById('mockWhitelistBtn');
+      if (mockWhitelistBtn) {
+        let isWhitelisted = false;
+        mockWhitelistBtn.addEventListener('click', () => {
+          isWhitelisted = !isWhitelisted;
+          const statusText = document.querySelector('.mock-status-text');
+          const bigCount = document.querySelector('.mock-big-count');
+          const liveDot = document.querySelector('.status-live-dot');
+
+          if (isWhitelisted) {
+            mockWhitelistBtn.textContent = 'Korumayı Yeniden Etkinleştir';
+            mockWhitelistBtn.style.background = '#10B981';
+            mockWhitelistBtn.style.color = '#FFFFFF';
+            if (statusText) statusText.innerHTML = '<span style="width:8px;height:8px;background:#EF4444;border-radius:50%;display:inline-block;"></span> Bu sitede duraklatıldı';
+            if (bigCount) {
+              bigCount.textContent = '0';
+              bigCount.style.color = '#94A3B8';
+            }
+          } else {
+            mockWhitelistBtn.textContent = 'Bu sitede duraklat (Beyaz Liste)';
+            mockWhitelistBtn.style.background = 'rgba(255, 255, 255, 0.08)';
+            mockWhitelistBtn.style.color = '#FFFFFF';
+            if (statusText) statusText.innerHTML = '<span class="status-live-dot"></span> Koruma açık · 23 reklam engellendi';
+            if (bigCount) {
+              bigCount.textContent = '23';
+              bigCount.style.color = 'var(--accent-green)';
+            }
+          }
+        });
+      }
+
+      // 5. Smooth scroll for anchor tags
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          const targetId = this.getAttribute('href');
+          if (targetId && targetId !== '#') {
+            const targetEl = document.querySelector(targetId);
+            if (targetEl) {
+              e.preventDefault();
+              const offset = 80;
+              const elementPosition = targetEl.getBoundingClientRect().top;
+              const offsetPosition = elementPosition + window.pageYOffset - offset;
+              window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+              });
+            }
+          }
+        });
+      });
+    });
+  </script>
+
+  <!-- Privacy Modal -->
+  <div class="modal-backdrop" id="privacyModal" role="dialog" aria-modal="true" aria-labelledby="privacyTitle">
+    <div class="modal-card">
+      <button class="modal-close-btn" id="closePrivacyBtn" type="button" aria-label="Kapat">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+      <h3 class="modal-title" id="privacyTitle">Gizlilik Politikası</h3>
+      <div class="modal-date">Son güncelleme: Ocak 2026 · vAdBlock</div>
+      <div class="modal-body-text">
+        <p>vAdBlock ("biz", "eklentimiz"), kullanıcı gizliliğini temel bir insan hakkı olarak kabul eder. Bu politika, vAdBlock tarayıcı eklentisini kullanırken verilerinizin nasıl korunduğunu açıklar.</p>
+        
+        <h5>1. Sıfır Veri Toplama Politikası</h5>
+        <p>vAdBlock herhangi bir kişisel veri toplamaz, saklamaz veya harici sunuculara iletmez. Ziyaret ettiğiniz web siteleri, IP adresiniz, arama sorgularınız veya tarayıcı geçmişiniz asla kaydedilmez.</p>
+
+        <h5>2. Cihaz Üstü (Yerel) Filtreleme</h5>
+        <p>Tüm reklam, izleyici ve pop-up filtreleme işlemleri Google Chrome'un yerel <code>declarativeNetRequest</code> (Manifest V3) API'si aracılığıyla doğrudan kendi cihazınızda yürütülür. Ağ istekleri hiçbir zaman üçüncü parti sunuculara yönlendirilmez.</p>
+
+        <h5>3. Üçüncü Taraflarla Veri Paylaşımı</h5>
+        <p>Herhangi bir veri toplamadığımız için verilerinizi satmamız, kiralamamız veya reklam verenlerle paylaşmamız teknik olarak da mümkün değildir.</p>
+
+        <h5>4. İletişim</h5>
+        <p>Gizlilik politikamızla ilgili tüm soru ve önerileriniz için <a href="mailto:info@vadblock.com" style="color: var(--brand-purple); font-weight: 600;">info@vadblock.com</a> adresi üzerinden bize ulaşabilirsiniz.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Terms Modal -->
+  <div class="modal-backdrop" id="termsModal" role="dialog" aria-modal="true" aria-labelledby="termsTitle">
+    <div class="modal-card">
+      <button class="modal-close-btn" id="closeTermsBtn" type="button" aria-label="Kapat">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+      <h3 class="modal-title" id="termsTitle">Kullanım Şartları</h3>
+      <div class="modal-date">Son güncelleme: Ocak 2026 · vAdBlock</div>
+      <div class="modal-body-text">
+        <p>vAdBlock eklentisini yükleyerek veya kullanarak bu kullanım şartlarını kabul etmiş sayılırsınız.</p>
+
+        <h5>1. Kullanım Lisansı</h5>
+        <p>vAdBlock, kişisel ve ticari olmayan kullanım için ücretsiz olarak sağlanmaktadır. Eklenti üzerinde tersine mühendislik yapılması, kötü amaçlı yazılım eklenerek yeniden dağıtılması yasaktır.</p>
+
+        <h5>2. Hizmetin Niteliği</h5>
+        <p>vAdBlock, web sayfalarındaki rahatsız edici reklam ve izleyici öğelerini filtrelemeyi amaçlar. Ancak web sitelerinin sürekli değişen mimarisi nedeniyle belirli sayfaların görünümünde oluşabilecek geçici aksaklıklardan eklenti sorumlu tutulamaz. Kullanıcı dilediği zaman tek tıkla siteyi beyaz listeye alabilir.</p>
+
+        <h5>3. Değişiklikler</h5>
+        <p>vAdBlock koşulları ve filtreleme listelerini haber vermeksizin güncelleme hakkını saklı tutar.</p>
+
+        <h5>4. İletişim</h5>
+        <p>Sorularınız için: <a href="mailto:info@vadblock.com" style="color: var(--brand-purple); font-weight: 600;">info@vadblock.com</a></p>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

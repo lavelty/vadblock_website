@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vAdBlock — Destek Talebi</title>
+    <meta name="description" content="vAdBlock destek talebi oluşturun — kategori seçin, dosya ekleyin, size en kısa sürede dönüş yapalım.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css?v=7">
+    <style>
+        .tkt-wrap {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 120px 24px 80px;
+        }
+        .tkt-hero { text-align: center; margin-bottom: 48px; }
+        .tkt-hero .tkt-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(139,92,246,0.12); color: #a78bfa;
+            border: 1px solid rgba(139,92,246,0.28);
+            padding: 6px 16px; border-radius: 100px;
+            font-size: 0.82rem; font-weight: 600; margin-bottom: 18px;
+        }
+        .tkt-hero h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 10px; letter-spacing: -0.4px; }
+        .tkt-hero p { color: var(--text-muted); font-size: 0.98rem; max-width: 480px; margin: 0 auto; line-height: 1.7; }
+        .tkt-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border-subtle);
+            border-radius: 22px;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        .tkt-card::before {
+            content: "";
+            position: absolute;
+            top: -90px; right: -90px;
+            width: 240px; height: 240px;
+            background: radial-gradient(circle, rgba(139,92,246,0.16) 0%, rgba(0,0,0,0) 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .ticket-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; position: relative; z-index: 1; }
+        .ticket-field { display: flex; flex-direction: column; gap: 8px; }
+        .ticket-field.full { grid-column: 1 / -1; }
+        .ticket-field label {
+            font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em;
+            color: var(--text-muted); font-weight: 600;
+        }
+        .ticket-field input[type="text"], .ticket-field input[type="email"], .ticket-field select, .ticket-field textarea {
+            width: 100%;
+            padding: 14px 16px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            color: var(--text-pure);
+            font-family: inherit; font-size: 0.95rem;
+            outline: none; transition: all 0.25s ease; box-sizing: border-box;
+        }
+        .ticket-field textarea { min-height: 150px; resize: vertical; line-height: 1.6; }
+        .ticket-field input:focus, .ticket-field select:focus, .ticket-field textarea:focus {
+            border-color: #8b5cf6; background: rgba(139,92,246,0.05); box-shadow: 0 0 0 3px rgba(139,92,246,0.12);
+        }
+        .ticket-field select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2'><polyline points='6 9 12 15 18 9'/></svg>");
+            background-repeat: no-repeat; background-position: right 16px center; padding-right: 44px; cursor: pointer;
+        }
+        .ticket-field option { background: #0e1015; color: #e2e8f0; }
+        .ticket-hint { font-size: 0.8rem; color: var(--text-muted); }
+        .file-drop {
+            border: 1.5px dashed var(--border-strong); border-radius: 14px; padding: 26px;
+            text-align: center; cursor: pointer; transition: all 0.25s ease; background: rgba(255,255,255,0.02);
+        }
+        .file-drop:hover, .file-drop.dragover { border-color: #8b5cf6; background: rgba(139,92,246,0.06); }
+        .file-drop .fd-icon { margin-bottom: 8px; color: var(--text-muted); }
+        .file-drop.has-file { border-style: solid; border-color: rgba(16,185,129,0.4); background: rgba(16,185,129,0.06); }
+        .file-name { font-size: 0.85rem; color: #34d399; font-weight: 600; margin-top: 6px; word-break: break-all; }
+        .ticket-submit {
+            width: 100%; padding: 16px; border: none; border-radius: 100px;
+            background: linear-gradient(135deg, #8b5cf6, #6366f1);
+            color: #fff; font-size: 1rem; font-weight: 600; font-family: inherit; cursor: pointer;
+            transition: all 0.25s ease; box-shadow: 0 10px 30px -8px rgba(139,92,246,0.55);
+            display: inline-flex; align-items: center; justify-content: center; gap: 10px; position: relative; z-index: 1;
+        }
+        .ticket-submit:hover { transform: translateY(-2px); box-shadow: 0 14px 36px -8px rgba(139,92,246,0.65); }
+        .ticket-submit:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+        .ticket-spinner { display: none; width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.35); border-top-color: #fff; border-radius: 50%; animation: tspin 0.7s linear infinite; }
+        .ticket-submit.loading .ticket-spinner { display: inline-block; }
+        @keyframes tspin { to { transform: rotate(360deg); } }
+        .ticket-ok {
+            display: none; padding: 16px 20px; margin-bottom: 20px;
+            background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.3);
+            color: #34d399; border-radius: 12px; font-weight: 500; align-items: center; gap: 10px;
+        }
+        .ticket-ok.show { display: flex; }
+        .ticket-err {
+            display: none; padding: 14px 18px; margin-bottom: 20px;
+            background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3);
+            color: #f87171; border-radius: 12px; font-size: 0.9rem;
+        }
+        .ticket-err.show { display: block; }
+        .tkt-back { text-align: center; margin-top: 28px; font-size: 0.9rem; }
+        .tkt-back a { color: var(--text-muted); text-decoration: none; }
+        .tkt-back a:hover { color: #a78bfa; }
+        @media (max-width: 640px) {
+            .ticket-form-grid { grid-template-columns: 1fr; }
+            .tkt-card { padding: 28px 22px; }
+        }
+    </style>
+</head>
+<body>
+    <?php include __DIR__ . '/nav.php'; ?>
+
+    <div class="tkt-wrap">
+        <div class="tkt-hero">
+            <div class="tkt-badge">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                <span data-i18n="sup_form_title">Destek Talebi Oluştur</span>
+            </div>
+            <h1 data-i18n="sup_ticket_page_title">Size nasıl yardımcı olabiliriz?</h1>
+            <p data-i18n="sup_form_subtitle">Sorununuzu kategorisiyle birlikte anlatın, isterseniz ekran görüntüsü ekleyin — en kısa sürede dönüş yapalım.</p>
+        </div>
+
+        <div class="tkt-card">
+            <div class="ticket-ok" id="ticketOk">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"></path></svg>
+                <span data-i18n="sup_form_ok">Talebiniz alındı! En kısa sürede size dönüş yapacağız.</span>
+            </div>
+            <div class="ticket-err" id="ticketErr"></div>
+
+            <form id="ticketFormEl" enctype="multipart/form-data" novalidate>
+                <div class="ticket-form-grid">
+                    <div class="ticket-field">
+                        <label for="tCategory" data-i18n="sup_form_cat">Kategori</label>
+                        <select id="tCategory" name="category">
+                            <option value="technical" data-i18n="sup_cat_tech">Teknik Destek</option>
+                            <option value="billing" data-i18n="sup_cat_acc">Hesap & Ödeme</option>
+                            <option value="features" data-i18n="sup_cat_feat">Özellik Rehberi</option>
+                            <option value="feedback" data-i18n="sup_cat_feedback">Geri Bildirim & Öneri</option>
+                            <option value="other" data-i18n="sup_cat_other">Diğer</option>
+                        </select>
+                    </div>
+                    <div class="ticket-field">
+                        <label for="tName" data-i18n="sup_form_name">Adınız (opsiyonel)</label>
+                        <input type="text" id="tName" name="name" placeholder="Adınız" data-i18n-placeholder="sup_form_name_ph">
+                    </div>
+                    <div class="ticket-field">
+                        <label for="tEmail" data-i18n="sup_form_email">E-posta Adresi</label>
+                        <input type="email" id="tEmail" name="email" placeholder="you@example.com" data-i18n-placeholder="sup_form_email_ph" required>
+                        <span class="ticket-hint" data-i18n="sup_form_email_hint">Yanıt bu adrese gönderilecek.</span>
+                    </div>
+                    <div class="ticket-field">
+                        <label for="tSubject" data-i18n="sup_form_title_lbl">Konu Başlığı</label>
+                        <input type="text" id="tSubject" name="subject" placeholder="Sorununuzu kısaca özetleyin" data-i18n-placeholder="sup_form_title_ph" required maxlength="255">
+                    </div>
+                    <div class="ticket-field full">
+                        <label for="tMessage" data-i18n="sup_form_msg">Mesajınız</label>
+                        <textarea id="tMessage" name="message" placeholder="Sorununuzu detaylı anlatın..." data-i18n-placeholder="sup_form_msg_ph" required></textarea>
+                    </div>
+                    <div class="ticket-field full">
+                        <label data-i18n="sup_form_file">Medya / Ek Dosya</label>
+                        <div class="file-drop" id="fileDrop">
+                            <div class="fd-icon">
+                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path></svg>
+                            </div>
+                            <div class="file-name" id="fileName" data-i18n="sup_form_file_hint">Ekran görüntüsü veya video (PNG, JPG, GIF, MP4 — max 5 MB)</div>
+                            <input type="file" id="tFile" name="attachment" accept=".png,.jpg,.jpeg,.gif,.webp,.mp4,.webm,.zip,.txt,.log,.json,.pdf" style="display: none;">
+                        </div>
+                    </div>
+                    <div class="ticket-field full">
+                        <button type="submit" class="ticket-submit" id="ticketSubmit">
+                            <span class="ticket-spinner"></span>
+                            <span data-i18n="sup_form_send">Talebi Gönder</span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="tkt-back">
+            <a href="/support" data-i18n="sup_ticket_back">← SSS ve destek sayfasına dön</a>
+        </div>
+
+        <?php include __DIR__ . '/footer.php'; ?>
+    </div>
+
+    <script>
+        // ── Kategori (URL'den ön seçim) ──
+        (function () {
+            const params = new URLSearchParams(window.location.search);
+            const cat = params.get('cat');
+            const sel = document.getElementById('tCategory');
+            if (cat && sel) {
+                const opts = Array.from(sel.options).map(o => o.value);
+                if (opts.includes(cat)) sel.value = cat;
+            }
+        })();
+
+        // ── Dosya seçme / sürükle-bırak ──
+        const fileDrop = document.getElementById('fileDrop');
+        const tFile = document.getElementById('tFile');
+        const fileName = document.getElementById('fileName');
+        const MAX_FILE = 5 * 1024 * 1024;
+        let attachedFile = null;
+
+        function setFileLabel() {
+            if (!attachedFile) return;
+            fileDrop.classList.add('has-file');
+            fileName.textContent = '📎 ' + attachedFile.name + ' (' + (attachedFile.size / 1024).toFixed(0) + ' KB)';
+        }
+        function pickFile(f) {
+            if (f.size > MAX_FILE) {
+                const err = document.getElementById('ticketErr');
+                err.textContent = window.vAdBlockT ? vAdBlockT('sup_form_err') : 'Dosya çok büyük. Maksimum 5 MB.';
+                err.classList.add('show');
+                tFile.value = '';
+                return;
+            }
+            attachedFile = f;
+            setFileLabel();
+        }
+        if (fileDrop && tFile) {
+            fileDrop.addEventListener('click', () => tFile.click());
+            fileDrop.addEventListener('dragover', (e) => { e.preventDefault(); fileDrop.classList.add('dragover'); });
+            fileDrop.addEventListener('dragleave', () => fileDrop.classList.remove('dragover'));
+            fileDrop.addEventListener('drop', (e) => {
+                e.preventDefault();
+                fileDrop.classList.remove('dragover');
+                if (e.dataTransfer.files && e.dataTransfer.files[0]) pickFile(e.dataTransfer.files[0]);
+            });
+            tFile.addEventListener('change', () => {
+                if (tFile.files && tFile.files[0]) pickFile(tFile.files[0]);
+            });
+        }
+
+        // ── Form gönderimi (JSON + base64) ──
+        const ticketFormEl = document.getElementById('ticketFormEl');
+        const ticketSubmit = document.getElementById('ticketSubmit');
+        if (ticketFormEl) {
+            ticketFormEl.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const err = document.getElementById('ticketErr');
+                err.classList.remove('show');
+
+                const email = document.getElementById('tEmail').value.trim();
+                const subject = document.getElementById('tSubject').value.trim();
+                const message = document.getElementById('tMessage').value.trim();
+                if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                    err.textContent = 'Geçerli bir e-posta adresi girin.';
+                    err.classList.add('show');
+                    return;
+                }
+                if (subject.length < 3 || message.length < 10) {
+                    err.textContent = window.vAdBlockT ? vAdBlockT('sup_form_err') : 'Konu en az 3, mesaj en az 10 karakter olmalı.';
+                    err.classList.add('show');
+                    return;
+                }
+
+                ticketSubmit.disabled = true;
+                ticketSubmit.classList.add('loading');
+                const sendLabel = ticketSubmit.querySelector('span[data-i18n="sup_form_send"]');
+                if (sendLabel) sendLabel.textContent = window.vAdBlockT ? vAdBlockT('sup_form_sending') : 'Gönderiliyor...';
+
+                const payload = {
+                    category: document.getElementById('tCategory').value,
+                    name: document.getElementById('tName').value.trim(),
+                    email: email,
+                    subject: subject,
+                    message: message
+                };
+
+                const resetBtn = () => {
+                    ticketSubmit.classList.remove('loading');
+                    ticketSubmit.disabled = false;
+                    if (sendLabel) sendLabel.textContent = window.vAdBlockT ? vAdBlockT('sup_form_send') : 'Talebi Gönder';
+                };
+
+                const doSubmit = (finalPayload) => {
+                    fetch('/support_submit.php', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(finalPayload)
+                    })
+                    .then((r) => r.json().catch(() => ({ success: false })))
+                    .then((res) => {
+                        if (res && res.success) {
+                            ticketFormEl.reset();
+                            attachedFile = null;
+                            fileDrop.classList.remove('has-file');
+                            fileName.textContent = window.vAdBlockT ? vAdBlockT('sup_form_file_hint') : 'Ekran görüntüsü veya video (PNG, JPG, GIF, MP4 — max 5 MB)';
+                            const ok = document.getElementById('ticketOk');
+                            ok.classList.add('show');
+                            ok.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            setTimeout(() => ok.classList.remove('show'), 6000);
+                        } else {
+                            err.textContent = (res && res.message) || 'Bir şeyler ters gitti. Lütfen tekrar deneyin.';
+                            err.classList.add('show');
+                        }
+                        resetBtn();
+                    })
+                    .catch(() => {
+                        err.textContent = 'Bağlantı hatası. Lütfen tekrar deneyin.';
+                        err.classList.add('show');
+                        resetBtn();
+                    });
+                };
+
+                if (attachedFile) {
+                    const reader = new FileReader();
+                    reader.onload = () => {
+                        payload.attachment_b64 = reader.result;
+                        payload.attachment_name = attachedFile.name;
+                        doSubmit(payload);
+                    };
+                    reader.onerror = () => {
+                        err.textContent = 'Dosya okunamadı, lütfen tekrar deneyin.';
+                        err.classList.add('show');
+                        resetBtn();
+                    };
+                    reader.readAsDataURL(attachedFile);
+                } else {
+                    doSubmit(payload);
+                }
+            });
+        }
+    </script>
+</body>
+</html>

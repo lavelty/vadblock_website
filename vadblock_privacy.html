@@ -1,0 +1,442 @@
+<?php
+// Privacy Policy — vAdBlock Pro
+if (session_status() === PHP_SESSION_NONE) { session_start(); }
+$isLoggedIn = !empty($_SESSION['uid']);
+$loggedUsername = $_SESSION['vab_username'] ?? '';
+?>
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gizlilik ve Veri Güvenliği Politikası — vAdBlock Pro</title>
+<meta name="description" content="vAdBlock Pro Gizlilik Politikası: Cihaz içi yerel filtreleme, sıfır veri kaydı, sıfır takipçi ve sıfır veri satışı garantisi.">
+<link rel="icon" type="image/svg+xml" href="/brand/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/brand/icon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/skin/home.css?v=<?= time() ?>?v=<?= time() ?>">
+<style>
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: #FAFBFB;
+  color: #0F172A;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Hero Section */
+.doc-hero {
+  padding: 80px 24px 40px;
+  text-align: center;
+  position: relative;
+  background: radial-gradient(circle at 50% 0%, rgba(37, 99, 235, 0.12) 0%, rgba(59, 130, 246, 0.04) 40%, transparent 75%);
+}
+.doc-wrap {
+  max-width: 1040px;
+  margin: 0 auto;
+}
+.doc-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #EFF6FF;
+  border: 1px solid #BFDBFE;
+  color: #2563EB;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 800;
+  font-size: 12px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.doc-title {
+  font-family: 'Manrope', sans-serif;
+  font-size: 42px;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.15;
+  color: #0F172A;
+  margin-bottom: 16px;
+}
+.doc-title span {
+  color: #2563EB;
+}
+.doc-desc {
+  font-size: 16.5px;
+  color: #475569;
+  max-width: 680px;
+  margin: 0 auto 30px;
+  line-height: 1.6;
+}
+
+/* Trust Pill Indicators */
+.doc-trust-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+.doc-trust-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #0F172A;
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  padding: 8px 16px;
+  border-radius: 999px;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+}
+.doc-trust-pill svg {
+  color: #2563EB;
+}
+
+/* 2-Column Layout: Sidebar TOC + Main Content */
+.doc-grid {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 40px;
+  align-items: start;
+  margin-bottom: 80px;
+  text-align: left;
+}
+
+/* Sticky Sidebar Table of Contents */
+.doc-sidebar {
+  position: sticky;
+  top: 100px;
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.03);
+}
+.doc-sidebar-title {
+  font-family: 'Manrope', sans-serif;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #64748B;
+  margin-bottom: 14px;
+}
+.doc-toc-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.doc-toc-link {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #475569;
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+}
+.doc-toc-link:hover {
+  color: #2563EB;
+  background: #F8FAFC;
+  transform: translateX(3px);
+}
+.doc-toc-link.active {
+  color: #2563EB;
+  background: #EFF6FF;
+  font-weight: 700;
+}
+
+/* Document Content Card */
+.doc-content-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 24px;
+  padding: 44px 40px;
+  box-shadow: 0 20px 50px -15px rgba(15, 23, 42, 0.06);
+}
+.doc-section {
+  margin-bottom: 40px;
+  scroll-margin-top: 120px;
+}
+.doc-section:last-child {
+  margin-bottom: 0;
+}
+.doc-section-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.doc-section-num {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: #EFF6FF;
+  color: #2563EB;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 800;
+  font-size: 14px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+.doc-section h2 {
+  font-family: 'Manrope', sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  color: #0F172A;
+  letter-spacing: -0.02em;
+}
+.doc-section p {
+  color: #475569;
+  font-size: 15px;
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+.doc-section p:last-child {
+  margin-bottom: 0;
+}
+.doc-section ul {
+  margin: 14px 0 16px 20px;
+  color: #475569;
+  font-size: 15px;
+}
+.doc-section li {
+  margin-bottom: 8px;
+  line-height: 1.6;
+}
+.doc-section li strong {
+  color: #0F172A;
+}
+
+/* Core Promise Callout */
+.doc-callout {
+  background: #EFF6FF;
+  border: 1px solid #BFDBFE;
+  border-left: 4px solid #2563EB;
+  border-radius: 14px;
+  padding: 20px 22px;
+  margin: 24px 0 32px;
+}
+.doc-callout h3 {
+  font-family: 'Manrope', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  color: #0F172A;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.doc-callout p {
+  font-size: 14px;
+  color: #1E40AF;
+  line-height: 1.6;
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .doc-grid { grid-template-columns: 1fr; }
+  .doc-sidebar { display: none; }
+  .doc-title { font-size: 32px; }
+  .doc-content-card { padding: 30px 22px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="/" aria-label="vAdBlock Pro">
+      <img src="/img/logo.png" alt="vAdBlock Pro" width="34" height="34" style="display:block; object-fit:contain; border-radius:8px;">
+      <span>vAdBlock <b>Pro</b></span>
+    </a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="/#features">Features</a>
+      <a href="/#sites">Supported sites</a>
+      <a href="/#demo">Demo</a>
+      <a href="/#how">How it works</a>
+      <a href="/#pricing">Premium</a>
+      <a href="/#faq">FAQ</a>
+    </nav>
+    <div style="display:flex; align-items:center; gap:12px;">
+      <?php if ($isLoggedIn): ?>
+        <a href="/account" class="btn btn-ghost" style="display:inline-flex; align-items:center; gap:8px; padding:6px 14px; font-weight:700; color:#0F172A; text-decoration:none; background:rgba(37, 99, 235, 0.06); border:1px solid #E2E8F0; border-radius:999px; font-size:13.5px; white-space:nowrap;">
+          <span style="width:22px; height:22px; border-radius:50%; background:#2563EB; color:#fff; display:grid; place-items:center; font-size:11px; font-weight:800;"><?= strtoupper(mb_substr($loggedUsername ?: 'U', 0, 1)) ?></span>
+          <span>Hesabım</span>
+        </a>
+      <?php else: ?>
+        <a href="/login" class="btn btn-ghost" style="padding:7px 16px; font-weight:700; color:#0F172A; text-decoration:none; font-size:14px; border:1px solid #E2E8F0; border-radius:999px; background:#fff; white-space:nowrap;">Giriş Yap</a>
+      <?php endif; ?>
+      <a href="/lave_adblock_ext.zip" download class="btn btn-primary btn-nav"><span class="btn-ico"><img src="/brand/favicon.svg" alt="" width="22" height="22"></span>Add to Chrome</a>
+    </div>
+  </div>
+</header>
+
+<main class="doc-hero">
+  <div class="doc-wrap">
+    <span class="doc-badge">● GİZLİLİK VE VERİ GÜVENLİĞİ</span>
+    <h1 class="doc-title">Gizlilik <span>Politikası</span></h1>
+    <p class="doc-desc">vAdBlock Pro, kullanıcı gizliliğini temel alan bir mimariyle geliştirilmiştir. Ağ kuralları ve reklam filtreleme işlemi doğrudan kendi cihazınızda yürütülür; tarama geçmişiniz asla sunucularımıza gitmez.</p>
+
+    <!-- Trust Stats -->
+    <div class="doc-trust-row">
+      <span class="doc-trust-pill">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+        Sıfır Günlük (Zero-Log)
+      </span>
+      <span class="doc-trust-pill">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+        Cihaz İçi Filtreleme
+      </span>
+      <span class="doc-trust-pill">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line></svg>
+        Veri Satışı veya Profilleme Yok
+      </span>
+      <span class="doc-trust-pill">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+        GDPR & KVKK Uyumlu
+      </span>
+    </div>
+
+    <!-- 2-Column Content Grid -->
+    <div class="doc-grid">
+      
+      <!-- Sticky Sidebar Navigation -->
+      <aside class="doc-sidebar">
+        <div class="doc-sidebar-title">İçindekiler</div>
+        <nav class="doc-toc-nav">
+          <a href="#sec1" class="doc-toc-link active">1. Temel Taahhüt</a>
+          <a href="#sec2" class="doc-toc-link">2. Cihaz İçi Filtreleme</a>
+          <a href="#sec3" class="doc-toc-link">3. Hangi Veriler İşlenir?</a>
+          <a href="#sec4" class="doc-toc-link">4. Çerezler ve Depolama</a>
+          <a href="#sec5" class="doc-toc-link">5. Üçüncü Taraf İletişimi</a>
+          <a href="#sec6" class="doc-toc-link">6. Haklarınız & İletişim</a>
+        </nav>
+      </aside>
+
+      <!-- Main Document Card -->
+      <div class="doc-content-card">
+        
+        <div class="doc-callout">
+          <h3>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            Temel Gizlilik Prensibimiz
+          </h3>
+          <p>vAdBlock Pro, ziyaret ettiğiniz web sayfalarını, tıkladığınız bağlantıları veya tarayıcı geçmişinizi kaydetmez. Filtre kuralları yerel olarak eşleşir ve reklam istekleri ağ paketleri gönderilmeden önce engellenir.</p>
+        </div>
+
+        <section class="doc-section" id="sec1">
+          <div class="doc-section-head">
+            <span class="doc-section-num">01</span>
+            <h2>Temel Taahhüt ve Amacımız</h2>
+          </div>
+          <p>vAdBlock Pro ("Eklenti", "Hizmet" veya "Biz"), internet kullanıcılarının istenmeyen reklamlardan, zararlı izleyicilerden ve pop-up pencerelerinden arınmış temiz bir web deneyimi yaşaması amacıyla geliştirilmiştir. Gizliliğiniz bizim için ikincil bir özellik değil, yazılımımızın temel varoluş nedenidir.</p>
+          <p>Yazılımımız, kişisel profil oluşturma, hedefli reklamcılık veya kullanıcı verisi satışı gibi gelir modellerinin hiçbirini barındırmaz.</p>
+        </section>
+
+        <section class="doc-section" id="sec2">
+          <div class="doc-section-head">
+            <span class="doc-section-num">02</span>
+            <h2>Cihaz İçi Filtreleme (Manifest V3)</h2>
+          </div>
+          <p>vAdBlock Pro, Google Chrome'un en gelişmiş güvenlik standardı olan <b>Manifest V3 Declarative Net Request API</b> altyapısını kullanır:</p>
+          <ul>
+            <li><strong>Ağ Düzeyinde Engelleme:</strong> Kurallar tarayıcı motoruna önceden yüklenir. Reklam sunucularına giden istekler, ağ seviyesinde yerel olarak durdurulur.</li>
+            <li><strong>Sıfır İçerik İncelemesi:</strong> Eklenti kodumuz; bankacılık işlemleriniz, şifreleriniz, özel mesajlarınız veya form girişleriniz gibi hassas sayfa içeriklerini kesinlikle okuyamaz veya değiştiremez.</li>
+            <li><strong>Doğrudan İletişim:</strong> Eklenti bir proxy veya VPN değildir. Tüm internet trafiğiniz doğrudan siz ve ziyaret ettiğiniz web sitesi arasında gerçekleşir.</li>
+          </ul>
+        </section>
+
+        <section class="doc-section" id="sec3">
+          <div class="doc-section-head">
+            <span class="doc-section-num">03</span>
+            <h2>Hangi Veriler İşlenir?</h2>
+          </div>
+          <p>Hizmetin sürekliliği ve filtre kurallarının güncel kalması için yalnızca anonim teknik veriler işlenir:</p>
+          <ul>
+            <li><strong>Engelleme İstatistikleri:</strong> Eklenti simgesi üzerindeki canlı sayaç (engellenen reklam sayısı, kazanılan veri miktarı), tamamen tarayıcınızın yerel belleğinde (localStorage) hesaplanır.</li>
+            <li><strong>Filtre Güncelleme İstekleri:</strong> Eklenti, günde bir kez sunucularımızdan en son 54,000+ kural listesini indirmek için standart bir HTTPS isteği gönderir. Bu istekte kişisel veri yer almaz.</li>
+            <li><strong>Kullanıcı Hesabı (İsteğe Bağlı):</strong> Eğer vAdBlock Pro hesabı oluşturursanız, yalnızca belirttiğiniz kullanıcı adı, e-posta adresi ve şifrenin güvenli hash'i veritabanımızda saklanır.</li>
+          </ul>
+        </section>
+
+        <section class="doc-section" id="sec4">
+          <div class="doc-section-head">
+            <span class="doc-section-num">04</span>
+            <h2>Çerezler ve Yerel Depolama</h2>
+          </div>
+          <p>Web sitemiz (`vadblock.com`), yalnızca oturum yönetimi ve kullanıcı tercihlerini hatırlamak amacıyla zorunlu çerezler kullanır. Üçüncü taraf reklam çerezleri veya analitik izleme pikselleri kesinlikle kullanılmamaktadır.</p>
+        </section>
+
+        <section class="doc-section" id="sec5">
+          <div class="doc-section-head">
+            <span class="doc-section-num">05</span>
+            <h2>Üçüncü Taraf İletişimi</h2>
+          </div>
+          <p>Topluluk tabanlı <b>SponsorSkip</b> özelliği kullanıldığında, video ID'si açık kaynaklı topluluk veritabanına iletilerek sponsorlu zaman aralıkları sorgulanır. Bu sorgu hiçbir kullanıcı kimliği veya tarama geçmişi içermez.</p>
+        </section>
+
+        <section class="doc-section" id="sec6">
+          <div class="doc-section-head">
+            <span class="doc-section-num">06</span>
+            <h2>Haklarınız ve İletişim</h2>
+          </div>
+          <p>GDPR ve 6698 Sayılı KVKK kapsamında, sistemimizde bulunan hesap bilgilerinizi dilediğiniz zaman silme, güncelleme veya anonimleştirme hakkına sahipsiniz.</p>
+          <p>Gizlilik politikamızla ilgili tüm sorularınız için doğrudan mühendislerimize ulaşabilirsiniz:</p>
+          <p><b>E-posta:</b> <a href="mailto:admin@vadblock.com" style="color:#2563EB; font-weight:700; text-decoration:none;">admin@vadblock.com</a> · <b>Destek Masası:</b> <a href="/support" style="color:#2563EB; font-weight:700; text-decoration:none;">vadblock.com/support</a></p>
+        </section>
+
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<!-- Footer -->
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <a class="brand" href="/"><img src="/img/logo.png" alt="vAdBlock Pro" width="26" height="26" style="display:block; object-fit:contain; border-radius:8px;">
+      <span>vAdBlock <b>Pro</b></span></a>
+      <p>A free Chrome extension that blocks banner ads, video ads, pop-ups and trackers — for a cleaner, faster, quieter web.</p>
+    </div>
+    <div class="foot-col"><span class="foot-label">Product</span><a href="/#features">Features</a><a href="/#sites">Supported sites</a><a href="/#how">How it works</a><a href="/#pricing">Premium</a><a href="/lave_adblock_ext.zip" download>Download Extension</a></div>
+    <div class="foot-col"><span class="foot-label">Legal & Info</span><a href="/privacy">Privacy Policy</a><a href="/terms">Terms of Service</a><a href="/support">Support & Contact</a></div>
+    <div class="foot-col"><span class="foot-label">Hesap</span><?php if($isLoggedIn): ?><a href="/account">Hesap Detayları</a><a href="/?logout=1">Çıkış Yap</a><?php else: ?><a href="/login">Giriş Yap</a><a href="/register">Ücretsiz Kayıt Ol</a><?php endif; ?></div>
+  </div>
+  <div class="foot-legal wrap">&copy; 2026 vAdBlock Pro · Not affiliated with Google or Chrome. All trademarks belong to their respective owners.</div>
+</footer>
+
+<script>
+// Sidebar TOC active scroll spy
+window.addEventListener('scroll', function() {
+  var sections = document.querySelectorAll('.doc-section');
+  var links = document.querySelectorAll('.doc-toc-link');
+  var current = '';
+  sections.forEach(function(sec) {
+    var top = sec.offsetTop - 140;
+    if (window.pageYOffset >= top) {
+      current = sec.getAttribute('id');
+    }
+  });
+  links.forEach(function(link) {
+    link.classList.remove('active');
+    if (link.getAttribute('href') === '#' + current) {
+      link.classList.add('active');
+    }
+  });
+});
+</script>
+
+</body>
+</html>

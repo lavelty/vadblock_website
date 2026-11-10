@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vAdBlock - Ayarlar</title>    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/options.css">
+</head>
+<body>
+    <div class="background-mesh">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <div class="container glass-card">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="logo-area">
+                <img src="../icons/icon128.png" alt="vAdBlock Logo" style="width: 24px; height: 24px;">
+                <span data-i18n="extName">vAdBlock</span>
+            </div>
+
+            <ul class="nav-menu">
+                <li><a href="#" data-target="istatistikler" class="nav-item" data-i18n="nav_stats">İstatistikler</a></li>
+                <li><a href="#" data-target="genel" class="nav-item active" data-i18n="nav_general">Genel</a></li>
+                <li><a href="#" data-target="sponsor" class="nav-item" data-i18n="nav_sponsor">Sponsor Atlama</a></li>
+                <li><a href="#" data-target="koruma" class="nav-item" data-i18n="nav_protection">Koruma Seviyesi</a></li>
+                <li><a href="#" data-target="ozellestir" class="nav-item" data-i18n="nav_customize">Özelleştir</a></li>
+                <li><a href="#" data-target="filtreler" class="nav-item" data-i18n="nav_filters">Filtreler</a></li>
+                <li><a href="#" data-target="temalar" class="nav-item" data-i18n="nav_themes">Temalar</a></li>
+                <li><a href="#" data-target="destek" class="nav-item" data-i18n="nav_support">Destek</a></li>
+            </ul>
+
+            <div class="separator"></div>
+
+            <div class="premium-section-title" data-i18n="premium_section">Hesap & Premium</div>
+            <ul class="nav-menu">
+                <li><a href="#" data-target="premium-filters" class="nav-item premium-link" data-i18n="nav_premium">Premium Filtreler</a></li>
+            </ul>
+
+            <!-- Auth Sidebar Section -->
+            <div class="sidebar-auth-panel" id="sidebarAuthPanel">
+                <!-- Logged out state -->
+                <div id="authLoggedOut" style="display: none;">
+                    <div class="auth-guest">
+                        <div class="auth-guest-icon">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                        </div>
+                        <p class="auth-hint">Katkılarını takip etmek için:</p>
+                    </div>
+                    <button class="btn btn-primary" id="btnShowLogin">Giriş Yap</button>
+                </div>
+                <!-- Logged in state -->
+                <div id="authLoggedIn" style="display: none;">                    <div class="user-info" id="sidebarUserCard" title="Hesabımı aç">
+                        <div class="avatar-wrap">
+                            <div class="avatar" id="authAvatar">U</div>
+                            <div class="avatar-status" title="Bağlı"></div>
+                        </div>
+                        <div class="user-details">
+                            <div class="username" id="authUsername">Kullanıcı</div>
+                            <div class="user-sub"><span class="mem-chip mem-free" id="authMemChip">Ücretsiz</span></div>
+                        </div>
+                        <div class="user-actions">
+                            <button class="icon-btn" id="btnSidebarSettings" title="Ayarlar" aria-label="Ayarlar">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z "></path></svg>
+                            </button>
+                            <button class="icon-btn danger" id="btnLogout" title="Çıkış Yap" aria-label="Çıkış Yap">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Sidebar Navigation -->
+        </nav>
+
+        <!-- Main Content -->
+        <main class="content-area">
+            
+            <!-- Pane: İstatistikler -->
+            <section id="istatistikler" class="pane" data-search="stats istatistik rapor rapor haftalik log gunluk siteler">
+                <h2 data-i18n="opt_stats_title">İstatistikler</h2>
+                <p class="subtitle" data-i18n="opt_stats_subtitle">vAdBlock'un arka planda ne kadar çalıştığını görün.</p>
+                
+                <div class="stats-grid">
+                    <div class="stat-box" style="color: #3B82F6;">
+                        <div class="stat-val" id="global_stat_ads" style="color: #3B82F6;">0</div>
+                        <div class="stat-lbl" data-i18n="opt_stat_ads_7d">Son 7 günde engellenen reklam</div>
+                    </div>
+                    <div class="stat-box" style="color: #8B5CF6;">
+                        <div class="stat-val" id="global_stat_trackers" style="color: #8B5CF6;">0</div>
+                        <div class="stat-lbl" data-i18n="opt_stat_trackers">Engellenen veri toplayıcı izleyici</div>
+                    </div>
+                    <div class="stat-box" style="color: #10B981;">
+                        <div class="stat-val" id="global_stat_data" style="color: #10B981;">0 MB</div>
+                        <div class="stat-lbl" data-i18n="opt_stat_data">Tasarruf edilen veri</div>
+                    </div>
+                    <div class="stat-box" style="color: #F59E0B;">
+                        <div class="stat-val" id="global_stat_time" style="color: #F59E0B;">0 dk</div>
+                        <div class="stat-lbl" data-i18n="opt_stat_time">Sayfa yüklenmelerinde kazanılan süre</div>
+                    </div>
+                </div>
+
+                <div class="feature-card" style="margin-top: 24px;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
+                        <h3 style="margin:0;" data-i18n="opt_report_title">Aktivite Raporu</h3>
+                        <div class="range-toggle" id="reportRange">
+                            <button class="range-btn active" data-range="7d" data-i18n="chart_7days">7 gün</button>
+                            <button class="range-btn" data-range="30d" data-i18n="chart_30d">30 gün</button>
+                        </div>
+                    </div>
+                    <div class="report-stats" id="reportStats" style="margin-top:16px;">
+                        <div class="report-stat"><div class="report-stat-value" id="reportTotal">0</div><div class="report-stat-label" data-i18n="opt_report_total">Engellenen istek</div></div>
+                        <div class="report-stat"><div class="report-stat-value" id="reportAds">0</div><div class="report-stat-label" data-i18n="opt_report_ads">Reklam</div></div>
+                        <div class="report-stat"><div class="report-stat-value" id="reportTrackers">0</div><div class="report-stat-label" data-i18n="opt_report_trackers">İzleyici</div></div>
+                        <div class="report-stat"><div class="report-stat-value amber" id="reportDaily">0</div><div class="report-stat-label" data-i18n="opt_report_daily">Günlük ortalama</div></div>
+                    </div>
+                    <div class="weekly-chart" id="weeklyChart" style="margin-top: 22px;"></div>
+                    <div class="top-domains" id="topDomainsList"></div>
+                </div>
+            </section>
+
+            <!-- Pane: Genel -->
+            <section id="genel" class="pane active" data-search="genel general ayarlar settings dil language checkbox">
+                <h2 data-i18n="opt_general_title">Genel Ayarlar</h2>
+                <div class="settings-grid">
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <div class="setting-title" data-i18n="opt_allow_non_intrusive">Rahatsız etmeyen bazı reklamlara izin ver</div>
+                        </div>
+                        <label class="switch"><input type="checkbox" id="allowNonIntrusive"><span class="slider round"></span></label>
+                    </div>
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <div class="setting-title" data-i18n="opt_context_menu">Sağ tıklama menüsüne vAdBlock seçeneklerini ekle</div>
+                        </div>
+                        <label class="switch"><input type="checkbox" id="showContextMenu" checked><span class="slider round"></span></label>
+                    </div>
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <div class="setting-title" data-i18n="opt_badge_count">vAdBlock düğmesi üzerinde kaç reklam engellendiğini göster</div>
+                        </div>
+                        <label class="switch"><input type="checkbox" id="showBadgeCount" checked><span class="slider round"></span></label>
+                    </div>
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <div class="setting-title" data-i18n="opt_dev_tools">Geliştirici araçlarında 'vAdBlock' panelini göster</div>
+                        </div>
+                        <label class="switch"><input type="checkbox" id="showDevTools"><span class="slider round"></span></label>
+                    </div>
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <div class="setting-title" data-i18n="opt_promotions">vAdBlock'in ara sıra tanıtım mesajları göstermesine izin ver</div>
+                        </div>
+                        <label class="switch"><input type="checkbox" id="allowPromotions"><span class="slider round"></span></label>
+                    </div>
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <div class="setting-title" data-i18n="opt_fingerprint">Parmak izi koruması (Canvas/WebGL donanım bilgisini gizle)</div>
+                        </div>
+                        <label class="switch"><input type="checkbox" id="fingerprintBlocking"><span class="slider round"></span></label>
+                    </div>
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <div class="setting-title" data-i18n="opt_anti_adblock">"Reklam engelleyici tespit edildi" uyarılarını gizle</div>
+                        </div>
+                        <label class="switch"><input type="checkbox" id="antiAdblockHide"><span class="slider round"></span></label>
+                    </div>
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <div class="setting-title" data-i18n="opt_https">Güvenli (HTTPS) bağlantıya zorla</div>
+                        </div>
+                        <label class="switch"><input type="checkbox" id="httpsUpgrade"><span class="slider round"></span></label>
+                    </div>
+                    <div class="setting-row" style="border-bottom:none;">
+                        <div class="setting-info">
+                            <div class="setting-title" data-i18n="opt_webrtc">WebRTC IP adresi sızıntısını engelle</div>
+                        </div>
+                        <label class="switch"><input type="checkbox" id="webrtcBlock"><span class="slider round"></span></label>
+                    </div>
+                </div>
+
+                <div class="feature-card" style="margin-top: 24px; display: flex; flex-direction: column; align-items: center; text-align: center;">
+                    <h3 data-i18n="opt_language_title" style="margin-bottom: 8px;">Dil / Language</h3>
+                    <p data-i18n="opt_language_desc" style="margin-bottom: 20px;">Arayüz dilini seçin. Otomatik seçeneği tarayıcı dilini kullanır.</p>
+                    <div style="width: 100%; max-width: 300px;">
+                        <select id="languageSelect" class="language-select" style="text-align: center; text-align-last: center;">
+                            <option value="auto" data-i18n="opt_language_auto">Otomatik (tarayıcı diline göre)</option>
+                            <option value="tr" data-i18n="opt_language_tr">Türkçe</option>
+                            <option value="en" data-i18n="opt_language_en">English</option>
+                            <option value="de">Deutsch</option>
+                            <option value="fr">Français</option>
+                            <option value="it">Italiano</option>
+                            <option value="ja">日本語 (Japanese)</option>
+                            <option value="ru">Русский (Russian)</option>
+                            <option value="es">Español</option>
+                            <option value="pl">Polski</option>
+                            <option value="zh_CN">简体中文 (Simplified Chinese)</option>
+                            <option value="zh_TW">繁體中文 (Traditional Chinese)</option>
+                            <option value="sr">Српски (Serbian)</option>
+                            <option value="sl">Slovenščina (Slovenian)</option>
+                            <option value="pt">Português</option>
+                            <option value="ko">한국어 (Korean)</option>
+                            <option value="ar">العربية (Arabic)</option>
+                            <option value="hi">हिन्दी (Hindi)</option>
+                            <option value="id">Bahasa Indonesia</option>
+                            <option value="vi">Tiếng Việt (Vietnamese)</option>
+                            <option value="th">ไทย (Thai)</option>
+                            <option value="bn">বাংলা (Bengali)</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Pane: Sponsor Atlama -->
+            <section id="sponsor" class="pane" data-search="sponsor atlama youtube reklam atla video segment intro">
+                <h2 data-i18n="opt_sb_title">Sponsor Atlama</h2>
+                <p class="subtitle" data-i18n="opt_sb_subtitle">YouTube videolarındaki sponsorlukları, girişleri ve gereksiz bölümleri atlayarak zaman kazanın.</p>
+                
+                <div class="feature-card" style="margin-top: 24px;">
+                    <h3 style="margin-bottom: 12px; color: #10B981;" data-i18n="opt_sb_general">▶ Genel Ayarlar</h3>
+                    <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;" data-i18n="opt_sb_general_desc">Sponsor atlama sisteminin temel işleyişini belirleyin.</p>
+                    <div class="settings-grid">
+                        <div class="setting-row">
+                            <div class="setting-info">
+                                <div class="setting-title" data-i18n="opt_sb_enable">Sponsor atlamayı etkinleştir</div>
+                                <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;" data-i18n="opt_sb_enable_desc">Tüm atlama özellikleri için ana şalter.</div>
+                            </div>
+                            <label class="switch"><input type="checkbox" id="sponsorSkip" checked><span class="slider round"></span></label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feature-card" style="margin-top: 24px;">
+                    <h3 style="margin-bottom: 12px; color: #3B82F6;" data-i18n="opt_sb_categories">🗂 Kategori Ayarları</h3>
+                    <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;" data-i18n="opt_sb_categories_desc">Hangi tür segmentlerde ne yapılacağını tek tek belirleyin.</p>
+                    <div class="settings-grid" id="categorySettingsGrid">
+                        <!-- Kategoriler JS ile buraya yüklenecek -->
+                    </div>
+                </div>
+
+                <div class="feature-card" style="margin-top: 24px;">
+                    <h3 style="margin-bottom: 12px; color: #8B5CF6;" data-i18n="opt_sb_contribute">♥ Topluluğa Katkıda Bulun</h3>
+                    <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;" data-i18n="opt_sb_contribute_desc">Videolardaki reklamlı veya gereksiz alanları seçip veritabanına göndererek diğer kullanıcılara yardımcı olabilirsiniz.</p>
+                    <div class="settings-grid">
+                        <div class="setting-row">
+                            <div class="setting-info">
+                                <div class="setting-title" data-i18n="opt_sb_show_add">Segment ekleme butonunu göster</div>
+                                <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;" data-i18n="opt_sb_show_add_desc">Video oynatıcısında "Bölüm Ekle" (Yapay Zeka) arayüzünü açar.</div>
+                            </div>
+                            <label class="switch"><input type="checkbox" id="sponsorShowAdd" checked><span class="slider round"></span></label>
+                        </div>
+                        <div class="setting-row" style="border-bottom:none;">
+                            <div class="setting-info">
+                                <div class="setting-title" data-i18n="opt_sb_api">Özel API Adresi</div>
+                                <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;" data-i18n="opt_sb_api_desc">Verilerin gönderileceği ve alınacağı sunucu bağlantısı. (Gelişmiş)</div>
+                            </div>
+                            <input type="text" id="sponsorApiUrl" value="https://vadblock.com/api" style="flex:1; max-width:280px; background: rgba(0,0,0,0.1); border:1px solid rgba(255,255,255,0.15); color: inherit; border-radius:8px; padding:10px 14px; font-size:13px; outline: none; transition: border-color 0.2s;">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Pane: Koruma Seviyesi -->
+            <section id="koruma" class="pane" data-search="koruma protection level rahat dengeli siki mod seviye">
+                <h2 data-i18n="opt_protection_title">Koruma Seviyesi</h2>
+                <p class="subtitle" data-i18n="opt_protection_subtitle">İnternet gezinme alışkanlıklarınıza en uygun güvenlik modunu seçin.</p>
+                
+                <div class="protection-modes">
+                    <!-- Rahat Mod -->
+                    <label class="mode-card">
+                        <input type="radio" name="protectionLevel" value="relaxed">
+                        <div>
+                            <div class="mode-title" data-i18n="opt_mode_relaxed">Rahat Mod</div>
+                            <div class="mode-desc" data-i18n="opt_mode_relaxed_desc">Temel reklamları engeller. Gelişmiş izleyiciler ve siteyi bozma ihtimali olan sert filtreler kapalıdır. Performans ve uyumluluk en üst seviyededir.</div>
+                        </div>
+                    </label>
+
+                    <!-- Dengeli Mod -->
+                    <label class="mode-card selected">
+                        <input type="radio" name="protectionLevel" value="balanced" checked>
+                        <div>
+                            <div class="mode-title" data-i18n="opt_mode_balanced">Dengeli Mod (Önerilen)</div>
+                            <div class="mode-desc" data-i18n="opt_mode_balanced_desc">Çoğu reklamı ve bilinen veri toplayıcıları engeller. Günlük internet kullanımı için ideal, performansı etkilemeyen pürüzsüz koruma.</div>
+                        </div>
+                    </label>
+
+                    <!-- Sıkı Mod -->
+                    <label class="mode-card">
+                        <input type="radio" name="protectionLevel" value="strict">
+                        <div>
+                            <div class="mode-title" data-i18n="opt_mode_strict">Sıkı Mod</div>
+                            <div class="mode-desc" data-i18n="opt_mode_strict_desc">Maksimum gizlilik! Tüm GPC/DNT sinyallerini manipüle eder, parmak izi okuyucuları bozar ve agresif reklam ağlarını kökünden bloklar. (Test siteleri için ideal)</div>
+                        </div>
+                    </label>
+                </div>
+            </section>
+
+            <!-- Pane: Özelleştir -->
+            <section id="ozellestir" class="pane" data-search="ozellestir customize allowlist izin verilen siteler css network ag yedek backup">
+                <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 24px; flex-wrap: wrap; gap: 16px;">
+                    <div>
+                        <h2 data-i18n="opt_customize_title" style="margin-bottom: 8px;">Özelleştir</h2>
+                        <p class="subtitle" style="margin-bottom: 0;" data-i18n="opt_customize_subtitle">Eklentiyi tamamen ihtiyaçlarınıza göre şekillendirin.</p>
+                    </div>
+                    
+                    <div style="display: flex; gap: 8px; background: var(--bg-card); padding: 6px; border-radius: 12px; border: 1px solid var(--border-color);">
+                        <button class="primary-button secondary" id="exportBtn" data-i18n="opt_export" style="padding: 8px 16px; font-size: 13px; margin: 0; background: transparent; border: none; box-shadow: none;">Yedeği İndir</button>
+                        <button class="primary-button" id="importBtn" data-i18n="opt_import" style="padding: 8px 16px; font-size: 13px; margin: 0;">Yedeği Yükle</button>
+                        <input type="file" id="importFile" accept="application/json" style="display: none;">
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 24px;">
+                    <!-- Sol Sütun: Allowlist -->
+                    <div class="feature-card" style="margin: 0; display: flex; flex-direction: column; height: 100%; min-height: 400px;">
+                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                            <div style="width: 36px; height: 36px; border-radius: 10px; background: rgba(16, 185, 129, 0.15); display: flex; align-items: center; justify-content: center; color: #10B981;">
+                                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                            </div>
+                            <h3 data-i18n="opt_allowlist_title" style="margin: 0;">İzin Verilen Siteler (Allowlist)</h3>
+                        </div>
+                        <p data-i18n="opt_allowlist_desc" style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">Aşağıdaki sitelerde reklam engelleme devre dışı bırakılmıştır.</p>
+                        
+                        <div class="whitelist-add-form" style="display: flex; gap: 12px; margin-bottom: 16px;">
+                            <input type="text" id="whitelistInput" data-i18n-placeholder="opt_allowlist_placeholder" style="flex: 1; margin: 0; border-radius: 12px; padding: 12px 16px;">
+                            <button class="primary-button" id="addWhitelistBtn" data-i18n="opt_add" style="margin: 0; border-radius: 12px; padding: 0 20px;">Ekle</button>
+                        </div>
+
+                        <div class="whitelist-list" id="whitelistContainer" style="flex: 1; overflow-y: auto; max-height: 380px;">
+                            <div class="empty-state" data-i18n="opt_allowlist_empty" style="padding: 32px 24px; text-align: center; color: var(--text-muted);">Henüz site eklenmemiş. Yukarıdan bir alan adı ekleyin.</div>
+                        </div>
+                    </div>
+
+                    <!-- Sağ Sütun: Kodlar -->
+                    <div style="display: flex; flex-direction: column; gap: 24px;">
+                        <div class="feature-card textarea-group" style="margin: 0; flex: 1; display: flex; flex-direction: column;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                                <div style="display: flex; align-items: center; gap: 12px;">
+                                    <div style="width: 36px; height: 36px; border-radius: 10px; background: rgba(59, 130, 246, 0.15); display: flex; align-items: center; justify-content: center; color: #3B82F6;">
+                                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                                    </div>
+                                    <div>
+                                        <h3 data-i18n="opt_css_title" style="margin: 0; margin-bottom: 4px;">Özel CSS Kuralları</h3>
+                                        <p data-i18n="opt_css_desc" style="font-size: 12px; color: var(--text-muted); margin: 0;">Gelişmiş özel gizleme kuralları.</p>
+                                    </div>
+                                </div>
+                                <button class="primary-button" id="saveCustomCssBtn" data-i18n="opt_save" style="padding: 8px 16px; font-size: 13px; margin: 0;">Kaydet</button>
+                            </div>
+                            <textarea id="customCss" class="code-font" data-i18n-placeholder="opt_css_placeholder" style="flex: 1; margin: 0; min-height: 140px;"></textarea>
+                        </div>
+
+                        <div class="feature-card textarea-group" style="margin: 0; flex: 1; display: flex; flex-direction: column;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                                <div style="display: flex; align-items: center; gap: 12px;">
+                                    <div style="width: 36px; height: 36px; border-radius: 10px; background: rgba(139, 92, 246, 0.15); display: flex; align-items: center; justify-content: center; color: #8B5CF6;">
+                                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
+                                    </div>
+                                    <div>
+                                        <h3 data-i18n="opt_network_title" style="margin: 0; margin-bottom: 4px;">Özel Ağ Kuralları</h3>
+                                        <p data-i18n="opt_network_desc" style="font-size: 12px; color: var(--text-muted); margin: 0;">||ornek.com^ veya @@||... formunda.</p>
+                                    </div>
+                                </div>
+                                <button class="primary-button" id="saveNetworkRulesBtn" data-i18n="opt_save" style="padding: 8px 16px; font-size: 13px; margin: 0;">Kaydet</button>
+                            </div>
+                            <textarea id="networkRules" class="code-font" style="flex: 1; margin: 0; min-height: 140px;"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+
+            <!-- Pane: Filtreler -->
+            <section id="filtreler" class="pane" data-search="filtreler filters guncelle update listeler list">
+                <h2 data-i18n="opt_filters_title">Filtre Listeleri</h2>
+                <p class="subtitle" data-i18n="opt_filters_subtitle">Hangi filtre listelerinin kullanılacağını seçin ve listeleri güncelleyin.</p>
+                
+                <div class="feature-card filter-update-card" style="margin-top: 24px;">
+                    <h3 data-i18n="opt_update_title" style="margin: 0 0 6px 0;">Listeleri Güncelle</h3>
+                    <p class="filter-update-desc" style="margin: 0;">
+                        <span data-i18n="opt_update_desc">Filtre listeleri otomatik olarak haftada bir güncellenir.</span>
+                    </p>
+                    <button class="primary-button" id="updateFiltersBtn" style="display: inline-flex; align-items: center; gap: 8px; padding: 10px 22px; font-size: 13px; border-radius: 100px; margin: 14px auto 0; white-space: nowrap;">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><path d="M23 4v6h-6"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                        <span data-i18n="opt_update_btn">Filtreleri Güncelle</span>
+                    </button>
+                    <div class="filter-status-bar" style="margin-top: 18px;">
+                        <span id="filterAutoStatus" class="filter-auto-status">Durum yükleniyor...</span>
+                        <span class="filter-updated-at">
+                            <span data-i18n="opt_update_last">Son güncelleme:</span>
+                            <strong id="filterUpdatedAt" style="color: var(--text-highlight); font-weight: 600;">—</strong>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="feature-card" style="margin-top: 24px;">
+                    <h3 class="filter-section-title" data-i18n="opt_filters_lists" style="margin: 0 0 4px 0;">Aktif Filtre Listeleri</h3>
+                    <p class="filter-section-desc" data-i18n="opt_filters_lists_desc" style="font-size: 13px; color: var(--text-muted); margin: 0 0 20px 0;">Engelleme için kullanılan filtre listeleri.</p>
+                    <div class="filter-cards">
+                        <div class="filter-card">
+                            <span class="filter-card-tag">esas liste</span>
+                            <h4>EasyList</h4>
+                            <p data-i18n="opt_filter_easylist_desc">Ana reklam filtreleri — çoğu reklam ağını engeller.</p>
+                            <label class="switch"><input type="checkbox" class="filter-list-cb" data-list="easylist" checked><span class="slider round"></span></label>
+                        </div>
+                        <div class="filter-card">
+                            <span class="filter-card-tag">gizlilik</span>
+                            <h4>EasyPrivacy</h4>
+                            <p data-i18n="opt_filter_easyprivacy_desc">İzleyici ve analitik alan adlarını engeller.</p>
+                            <label class="switch"><input type="checkbox" class="filter-list-cb" data-list="easyprivacy" checked><span class="slider round"></span></label>
+                        </div>
+                        <div class="filter-card">
+                            <span class="filter-card-tag">ek liste</span>
+                            <h4>AdGuard Base & Tracking</h4>
+                            <p data-i18n="opt_filter_adguard_desc">Reklam sunucuları ve izleme sunucuları listeleri.</p>
+                            <label class="switch"><input type="checkbox" class="filter-list-cb" data-list="adguard" checked><span class="slider round"></span></label>
+                        </div>
+                        <div class="filter-card">
+                            <span class="filter-card-tag">vAdBlock</span>
+                            <h4>vAdBlock Filters</h4>
+                            <p data-i18n="opt_filter_ubo_desc">vAdBlock filtreleri ve gizlilik listeleri.</p>
+                            <label class="switch"><input type="checkbox" class="filter-list-cb" data-list="ubo" checked><span class="slider round"></span></label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="destek" class="pane" data-search="destek support yardim help iletisim">
+                <h2 data-i18n="opt_support_title">Destek</h2>
+                <p class="subtitle" data-i18n="opt_support_subtitle">Herhangi bir sorunuz veya sorununuz varsa bize ulaşın.</p>
+
+                <!-- Sıkça Sorulan Sorular (akordeon) -->
+                <div class="feature-card support-faq" style="margin-top: 24px;">
+                    <div class="support-faq-head">
+                        <span class="support-faq-icon">
+                            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                        </span>
+                        <h3 data-i18n="opt_faq_title">Sıkça Sorulan Sorular</h3>
+                    </div>
+                    <details class="faq-item" open>
+                        <summary>
+                            <span data-i18n="opt_faq_1_q">Eklenti YouTube reklamlarını engelliyor mu?</span>
+                            <svg class="faq-chevron" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </summary>
+                        <p data-i18n="opt_faq_1_a">Evet, vAdBlock özel algoritmalarla YouTube video içi reklamlarını otomatik olarak engeller ve atlar.</p>
+                    </details>
+                    <details class="faq-item">
+                        <summary>
+                            <span data-i18n="opt_faq_2_q">Bazı siteler kırık görünüyor, ne yapmalıyım?</span>
+                            <svg class="faq-chevron" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </summary>
+                        <p data-i18n="opt_faq_2_a">Eğer bir site düzgün çalışmıyorsa, eklenti penceresinden o site için korumayı duraklatabilirsiniz (Allowlist).</p>
+                    </details>
+                    <details class="faq-item">
+                        <summary>
+                            <span data-i18n="opt_faq_3_q">Bir siteyi nasıl beyaz listeye alırım?</span>
+                            <svg class="faq-chevron" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </summary>
+                        <p data-i18n="opt_faq_3_a">Araç çubuğundaki vAdBlock simgesine tıklayın ve o sayfada korumayı duraklatın — site anında beyaz listeye eklenir. Genel Ayarlar → Beyaz Liste bölümünden de yönetebilirsiniz.</p>
+                    </details>
+                    <details class="faq-item">
+                        <summary>
+                            <span data-i18n="opt_faq_4_q">SponsorSkip nasıl çalışır, segment nasıl eklerim?</span>
+                            <svg class="faq-chevron" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </summary>
+                        <p data-i18n="opt_faq_4_a">YouTube'da videonun altındaki "Segment Ekle" butonuyla sponsorlu bölümün başlangıç ve bitişini işaretleyin. Topluluk tarafından gönderilen segmentler herkes için otomatik atlanır.</p>
+                    </details>
+                    <details class="faq-item">
+                        <summary>
+                            <span data-i18n="opt_faq_5_q">Hatalı bir filtre veya eksik reklam nasıl bildiririm?</span>
+                            <svg class="faq-chevron" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </summary>
+                        <p data-i18n="opt_faq_5_a">Aşağıdaki "Destek Talebi Oluştur" formunu kullanabilir veya filtre deposuna gönderim yapabilirsiniz: github.com/vAdBlock/vAssets</p>
+                    </details>
+                </div>
+
+                <!-- Destek Talebi Oluştur -->
+                <div class="feature-card support-ticket" style="margin-top: 24px;">
+                    <div class="support-ticket-head">
+                        <span class="support-ticket-icon">
+                            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                        </span>
+                        <div>
+                            <h3 data-i18n="opt_ticket_title">Destek Talebi Oluştur</h3>
+                            <p data-i18n="opt_ticket_sub">Hata bildir, öneri gönder — yanıtı e-posta ile al.</p>
+                        </div>
+                    </div>
+                    <form id="extTicketForm" novalidate class="support-ticket-form">
+                        <div class="support-ticket-row">
+                            <select id="extTCategory">
+                                <option value="technical">Teknik Destek</option>
+                                <option value="billing">Hesap & Ödeme</option>
+                                <option value="features">Özellik Rehberi</option>
+                                <option value="feedback">Geri Bildirim</option>
+                                <option value="other">Diğer</option>
+                            </select>
+                            <input type="email" id="extTEmail" placeholder="E-posta adresin" required>
+                        </div>
+                        <input type="text" id="extTSubject" placeholder="Konu başlığı" required maxlength="255">
+                        <textarea id="extTMessage" rows="4" placeholder="Sorununuzu veya önerinizi detaylı yazın..." required></textarea>
+                        <div id="extTErr" style="display: none; padding: 10px 14px; background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3); color: #F87171; border-radius: 10px; font-size: 13px;"></div>
+                        <div id="extTOk" style="display: none; padding: 10px 14px; background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.3); color: #10B981; border-radius: 10px; font-size: 13px;">✓ Talebiniz alındı! En kısa sürede dönüş yapacağız.</div>
+                        <button type="submit" id="extTSubmit" class="primary-button support-ticket-btn">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                            <span data-i18n="opt_ticket_btn">Talebi Gönder</span>
+                        </button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Pane: Temalar -->
+            <section id="temalar" class="pane" data-search="tema theme renk color karanlik aydinlik ocean midnight forest ozellestir gorunum">
+                <h2 data-i18n="opt_themes_title">Temalar</h2>
+                <p class="subtitle" data-i18n="opt_themes_subtitle">vAdBlock görünümünü kişiselleştirin. Tarzınızı yansıtın.</p>
+                
+                <div class="theme-grid">
+                    <div class="theme-card" data-theme="default">
+                        <div class="theme-swatch" style="background: linear-gradient(135deg, #0E1015, #1E293B);"></div>
+                        <div class="theme-palette">
+                            <span style="background:#0A0A0A;"></span><span style="background:#131316;"></span><span style="background:#8B5CF6;"></span><span style="background:#F5F5F5;"></span>
+                        </div>
+                        <div class="theme-name" data-i18n="theme_default">Varsayılan (Site Teması)</div>
+                        <div class="theme-preview"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg></div>
+                        <div class="theme-check">✓</div>
+                    </div>
+                    <div class="theme-card" data-theme="dark">
+                        <div class="theme-swatch" style="background: linear-gradient(135deg, #0E1015, #1E293B);"></div>
+                        <div class="theme-palette">
+                            <span style="background:#0E1015;"></span><span style="background:#171A21;"></span><span style="background:#8B5CF6;"></span><span style="background:#EDEFF3;"></span>
+                        </div>
+                        <div class="theme-name" data-i18n="theme_dark">Karanlık Madde</div>
+                        <div class="theme-preview"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg></div>
+                        <div class="theme-check">✓</div>
+                    </div>
+                    <div class="theme-card" data-theme="light">
+                        <div class="theme-swatch" style="background: linear-gradient(135deg, #F8FAFC, #E2E8F0);"></div>
+                        <div class="theme-palette">
+                            <span style="background:#F8FAFC;"></span><span style="background:#FFFFFF;"></span><span style="background:#8B5CF6;"></span><span style="background:#0F172A;"></span>
+                        </div>
+                        <div class="theme-name" data-i18n="theme_light">Aydınlık / Beyaz</div>
+                        <div class="theme-preview"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg></div>
+                        <div class="theme-check">✓</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Pane: Premium Filters -->
+            <section id="premium-filters" class="pane premium-pane" data-search="premium cookie cerez odak focus">
+                <h2 data-i18n="opt_premium_title">Premium Filtreler</h2>
+                <p class="subtitle" data-i18n="opt_premium_subtitle">vAdBlock deneyiminizi en üst düzeye çıkarın.</p>
+                
+                <div class="premium-grid">
+                    <div class="premium-feature-card">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                        </div>
+                        <div class="feature-info" style="flex:1;">
+                            <h3 data-i18n="opt_premium_focus_title" style="margin:0 0 4px 0; font-size:16px;">Odaklanma Modu</h3>
+                            <p data-i18n="opt_premium_focus_desc" style="margin:0; font-size:13px; color:var(--text-muted);">Haber bülteni açılışlarını, kayan videoları ve reklam olmayan ama sinir bozan öğeleri gizleyin.</p>
+                        </div>
+                        <label class="switch"><input type="checkbox" id="premiumFocusMode"><span class="slider round"></span></label>
+                    </div>
+
+                    <div class="premium-feature-card">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 0 1 10 10 4 4 0 0 1-5 4.5 4 4 0 0 1-5-4.5 4 4 0 0 1-5 4.5 4 4 0 0 1-5-4.5A10 10 0 0 1 12 2z"></path></svg>
+                        </div>
+                        <div class="feature-info" style="flex:1;">
+                            <h3 data-i18n="opt_premium_cookie_title" style="margin:0 0 4px 0; font-size:16px;">Otomatik Çerez Kabul/Red</h3>
+                            <p data-i18n="opt_premium_cookie_desc" style="margin:0; font-size:13px; color:var(--text-muted);">Popüler sitelerdeki çerez uyarılarını otomatik olarak gizleyin.</p>
+                        </div>
+                        <label class="switch"><input type="checkbox" id="premiumCookieBlocker"><span class="slider round"></span></label>
+                    </div>
+
+                    <div class="premium-feature-card">
+                        <div class="feature-icon" style="background: rgba(16, 185, 129, 0.1); color: #10B981;">
+                            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                        </div>
+                        <div class="feature-info" style="flex:1;">
+                            <h3 data-i18n="opt_premium_cookie2_title" style="margin:0 0 4px 0; font-size:16px;">Çerez Onayını Otomatik Kabul Et</h3>
+                            <p data-i18n="opt_premium_cookie2_desc" style="margin:0; font-size:13px; color:var(--text-muted);">Cookie bildirimlerindeki "kabul et" düğmesine otomatik tıklar.</p>
+                        </div>
+                        <label class="switch"><input type="checkbox" id="cookieAutoClick"><span class="slider round"></span></label>
+                    </div>
+
+                    <div class="premium-feature-card">
+                        <div class="feature-icon" style="background: rgba(0, 212, 0, 0.1); color: #00d400;">
+                            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon><line x1="19" y1="3" x2="19" y2="21"></line></svg>
+                        </div>
+                        <div class="feature-info" style="flex:1;">
+                            <h3 data-i18n="opt_sponsor_skip_title" style="margin:0 0 4px 0; font-size:16px;">YouTube Sponsor Atlayıcı</h3>
+                            <p data-i18n="opt_sponsor_skip_desc" style="margin:0; font-size:13px; color:var(--text-muted);">YouTube videolarındaki sponsor bölümlerini, outro ve etkileşim çağrılarını altyazılardan otomatik tespit ederek atlar.</p>
+                        </div>
+                        <label class="switch"><input type="checkbox" id="sponsorSkip"><span class="slider round"></span></label>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Pane: Hesabım -->
+            <section id="hesap" class="pane" data-search="hesap account giris login kayit register profil gonderimler submissions sifre password">
+                <h2 data-i18n="opt_account_title">Hesabım</h2>
+                <p class="subtitle" data-i18n="opt_account_subtitle">Sponsor atlama katkılarını takip et ve hesap ayarlarını yönet.</p>
+
+                <!-- Giriş yapılmamış -->
+                <div id="accountLoggedOut" class="account-gate">
+                    <div class="account-gate-glow"></div>
+                    <div class="account-gate-icon">
+                        <svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    </div>
+                    <h3 data-i18n="opt_account_login_title">Giriş yapmadın</h3>
+                    <p data-i18n="opt_account_login_desc">Hesap oluşturarak gönderdiğin sponsor bölümlerini takip edebilir, istatistiklerini görebilirsin.</p>
+                    <button class="primary-button account-gate-btn" id="btnAccountLogin">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        vadblock.com'da Giriş Yap
+                    </button>
+                    <span class="account-gate-note">Ücretsizdir · yalnızca e-posta ve kullanıcı adı yeter</span>
+                </div>
+
+                <!-- Giriş yapılmış -->
+                <div id="accountLoggedIn" style="display: none;">
+                    <div class="account-hero">
+                        <div class="account-hero-banner"></div>
+                        <div class="account-hero-body">
+                            <div class="account-avatar-lg" id="accountAvatar">U</div>
+                            <div class="account-hero-info">
+                                <div class="account-hero-name">
+                                    <span id="accountUsername">Kullanıcı</span>
+                                    <span id="accountMemBadge" class="mem-chip mem-free">Ücretsiz</span>
+                                    <span id="accountLinkedBadge" class="account-badge">✓ Uzantı bağlı</span>
+                                </div>
+                                <div class="account-hero-email" id="accountEmail">...</div>
+                                <div class="account-hero-meta">
+                                    <span class="account-member-since" id="accountMemberSince"></span>
+                                    <span class="account-prem-until" id="accountPremiumUntil"></span>
+                                </div>
+                            </div>
+                            <div class="account-hero-actions">
+                                <a href="https://vadblock.com/premium" target="_blank" id="accountUpgradeLink" class="primary-button account-upgrade-btn" style="display: none;">
+                                    <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                    Premium'a Geç
+                                </a>
+                                <a href="https://vadblock.com/account.php" target="_blank" id="accountDashboardLink" class="primary-button account-web-btn">
+                                    Panel'e Git
+                                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                                </a>
+                                <button id="btnAccountLogout" class="primary-button account-logout-btn">
+                                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                                    Çıkış Yap
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="account-stats-grid">
+                        <div class="account-stat-card" style="--sc:#8B5CF6;">
+                            <div class="account-stat-icon">
+                                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                            </div>
+                            <div>
+                                <div class="account-stat-val" id="accTotal">0</div>
+                                <div class="account-stat-lbl">Toplam Gönderim</div>
+                            </div>
+                        </div>
+                        <div class="account-stat-card" style="--sc:#F59E0B;">
+                            <div class="account-stat-icon">
+                                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                            </div>
+                            <div>
+                                <div class="account-stat-val" id="accPending">0</div>
+                                <div class="account-stat-lbl">Bekliyor</div>
+                            </div>
+                        </div>
+                        <div class="account-stat-card" style="--sc:#10B981;">
+                            <div class="account-stat-icon">
+                                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                            </div>
+                            <div>
+                                <div class="account-stat-val" id="accApproved">0</div>
+                                <div class="account-stat-lbl">Onaylı</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="feature-card account-subs-card">
+                        <div class="account-card-head">
+                            <h3 data-i18n="opt_account_subs">Sponsor Gönderimlerim</h3>
+                            <span class="account-card-hint">Son 10 gönderim</span>
+                        </div>
+                        <div id="accountSubsList" class="account-subs-list"></div>
+                    </div>
+
+                    <!-- Hesap ayarları web sitesinde yönetilir -->
+                    <div class="feature-card account-web-mgmt" style="margin-top: 24px;">
+                        <div class="account-card-head">
+                            <h3>⚙️ Hesap Ayarları</h3>
+                        </div>
+                        <div class="account-web-mgmt-body">
+                            <div class="account-web-mgmt-icon">
+                                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+                            </div>
+                            <div style="flex:1; min-width:0;">
+                                <div style="font-weight:700; font-size:13.5px;">E-posta değiştir, şifre ve hesap silme</div>
+                                <div style="font-size:12px; color:var(--text-muted); margin-top:3px; line-height:1.5;">Güvenlik için bu işlemler web sitesindeki hesap ayarlarından yapılır.</div>
+                            </div>
+                            <a href="https://vadblock.com/settings" target="_blank" class="primary-button account-web-mgmt-btn">
+                                Web'de Aç
+                                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Premium Glassmorphic Auth Modal -->
+    <div class="modal-overlay glass-modal-overlay" id="authModal" style="display: none;">
+        <div class="glass-modal-card">
+            <!-- Decorative floating orbs -->
+            <div class="glass-orb orb-1"></div>
+            <div class="glass-orb orb-2"></div>
+            
+            <button class="modal-close-btn" id="btnAuthClose">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+
+            <div class="modal-content-wrapper">
+                <div class="modal-header-premium">
+                    <div class="logo-glow-wrapper">
+                        <img src="../icons/icon128.png" alt="vAdBlock" class="modal-logo">
+                        <div class="logo-glow"></div>
+                    </div>
+                    <h3 id="authModalTitle" class="gradient-text">Giriş Yap</h3>
+                    <p id="authModalSubtitle" class="sub-text">Sponsor katkılarını takip etmek için giriş yap.</p>
+                </div>
+                
+                <!-- Durum: Eşleştirme bekleniyor (giriş sayfası yeni sekmede açıldı) -->
+                <div id="authWaitingView" style="display: none;">
+                    <div class="auth-waiting">
+                        <div class="auth-waiting-spinner">
+                            <svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><polyline points="9 12 11 14 15 10"></polyline></svg>
+                        </div>
+                        <h3 data-i18n="auth_wait_title">Eşleştirme bekleniyor...</h3>
+                        <p data-i18n="auth_wait_sub">Açılan sekmede girişini tamamla, eklenti otomatik olarak bağlanacak.</p>
+                        <div class="auth-waiting-bar"><span></span></div>
+                        <button class="auth-reopen-btn" id="btnReopenLogin">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                            <span data-i18n="auth_reopen">Giriş sayfasını yeniden aç</span>
+                        </button>
+                        <button class="auth-cancel-btn" id="btnCancelLink" data-i18n="auth_cancel">İptal Et</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../js/i18n.js"></script>
+    <script src="../js/options.js"></script>
+</body>
+</html>

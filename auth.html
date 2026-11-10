@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>vAdBlock Pro — Giriş Yap / Kayıt Ol — vAdBlock Pro</title>
+<meta name="description" content="vAdBlock Pro hesabınıza giriş yapın veya yeni bir hesap oluşturarak istatistiklerinizi senkronize edin.">
+<link rel="icon" type="image/svg+xml" href="brand/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="brand/icon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: #FAFAF9;
+  background-image: 
+    radial-gradient(circle at 50% -10%, rgba(37, 99, 235, 0.14) 0%, rgba(37, 99, 235, 0.08) 35%, transparent 70%),
+    radial-gradient(#E2E8F0 1.2px, transparent 1.2px);
+  background-size: 100% 100%, 28px 28px;
+  color: #0F172A;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 50px 20px 40px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Ambient Top Navigation */
+.auth-nav {
+  position: absolute;
+  top: 24px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 24px;
+  z-index: 10;
+}
+.btn-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #475569;
+  font-weight: 700;
+  font-size: 13.5px;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(10px);
+  padding: 8px 18px;
+  border-radius: 999px;
+  border: 1px solid #E2E8F0;
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+}
+.btn-back svg {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-back:hover {
+  color: #0F172A;
+  background: #FFFFFF;
+  border-color: #CBD5E1;
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.06);
+  transform: translateX(-3px);
+}
+.btn-back:hover svg {
+  transform: translateX(-3px);
+}
+.badge-version {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 800;
+  color: #2563EB;
+  background: #EFF6FF;
+  border: 1px solid #BFDBFE;
+  padding: 5px 14px;
+  border-radius: 999px;
+  font-family: 'Manrope', sans-serif;
+  letter-spacing: 0.04em;
+  box-shadow: 0 1px 3px rgba(37, 99, 235, 0.08);
+}
+
+/* Main Auth Card */
+.auth-wrapper {
+  width: 100%;
+  max-width: 450px;
+  margin: 30px auto 20px;
+  position: relative;
+  z-index: 5;
+}
+.brand-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+.brand-logo-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: #0F172A;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.brand-logo-link:hover {
+  transform: scale(1.03);
+}
+.brand-logo-link span {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 800;
+  font-size: 24px;
+  letter-spacing: -0.03em;
+}
+.brand-logo-link span b {
+  color: #2563EB;
+}
+
+.auth-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 26px;
+  padding: 34px 32px 30px;
+  box-shadow: 0 24px 64px -12px rgba(15, 23, 42, 0.08), 0 0 1px rgba(15, 23, 42, 0.08);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Sliding Segmented Tab Track */
+.tab-track {
+  position: relative;
+  display: flex;
+  background: #F1F5F9;
+  padding: 4px;
+  border-radius: 14px;
+  margin-bottom: 24px;
+  user-select: none;
+}
+.tab-bubble {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 4px;
+  width: calc(50% - 4px);
+  background: #FFFFFF;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(0,0,0,0.04);
+  transition: transform 0.36s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+.tab-track.is-register .tab-bubble {
+  transform: translateX(100%);
+}
+.tab-item {
+  flex: 1;
+  position: relative;
+  z-index: 2;
+  padding: 10px 14px;
+  border: none;
+  background: transparent;
+  color: #64748B;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 700;
+  font-size: 13.5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: color 0.22s ease;
+}
+.tab-item.active {
+  color: #0F172A;
+  font-weight: 800;
+}
+.tab-item svg {
+  transition: transform 0.25s ease;
+}
+.tab-item:hover svg {
+  transform: translateY(-1px);
+}
+
+/* Forms Viewport & Horizontal Sliding Track */
+.forms-viewport {
+  overflow: hidden;
+  position: relative;
+  transition: height 0.36s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.forms-slider {
+  display: flex;
+  width: 200%;
+  transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.forms-slider.is-register {
+  transform: translateX(-50%);
+}
+.form-slide {
+  width: 50%;
+  flex-shrink: 0;
+  padding: 2px 4px;
+  transition: opacity 0.3s ease, filter 0.3s ease;
+}
+.forms-slider:not(.is-register) #slideLogin { opacity: 1; filter: blur(0); pointer-events: auto; }
+.forms-slider:not(.is-register) #slideRegister { opacity: 0; filter: blur(3px); pointer-events: none; }
+.forms-slider.is-register #slideLogin { opacity: 0; filter: blur(3px); pointer-events: none; }
+.forms-slider.is-register #slideRegister { opacity: 1; filter: blur(0); pointer-events: auto; }
+
+/* Form Titles */
+.auth-titles {
+  text-align: center;
+  margin-bottom: 22px;
+}
+.auth-title {
+  font-family: 'Manrope', sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  color: #0F172A;
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
+}
+.auth-subtitle {
+  font-size: 13.5px;
+  color: #64748B;
+  line-height: 1.45;
+}
+
+/* Alert Notification */
+.auth-alert {
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  animation: slideFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.auth-alert.error {
+  background: #FEF2F2;
+  border: 1px solid #FECACA;
+  color: #B91C1C;
+}
+.auth-alert.success {
+  background: #EFF6FF;
+  border: 1px solid #BFDBFE;
+  color: #1E40AF;
+}
+
+/* Inputs & Form Groups */
+.form-group {
+  margin-bottom: 16px;
+}
+.form-label {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #334155;
+  margin-bottom: 6px;
+  font-family: 'Manrope', sans-serif;
+  transition: color 0.2s ease;
+}
+.form-group:focus-within .form-label {
+  color: #2563EB;
+}
+.input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.input-icon {
+  position: absolute;
+  left: 14px;
+  color: #94A3B8;
+  pointer-events: none;
+  display: grid;
+  place-items: center;
+  transition: color 0.2s ease;
+}
+.form-group:focus-within .input-icon {
+  color: #2563EB;
+}
+.form-input {
+  width: 100%;
+  height: 46px;
+  padding: 0 14px 0 42px;
+  background: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  border-radius: 12px;
+  font-family: inherit;
+  font-size: 14px;
+  color: #0F172A;
+  transition: all 0.25s ease;
+  outline: none;
+}
+.form-input:focus {
+  border-color: #2563EB;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.14);
+}
+.form-input::placeholder {
+  color: #94A3B8;
+}
+.btn-toggle-pass {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  color: #94A3B8;
+  cursor: pointer;
+  padding: 4px;
+  display: grid;
+  place-items: center;
+  border-radius: 6px;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+.btn-toggle-pass:hover {
+  color: #0F172A;
+  transform: scale(1.1);
+}
+
+/* Password Strength Meter */
+.pass-meter {
+  margin-top: 8px;
+  display: none;
+  animation: slideFadeIn 0.25s ease;
+}
+.pass-track {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  height: 4px;
+  margin-bottom: 4px;
+}
+.pass-step {
+  height: 100%;
+  background: #E2E8F0;
+  border-radius: 999px;
+  transition: background 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.pass-desc {
+  font-size: 11.5px;
+  color: #64748B;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Form Helper Row (Remember / Forgot) */
+.form-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  font-size: 13px;
+}
+.checkbox-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  color: #475569;
+  user-select: none;
+}
+.checkbox-wrap input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #2563EB;
+  cursor: pointer;
+  border-radius: 4px;
+}
+.link-forgot {
+  color: #2563EB;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+.link-forgot:hover {
+  text-decoration: underline;
+  color: #1D4ED8;
+}
+
+/* Submit CTA with Loading State */
+.btn-submit {
+  position: relative;
+  width: 100%;
+  height: 48px;
+  background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 999px;
+  font-family: 'Manrope', sans-serif;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+  overflow: hidden;
+}
+.btn-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.45);
+  background: linear-gradient(135deg, #05A858 0%, #038243 100%);
+}
+.btn-submit:active {
+  transform: translateY(0);
+}
+.btn-submit.is-loading {
+  pointer-events: none;
+  opacity: 0.92;
+}
+.spinner {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 2.5px solid rgba(255, 255, 255, 0.35);
+  border-top-color: #FFFFFF;
+  border-radius: 50%;
+  animation: spin 0.75s linear infinite;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Bottom Switcher Helper */
+.auth-switch-msg {
+  text-align: center;
+  margin-top: 22px;
+  font-size: 13.5px;
+  color: #64748B;
+}
+.auth-switch-msg a {
+  color: #2563EB;
+  font-weight: 800;
+  text-decoration: none;
+  margin-left: 4px;
+  transition: color 0.15s ease;
+}
+.auth-switch-msg a:hover {
+  text-decoration: underline;
+  color: #1D4ED8;
+}
+
+/* Trust Strip Beneath Card */
+.trust-strip {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-top: 28px;
+  flex-wrap: wrap;
+}
+.trust-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748B;
+  transition: color 0.2s ease;
+}
+.trust-item:hover {
+  color: #0F172A;
+}
+.trust-item svg {
+  color: #2563EB;
+  flex-shrink: 0;
+}
+
+@keyframes slideFadeIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 520px) {
+  body { padding: 80px 16px 30px; }
+  .auth-nav { top: 16px; padding: 0 16px; }
+  .auth-card { padding: 28px 20px 24px; border-radius: 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Ambient Navigation -->
+<nav class="auth-nav">
+  <a href="./" class="btn-back">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+    Ana Sayfa
+  </a>
+  <span class="badge-version">● vAdBlock Pro v4.2</span>
+</nav>
+
+<div class="auth-wrapper">
+  <!-- Brand Logo -->
+  <div class="brand-header">
+    <a href="./" class="brand-logo-link" aria-label="vAdBlock Pro">
+      <img src="img/logo.png" alt="vAdBlock Pro" width="38" height="38" style="display:block; object-fit:contain; border-radius:8px;">
+      <span>vAdBlock <b>Pro</b></span>
+    </a>
+  </div>
+
+  <div class="auth-card">
+    <!-- Segmented Tab Switcher with Sliding Bubble -->
+    <div class="tab-track " id="tabTrack" role="tablist">
+      <div class="tab-bubble" id="tabBubble"></div>
+      <button type="button" class="tab-item active" id="btnTabLogin" onclick="switchAuthMode('login')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" y1="12" x2="3" y2="12"></line></svg>
+        Giriş Yap
+      </button>
+      <button type="button" class="tab-item " id="btnTabRegister" onclick="switchAuthMode('register')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>
+        Kayıt Ol
+      </button>
+    </div>
+
+    <!-- Alert Messages -->
+    
+
+    <!-- Viewport Container for Smooth Cross-Sliding Forms -->
+    <div class="forms-viewport" id="formsViewport">
+      <div class="forms-slider " id="formsSlider">
+
+        <!-- Slide 1: LOGIN FORM -->
+        <div class="form-slide" id="slideLogin">
+          <form id="formLogin" method="POST" action="/login" onsubmit="handleFormSubmit(this, 'login')">
+            <input type="hidden" name="action" value="login">
+            <div class="auth-titles">
+              <h1 class="auth-title">Tekrar Hoş Geldiniz</h1>
+              <p class="auth-subtitle">Reklamsız ve hızlı web deneyiminizi tüm cihazlarınızda eşitleyin.</p>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="loginUser">Kullanıcı Adı veya E-posta</label>
+              <div class="input-wrap">
+                <span class="input-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                </span>
+                <input type="text" id="loginUser" name="login" required class="form-input" placeholder="ornek@domain.com veya kullanıcı adı" autocomplete="username">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="loginPass">Şifre</label>
+              <div class="input-wrap">
+                <span class="input-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                </span>
+                <input type="password" id="loginPass" name="password" required class="form-input" placeholder="••••••••" autocomplete="current-password">
+                <button type="button" class="btn-toggle-pass" onclick="togglePassVisibility('loginPass', this)" aria-label="Şifreyi Göster">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <label class="checkbox-wrap">
+                <input type="checkbox" name="remember" value="1" checked>
+                <span>Beni hatırla</span>
+              </label>
+              <a href="contact.html" class="link-forgot">Şifremi unuttum?</a>
+            </div>
+
+            <button type="submit" class="btn-submit">
+              <span>Giriş Yap</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+
+            <div class="auth-switch-msg">
+              Hesabınız yok mu?
+              <a href="auth.html?mode=register" onclick="event.preventDefault(); switchAuthMode('register');">Ücretsiz Kayıt Olun</a>
+            </div>
+          </form>
+        </div>
+
+        <!-- Slide 2: REGISTER FORM -->
+        <div class="form-slide" id="slideRegister">
+          <form id="formRegister" method="POST" action="/register" onsubmit="handleFormSubmit(this, 'register')">
+            <input type="hidden" name="action" value="register">
+            <div class="auth-titles">
+              <h1 class="auth-title">Yeni Hesap Oluştur</h1>
+              <p class="auth-subtitle">54,000+ kural, anlık istatistikler ve SponsorSkip topluluğuna katılın.</p>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="regUsername">Kullanıcı Adı</label>
+              <div class="input-wrap">
+                <span class="input-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"></circle><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-3.92 7.94"></path></svg>
+                </span>
+                <input type="text" id="regUsername" name="username" required class="form-input" placeholder="kullanici_adiniz" minlength="3" maxlength="30" autocomplete="username">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="regEmail">E-posta Adresi</label>
+              <div class="input-wrap">
+                <span class="input-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                </span>
+                <input type="email" id="regEmail" name="email" required class="form-input" placeholder="adiniz@domain.com" autocomplete="email">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="regPass">Şifre Belirleyin</label>
+              <div class="input-wrap">
+                <span class="input-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                </span>
+                <input type="password" id="regPass" name="password" required class="form-input" placeholder="En az 6 karakter" minlength="6" oninput="checkPassStrength(this.value)" autocomplete="new-password">
+                <button type="button" class="btn-toggle-pass" onclick="togglePassVisibility('regPass', this)" aria-label="Şifreyi Göster">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                </button>
+              </div>
+              <div class="pass-meter" id="passMeter">
+                <div class="pass-track">
+                  <div class="pass-step" id="pstep1"></div>
+                  <div class="pass-step" id="pstep2"></div>
+                  <div class="pass-step" id="pstep3"></div>
+                </div>
+                <div class="pass-desc">
+                  <span id="passLabel">Şifre Gücü: Çok Zayıf</span>
+                  <span style="color:#94A3B8;">En az 6 karakter</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="regPassConfirm">Şifreyi Onaylayın</label>
+              <div class="input-wrap">
+                <span class="input-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                </span>
+                <input type="password" id="regPassConfirm" name="password_confirm" required class="form-input" placeholder="Şifrenizi tekrar yazın" minlength="6" autocomplete="new-password">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <label class="checkbox-wrap">
+                <input type="checkbox" name="terms" value="1" required checked>
+                <span style="font-size:12.5px;"><a href="terms.html" target="_blank" style="color:#2563EB; font-weight:700; text-decoration:none;">Kullanım Şartları</a> ve <a href="privacy.html" target="_blank" style="color:#2563EB; font-weight:700; text-decoration:none;">Gizlilik Politikasını</a> kabul ediyorum.</span>
+              </label>
+            </div>
+
+            <button type="submit" class="btn-submit">
+              <span>Hesabımı Oluştur</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+
+            <div class="auth-switch-msg">
+              Zaten bir hesabınız var mı?
+              <a href="auth.html" onclick="event.preventDefault(); switchAuthMode('login');">Giriş Yapın</a>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Trust Strip -->
+  <div class="trust-strip">
+    <div class="trust-item">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+      <span>256-bit Güvenli</span>
+    </div>
+    <div class="trust-item">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+      <span>54,000+ Kural</span>
+    </div>
+    <div class="trust-item">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+      <span>200,000+ Site</span>
+    </div>
+  </div>
+</div>
+
+<script>
+function updateViewportHeight(mode) {
+  var vp = document.getElementById('formsViewport');
+  var target = mode === 'register' ? document.getElementById('slideRegister') : document.getElementById('slideLogin');
+  if (vp && target) {
+    vp.style.height = target.offsetHeight + 'px';
+  }
+}
+
+function switchAuthMode(mode) {
+  var track = document.getElementById('tabTrack');
+  var slider = document.getElementById('formsSlider');
+  var btnLogin = document.getElementById('btnTabLogin');
+  var btnRegister = document.getElementById('btnTabRegister');
+
+  if (mode === 'register') {
+    track.classList.add('is-register');
+    slider.classList.add('is-register');
+    btnLogin.classList.remove('active');
+    btnRegister.classList.add('active');
+    document.title = 'Ücretsiz Hesap Oluştur — vAdBlock Pro';
+    if (window.history && window.history.replaceState) {
+      window.history.replaceState(null, '', '/register');
+    }
+  } else {
+    track.classList.remove('is-register');
+    slider.classList.remove('is-register');
+    btnRegister.classList.remove('active');
+    btnLogin.classList.add('active');
+    document.title = 'Giriş Yap — vAdBlock Pro';
+    if (window.history && window.history.replaceState) {
+      window.history.replaceState(null, '', '/login');
+    }
+  }
+  updateViewportHeight(mode);
+}
+
+function togglePassVisibility(inputId, btn) {
+  var input = document.getElementById(inputId);
+  if (!input) return;
+  if (input.type === 'password') {
+    input.type = 'text';
+    btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>';
+  } else {
+    input.type = 'password';
+    btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>';
+  }
+}
+
+function checkPassStrength(val) {
+  var meter = document.getElementById('passMeter');
+  var s1 = document.getElementById('pstep1');
+  var s2 = document.getElementById('pstep2');
+  var s3 = document.getElementById('pstep3');
+  var lbl = document.getElementById('passLabel');
+
+  if (!val || val.length === 0) {
+    meter.style.display = 'none';
+    updateViewportHeight('register');
+    return;
+  }
+  meter.style.display = 'block';
+
+  var score = 0;
+  if (val.length >= 6) score++;
+  if (val.length >= 8 && (/[a-zA-Z]/.test(val) && /[0-9]/.test(val))) score++;
+  if (val.length >= 10 && /[^a-zA-Z0-9]/.test(val)) score++;
+
+  s1.style.background = '#E2E8F0';
+  s2.style.background = '#E2E8F0';
+  s3.style.background = '#E2E8F0';
+
+  if (score === 1) {
+    s1.style.background = '#EF4444';
+    lbl.textContent = 'Şifre Gücü: Zayıf';
+    lbl.style.color = '#EF4444';
+  } else if (score === 2) {
+    s1.style.background = '#F59E0B';
+    s2.style.background = '#F59E0B';
+    lbl.textContent = 'Şifre Gücü: Orta';
+    lbl.style.color = '#F59E0B';
+  } else {
+    s1.style.background = '#10B981';
+    s2.style.background = '#10B981';
+    s3.style.background = '#10B981';
+    lbl.textContent = 'Şifre Gücü: Güçlü';
+    lbl.style.color = '#10B981';
+  }
+  updateViewportHeight('register');
+}
+
+function handleFormSubmit(form, type) {
+  var btn = form.querySelector('.btn-submit');
+  if (btn) {
+    btn.classList.add('is-loading');
+    var txt = type === 'register' ? 'Hesap Oluşturuluyor...' : 'Giriş Yapılıyor...';
+    btn.innerHTML = '<span class="spinner"></span> <span>' + txt + '</span>';
+  }
+}
+
+window.addEventListener('DOMContentLoaded', function() {
+  updateViewportHeight(new URLSearchParams(window.location.search).get('mode') === 'register' ? 'register' : 'login');
+});
+window.addEventListener('load', function() {
+  updateViewportHeight(new URLSearchParams(window.location.search).get('mode') === 'register' ? 'register' : 'login');
+});
+window.addEventListener('resize', function() {
+  var isReg = document.getElementById('formsSlider').classList.contains('is-register');
+  updateViewportHeight(isReg ? 'register' : 'login');
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,6 @@
+error_log
+*.log
+config*.php
+*.lock
+.DS_Store
+Thumbs.db

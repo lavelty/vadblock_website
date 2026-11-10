@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>vAdBlock Pro — Kaldırıldı</title>
+<meta name="description" content="vAdBlock Pro eklentisi kaldırıldı. Geri bildiriminiz bizim için çok değerli.">
+<link rel="icon" type="image/svg+xml" href="brand/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="brand/icon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="skin/home.css">
+<style>
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: #FAFBFB;
+  color: #0F172A;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Uninstall Hero */
+.un-hero {
+  padding: 60px 24px 60px;
+  text-align: center;
+  position: relative;
+  background: radial-gradient(circle at 50% 0%, rgba(239, 68, 68, 0.08) 0%, rgba(37, 99, 235, 0.03) 40%, transparent 70%);
+}
+.un-wrap {
+  max-width: 680px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* Card 1: Removed Alert & Reinstall */
+.un-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 24px;
+  padding: 40px 36px;
+  box-shadow: 0 16px 45px -10px rgba(15, 23, 42, 0.06);
+  text-align: center;
+}
+.un-badge-off {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #FEF2F2;
+  border: 1px solid #FECACA;
+  color: #DC2626;
+  font-family: 'Manrope', sans-serif;
+  font-size: 12px;
+  font-weight: 800;
+  padding: 5px 14px;
+  border-radius: 999px;
+  margin-bottom: 20px;
+  letter-spacing: 0.04em;
+}
+.un-badge-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #DC2626;
+}
+.un-card h1 {
+  font-family: 'Manrope', sans-serif;
+  font-size: 32px;
+  font-weight: 800;
+  color: #0F172A;
+  letter-spacing: -0.03em;
+  margin-bottom: 12px;
+}
+.un-card p.sub {
+  font-size: 15px;
+  color: #64748B;
+  line-height: 1.6;
+  max-width: 480px;
+  margin: 0 auto 28px;
+}
+
+.btn-reinstall {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
+  color: #FFFFFF;
+  font-family: 'Manrope', sans-serif;
+  font-size: 15.5px;
+  font-weight: 800;
+  padding: 14px 30px;
+  border-radius: 999px;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-reinstall:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(37, 99, 235, 0.45);
+  background: linear-gradient(135deg, #05A858 0%, #038243 100%);
+}
+
+/* Card 2: Feedback Survey */
+.un-survey-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 24px;
+  padding: 38px 36px;
+  box-shadow: 0 16px 45px -10px rgba(15, 23, 42, 0.06);
+  text-align: center;
+}
+.un-survey-tag {
+  display: inline-block;
+  font-family: 'Manrope', sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: #2563EB;
+  background: #EFF6FF;
+  border: 1px solid #BFDBFE;
+  padding: 4px 10px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.un-survey-card h2 {
+  font-family: 'Manrope', sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  color: #0F172A;
+  letter-spacing: -0.02em;
+  margin-bottom: 24px;
+}
+
+.reasons-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.reason-btn {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 14px;
+  padding: 14px 16px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #334155;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-align: left;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reason-btn:hover {
+  background: #FFFFFF;
+  border-color: #2563EB;
+  color: #2563EB;
+  transform: translateY(-1.5px);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
+}
+.reason-btn.selected {
+  background: #EFF6FF;
+  border-color: #2563EB;
+  color: #2563EB;
+  box-shadow: 0 0 0 2px #2563EB;
+}
+.reason-icon {
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.detail-row {
+  display: none;
+  gap: 10px;
+  margin-top: 16px;
+  animation: fadeIn 0.3s ease;
+}
+.detail-input {
+  flex: 1;
+  padding: 12px 16px;
+  background: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  border-radius: 12px;
+  font-family: inherit;
+  font-size: 14px;
+  color: #0F172A;
+  outline: none;
+  transition: all 0.2s ease;
+}
+.detail-input:focus {
+  border-color: #2563EB;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.14);
+}
+.btn-send {
+  padding: 12px 24px;
+  background: #0F172A;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 12px;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 800;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.btn-send:hover {
+  background: #2563EB;
+}
+
+.thank-you-msg {
+  display: none;
+  margin-top: 20px;
+  padding: 14px;
+  background: #EFF6FF;
+  border: 1px solid #BFDBFE;
+  border-radius: 12px;
+  color: #2563EB;
+  font-weight: 800;
+  font-size: 14px;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 600px) {
+  .reasons-grid { grid-template-columns: 1fr; }
+  .un-card, .un-survey-card { padding: 28px 20px; border-radius: 20px; }
+  .un-card h1 { font-size: 26px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="./" aria-label="vAdBlock Pro">
+      <img src="img/logo.png" alt="vAdBlock Pro" width="34" height="34" style="display:block; object-fit:contain; border-radius:8px;">
+      <span>vAdBlock <b>Pro</b></span>
+    </a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="#features">Features</a>
+      <a href="#sites">Supported sites</a>
+      <a href="#demo">Demo</a>
+      <a href="#how">How it works</a>
+      <a href="#pricing">Premium</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div style="display:flex; align-items:center; gap:12px;">
+      <a href="auth.html" class="btn btn-ghost" style="padding:7px 16px; font-weight:700; color:#0F172A; text-decoration:none; font-size:14px; border:1px solid #E2E8F0; border-radius:999px; background:#fff; white-space:nowrap;">Giriş Yap</a>
+      <a href="lave_adblock_ext.zip" download class="btn btn-primary btn-nav"><span class="btn-ico"><img src="brand/favicon.svg" alt="" width="22" height="22"></span>Add to Chrome</a>
+    </div>
+  </div>
+</header>
+
+<main class="un-hero">
+  <div class="un-wrap">
+    
+    <!-- Card 1: Re-install option -->
+    <div class="un-card">
+      <span class="un-badge-off"><span class="un-badge-dot"></span> KORUMA DEVRE DIŞI</span>
+      <h1>vAdBlock Pro Kaldırıldı</h1>
+      <p class="sub">Yanlışlıkla mı kaldırdınız? Tek tıkla eklentiyi yeniden yükleyebilir, 54,000+ kural ile reklamsız web deneyimine anında geri dönebilirsiniz.</p>
+      <a href="lave_adblock_ext.zip" download class="btn-reinstall">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+        <span>Tekrar Yükle — Tamamen Ücretsiz</span>
+      </a>
+    </div>
+
+    <!-- Card 2: Feedback Survey -->
+    <div class="un-survey-card">
+      <span class="un-survey-tag">10 SANİYE · ANONİM</span>
+      <h2>Kaldırma nedeniniz nedir?</h2>
+
+      <div class="reasons-grid" id="reasonsGrid">
+        <button type="button" class="reason-btn" data-reason="Bir web sitesini bozdu">
+          <span class="reason-icon">⊞</span>
+          <span>Bir web sitesini bozdu</span>
+        </button>
+        <button type="button" class="reason-btn" data-reason="Artık ihtiyacım yok">
+          <span class="reason-icon">−</span>
+          <span>Artık ihtiyacım yok</span>
+        </button>
+        <button type="button" class="reason-btn" data-reason="Gizlilik endişeleri">
+          <span class="reason-icon">◇</span>
+          <span>Gizlilik endişeleri</span>
+        </button>
+        <button type="button" class="reason-btn" data-reason="Bazı reklamlar engellenmedi">
+          <span class="reason-icon">⊘</span>
+          <span>Bazı reklamlar engellenmedi</span>
+        </button>
+        <button type="button" class="reason-btn" data-reason="Tarayıcıyı yavaşlattı">
+          <span class="reason-icon">◷</span>
+          <span>Tarayıcıyı yavaşlattı</span>
+        </button>
+        <button type="button" class="reason-btn" data-reason="Sadece deniyordum">
+          <span class="reason-icon">◎</span>
+          <span>Sadece deniyordum</span>
+        </button>
+        <button type="button" class="reason-btn" data-reason="Başka bir eklentiye geçtim">
+          <span class="reason-icon">⇄</span>
+          <span>Başka bir eklentiye geçtim</span>
+        </button>
+        <button type="button" class="reason-btn" data-reason="Diğer bir neden">
+          <span class="reason-icon">⋯</span>
+          <span>Diğer bir neden</span>
+        </button>
+      </div>
+
+      <div class="detail-row" id="detailRow">
+        <input type="text" class="detail-input" id="detailInput" placeholder="Detay ekleyin — isteğe bağlı...">
+        <button type="button" class="btn-send" id="btnSend">Gönder</button>
+      </div>
+
+      <div class="thank-you-msg" id="thankYouMsg">
+        ✓ Geri bildiriminiz kaydedildi, teşekkür ederiz!
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<!-- Footer -->
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <a class="brand" href="./"><img src="img/logo.png" alt="vAdBlock Pro" width="26" height="26" style="display:block; object-fit:contain; border-radius:8px;">
+      <span>vAdBlock <b>Pro</b></span></a>
+      <p>A free Chrome extension that blocks banner ads, video ads, pop-ups and trackers — for a cleaner, faster, quieter web.</p>
+    </div>
+    <div class="foot-col"><span class="foot-label">Product</span><a href="#features">Features</a><a href="#sites">Supported sites</a><a href="#how">How it works</a><a href="#pricing">Premium</a><a href="lave_adblock_ext.zip" download>Download Extension</a></div>
+    <div class="foot-col"><span class="foot-label">Legal & Info</span><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Service</a><a href="contact.html">Support & Contact</a></div>
+    <div class="foot-col"><span class="foot-label">Hesap</span><a href="auth.html">Giriş Yap</a><a href="auth.html?mode=register">Ücretsiz Kayıt Ol</a></div>
+  </div>
+  <div class="foot-legal wrap">&copy; 2026 vAdBlock Pro · Not affiliated with Google or Chrome. All trademarks belong to their respective owners.</div>
+</footer>
+
+<script>
+(function() {
+    let selectedReason = '';
+    const buttons = document.querySelectorAll('.reason-btn');
+    const detailRow = document.getElementById('detailRow');
+    const detailInput = document.getElementById('detailInput');
+    const btnSend = document.getElementById('btnSend');
+    const thankYouMsg = document.getElementById('thankYouMsg');
+
+    buttons.forEach(btn => {
+        btn.addEventListener('click', function() {
+            buttons.forEach(b => {
+                b.classList.remove('selected');
+                const ico = b.querySelector('.reason-icon');
+                if (b.getAttribute('data-original-ico')) {
+                    ico.textContent = b.getAttribute('data-original-ico');
+                }
+            });
+
+            this.classList.add('selected');
+            const ico = this.querySelector('.reason-icon');
+            if (!this.getAttribute('data-original-ico')) {
+                this.setAttribute('data-original-ico', ico.textContent);
+            }
+            ico.textContent = '✓';
+
+            selectedReason = this.getAttribute('data-reason');
+            detailRow.style.display = 'flex';
+            thankYouMsg.style.display = 'none';
+
+            if (selectedReason === "Diğer bir neden") {
+                detailInput.focus();
+            } else {
+                submitFeedback(selectedReason, '');
+            }
+        });
+    });
+
+    btnSend.addEventListener('click', function() {
+        const detail = detailInput.value.trim();
+        submitFeedback(selectedReason, detail);
+        thankYouMsg.textContent = '✓ Geri bildiriminiz kaydedildi, teşekkür ederiz!';
+        thankYouMsg.style.display = 'block';
+        detailRow.style.display = 'none';
+    });
+
+    function submitFeedback(reason, detail) {
+        const params = new URLSearchParams(window.location.search);
+        const instId = params.get('inst_id') || '';
+        
+        const fd = new FormData();
+        fd.append('reason', reason);
+        fd.append('detail', detail);
+        fd.append('inst_id', instId);
+
+        fetch('/uninstall', {
+            method: 'POST',
+            body: fd
+        }).then(() => {
+            thankYouMsg.style.display = 'block';
+        }).catch(() => {
+            thankYouMsg.style.display = 'block';
+        });
+    }
+})();
+</script>
+
+</body>
+</html>
