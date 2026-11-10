@@ -14,8 +14,13 @@
 
   function initPaddle() {
     if (typeof Paddle === 'undefined') return;
-    Paddle.Environment.set(config.environment);
-    Paddle.Initialize({
+
+    // Only set sandbox if explicitly in sandbox mode; production is Paddle.js default
+    if (config.environment === 'sandbox') {
+      Paddle.Environment.set('sandbox');
+    }
+
+    const initOptions = {
       token: config.clientToken,
       eventCallback: function (data) {
         if (data.name === 'checkout.completed') {
@@ -23,7 +28,21 @@
           window.location.href = successUrl;
         }
       }
-    });
+    };
+
+    // Paddle Retain: pass signed-in customer's Paddle customer ID (prefixed with ctm_)
+    try {
+      const stored = localStorage.getItem('vadblock_user');
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        const ctmId = parsed.paddleCustomerId || parsed.customerId;
+        if (ctmId && typeof ctmId === 'string' && ctmId.startsWith('ctm_')) {
+          initOptions.pwCustomer = { id: ctmId };
+        }
+      }
+    } catch (e) {}
+
+    Paddle.Initialize(initOptions);
     paddleReady = true;
     fetchPricePreviews();
   }

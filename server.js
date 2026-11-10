@@ -4,6 +4,7 @@ const path = require('path');
 const fs = require('fs');
 
 const { handleWebhook } = require('./src/webhook/webhook-handler');
+const { isAuthorizedPaddleIp } = require('./src/webhook/ip-allowlist');
 const { createCustomerPortalSession } = require('./src/portal/portal-handler');
 const { getCustomerByEmail, getSubscriptionsForCustomer, hasPaidAccess } = require('./src/db/db');
 
@@ -95,6 +96,14 @@ const server = http.createServer(async (req, res) => {
   // 1. Webhook Route: POST /api/webhook
   // =========================================================================
   if (pathname === '/api/webhook' && req.method === 'POST') {
+    // Security: verify incoming IP against dynamic Paddle allowlist in production
+    const isAllowed = await isAuthorizedPaddleIp(req, process.env.PADDLE_ENVIRONMENT);
+    if (!isAllowed) {
+      res.writeHead(403, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ error: 'Forbidden: IP not in Paddle allowlist' }));
+      return;
+    }
+
     const signature = req.headers['paddle-signature'] || '';
 
     try {
