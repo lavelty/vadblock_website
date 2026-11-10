@@ -1,0 +1,96 @@
+{
+  "environment": "sandbox",
+  "currency_default": "USD",
+  "products": {
+    "starter": {
+      "product_id": "pro_01m72gmcg71fyq05gbmw27ft54",
+      "name": "Starter",
+      "prices": {
+        "monthly": {
+          "price_id": "pri_01m72gmcpvvddfk1x6j0jmfzn3",
+          "interval": "month",
+          "trial_days": 7,
+          "base_amount": "1000",
+          "base_currency": "USD",
+          "overrides": {
+            "GB": { "amount": "800", "currency": "GBP" },
+            "IE": { "amount": "900", "currency": "EUR" },
+            "AU": { "amount": "1500", "currency": "AUD" }
+          }
+        },
+        "annual": {
+          "price_id": "pri_01m72gmcx6erheqg2xwtge567q",
+          "interval": "year",
+          "trial_days": 7,
+          "base_amount": "10000",
+          "base_currency": "USD",
+          "overrides": {
+            "GB": { "amount": "8000", "currency": "GBP" },
+            "IE": { "amount": "9000", "currency": "EUR" },
+            "AU": { "amount": "15000", "currency": "AUD" }
+          }
+        }
+      }
+    },
+    "pro": {
+      "product_id": "pro_01m72gmd4wjb42yzhrk3nhbskj",
+      "name": "Pro",
+      "prices": {
+        "monthly": {
+          "price_id": "pri_01m72gmdae8h84jzp8cv0g853x",
+          "interval": "month",
+          "trial_days": 7,
+          "base_amount": "4000",
+          "base_currency": "USD",
+          "overrides": {
+            "GB": { "amount": "3200", "currency": "GBP" },
+            "IE": { "amount": "3600", "currency": "EUR" },
+            "AU": { "amount": "6000", "currency": "AUD" }
+          }
+        },
+        "annual": {
+          "price_id": "pri_01m72gmdgfwevdsap0w0ab9yeh",
+          "interval": "year",
+          "trial_days": 7,
+          "base_amount": "40000",
+          "base_currency": "USD",
+          "overrides": {
+            "GB": { "amount": "32000", "currency": "GBP" },
+            "IE": { "amount": "36000", "currency": "EUR" },
+            "AU": { "amount": "60000", "currency": "AUD" }
+          }
+        }
+      }
+    },
+    "advanced": {
+      "product_id": "pro_01m72gme3vefpp5g0cn6xk5v04",
+      "name": "Advanced",
+      "prices": {
+        "monthly": {
+          "price_id": "pri_01m72gme9vjkveppzj7ky0zw65",
+          "interval": "month",
+          "trial_days": 7,
+          "base_amount": "12000",
+          "base_currency": "USD",
+          "overrides": {
+            "GB": { "amount": "9500", "currency": "GBP" },
+            "IE": { "amount": "11000", "currency": "EUR" },
+            "AU": { "amount": "18000", "currency": "AUD" }
+          }
+        },
+        "annual": {
+          "price_id": "pri_01m72gmefxcb2ybd6d1k9fr0y1",
+          "interval": "year",
+          "trial_days": 7,
+          "base_amount": "120000",
+          "base_currency": "USD",
+          "overrides": {
+            "GB": { "amount": "95000", "currency": "GBP" },
+            "IE": { "amount": "110000", "currency": "EUR" },
+            "AU": { "amount": "180000", "currency": "AUD" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -7,3 +7,4 @@ Thumbs.db
 .agents/
 skills-lock.json
 .env*
+!.env.example

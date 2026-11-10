@@ -521,6 +521,62 @@ body {
   border: 2px solid #2563EB !important;
   box-shadow: 0 16px 40px -8px rgba(37, 99, 235, 0.2) !important;
 }
+
+/* Pricing Toggle & Dynamic Card Styling */
+.pricing-toggle-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 36px;
+  margin-bottom: 8px;
+}
+.pricing-toggle {
+  background: #E2E8F0;
+  border-radius: 999px;
+  padding: 5px;
+  display: inline-flex;
+  gap: 4px;
+  border: 1px solid #CBD5E1;
+}
+.pricing-toggle button {
+  background: transparent;
+  border: none;
+  border-radius: 999px;
+  padding: 9px 22px;
+  font-family: Manrope, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #64748B;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.pricing-toggle button.active {
+  background: #FFFFFF;
+  color: #0F172A;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+}
+.pricing-toggle-discount {
+  background: #EFF6FF;
+  color: #2563EB;
+  border: 1px solid #BFDBFE;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 10px;
+  border-radius: 999px;
+  letter-spacing: 0.02em;
+}
+.pricing-card {
+  display: flex;
+  flex-direction: column;
+}
+.pricing-card .btn-pricing {
+  margin-top: auto;
+  cursor: pointer;
+}
+
 .pricing-badge {
   background: linear-gradient(135deg, #2563EB, #1D4ED8) !important;
 }
@@ -924,7 +980,7 @@ body {
   </div>
 </section>
 
-<!-- FİYATLANDIRMA & VIP ÜYELİK -->
+<!-- FİYATLANDIRMA & VIP ÜYELİK (Paddle Entegreli) -->
 <section class="sec sec-alt" id="pricing">
   <div class="wrap">
     <div class="sec-head">
@@ -932,53 +988,67 @@ body {
         <span class="eyebrow">VIP GÜÇ & AYRICALIKLAR</span>
         <h2>İnternet deneyiminizi<br><span class="accent">VIP seviyesine taşıyın.</span></h2>
       </div>
-      <p class="head-aside">Temel reklam ve izleyici engelleme sonsuza kadar %100 ücretsizdir. Anında SponsorSkip atlatmaları, bulut senkronizasyonu ve 7/24 öncelikli filtre güncellemeleri için VIP üyeliğe geçin.</p>
+      <p class="head-aside">Temel reklam ve izleyici engelleme sonsuza kadar %100 ücretsizdir. Anında SponsorSkip atlatmaları, bulut senkronizasyonu ve 7/24 öncelikli filtre güncellemeleri için 7 gün ücretsiz deneyin.</p>
+    </div>
+
+    <!-- Aylık / Yıllık Fatura Seçimi -->
+    <div class="pricing-toggle-wrap">
+      <div class="pricing-toggle" role="group" aria-label="Faturalandırma Dönemi">
+        <button type="button" id="pricing-billing-monthly" class="active">Aylık</button>
+        <button type="button" id="pricing-billing-yearly">
+          Yıllık <span class="pricing-toggle-discount">7 Gün Ücretsiz Deneme</span>
+        </button>
+      </div>
     </div>
 
     <div class="pricing-grid">
-      <!-- 1 Ay -->
+      <!-- Starter Plan -->
       <div class="pricing-card">
-        <div class="pricing-plan">Aylık VIP</div>
-        <div class="pricing-desc">Esnek kullanım, dilediğiniz an iptal imkanı.</div>
-        <div class="pricing-price">49 ₺ <span>/ ay ($2.99)</span></div>
+        <span class="pricing-badge" style="background:#2563EB; color:#fff;">7 GÜN ÜCRETSİZ DENEME</span>
+        <div class="pricing-plan">Starter</div>
+        <div class="pricing-desc">Bireysel kullanım ve temel reklamsız gezinme için ideal başlangıç.</div>
+        <div class="pricing-price"><span data-tier-price="Starter">$10.00</span> <span data-tier-interval="Starter">/ ay</span></div>
         <ul class="pricing-feats">
           <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Tüm Reklam ve Pop-up Engelleme</li>
           <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> YouTube Video Reklam Filtresi</li>
           <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> VIP SponsorBlock Atlatma</li>
           <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Standart Öncelikli Destek</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> <b>7 Gün Ücretsiz Deneme</b></li>
         </ul>
-        <a href="#pricing" class="btn-pricing btn-pricing-secondary">Aylık Başla</a>
+        <button type="button" class="btn-pricing btn-pricing-secondary" data-subscribe-tier="Starter">Starter Başlat (7 Gün Ücretsiz)</button>
       </div>
 
-      <!-- 1 Yıl (Featured) -->
+      <!-- Pro Plan (Featured) -->
       <div class="pricing-card featured">
-        <span class="pricing-badge">%45 TASARRUF · EN POPÜLER</span>
-        <div class="pricing-plan">Yıllık VIP</div>
-        <div class="pricing-desc">En çok tercih edilen plan. Kesintisiz 365 gün koruma.</div>
-        <div class="pricing-price">399 ₺ <span>/ yıl ($19.99)</span></div>
+        <span class="pricing-badge">%17 TASARRUF · EN POPÜLER</span>
+        <div class="pricing-plan">Pro</div>
+        <div class="pricing-desc">En çok tercih edilen plan. Kesintisiz yüksek hız, bulut eşitleme ve 365 gün koruma.</div>
+        <div class="pricing-price"><span data-tier-price="Pro">$40.00</span> <span data-tier-interval="Pro">/ ay</span></div>
         <ul class="pricing-feats">
           <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> <b>Tüm Reklam ve Pop-up Engelleme</b></li>
           <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> <b>YouTube Sponsor & Reklam Atlatma</b></li>
           <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Bulut Beyaz Liste Senkronizasyonu</li>
           <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> 7/24 Öncelikli Canlı Destek</li>
           <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Özel VIP Üye Rozeti</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> <b>7 Gün Ücretsiz Deneme</b></li>
         </ul>
-        <a href="#pricing" class="btn-pricing btn-pricing-primary">Yıllık Satın Al</a>
+        <button type="button" class="btn-pricing btn-pricing-primary" data-subscribe-tier="Pro">Pro Başlat (7 Gün Ücretsiz)</button>
       </div>
 
-      <!-- Ömür Boyu -->
+      <!-- Advanced Plan -->
       <div class="pricing-card">
-        <span class="pricing-badge" style="background:#0F172A; color:#fff;">ÖMÜR BOYU</span>
-        <div class="pricing-plan">Ömür Boyu VIP</div>
-        <div class="pricing-desc">Tek seferlik ödeme, sonsuza kadar VIP erişim.</div>
-        <div class="pricing-price">799 ₺ <span>tek sefer ($39.99)</span></div>
+        <span class="pricing-badge" style="background:#0F172A; color:#fff;">MAKSİMUM GÜÇ · 7 GÜN DENEME</span>
+        <div class="pricing-plan">Advanced</div>
+        <div class="pricing-desc">Tüm cihazlarınız için sınırsız koruma, kurucu VIP ayrıcalıkları ve tam kontrol.</div>
+        <div class="pricing-price"><span data-tier-price="Advanced">$120.00</span> <span data-tier-interval="Advanced">/ ay</span></div>
         <ul class="pricing-feats">
           <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Sınırsız Tüm Cihazlarda Koruma</li>
           <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> VIP SponsorBlock Onay Muafiyeti</li>
           <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Gelecek Tüm Güncellemelere Ücretsiz Erişim</li>
-          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Kurucu VIP Rozeti ve Öncelikli Destek</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Kurucu VIP Rozeti ve 7/24 VIP Destek</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> <b>7 Gün Ücretsiz Deneme</b></li>
         </ul>
-        <a href="#pricing" class="btn-pricing btn-pricing-secondary">Ömür Boyu Sahip Ol</a>
+        <button type="button" class="btn-pricing btn-pricing-secondary" data-subscribe-tier="Advanced">Advanced Başlat (7 Gün Ücretsiz)</button>
       </div>
     </div>
   </div>
@@ -1124,5 +1194,11 @@ body {
   <div class="foot-legal wrap">&copy; 2026 vAdBlock Pro · Tüm hakları saklıdır. Google Chrome, Google LLC'nin tescilli ticari markasıdır.</div>
 </footer>
 
+
+<!-- Paddle.js & Pricing Integration -->
+<script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
+<script src="js/paddle-config.js"></script>
+<script src="js/pricing-tiers.js"></script>
+<script src="js/paddle-pricing.js"></script>
 </body>
 </html>

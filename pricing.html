@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1, viewport-fit=cover">
+<title>Planlar & Fiyatlandırma — vAdBlock Pro VIP</title>
+<meta name="description" content="vAdBlock Pro VIP üyelik planları. Starter, Pro ve Advanced ile tüm cihazlarınızda reklamsız, hızlı ve güvenli internetin keyfini çıkarın. 7 gün ücretsiz deneyin.">
+<link rel="icon" type="image/svg+xml" href="brand/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="brand/icon-32.png">
+<link rel="apple-touch-icon" href="brand/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,450;0,500;0,550;0,600;0,700;1,400;1,500&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="skin/home.css">
+<style>
+/* Pricing Toggle & Dynamic Card Styling */
+.pricing-toggle-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 36px;
+  margin-bottom: 8px;
+}
+.pricing-toggle {
+  background: #E2E8F0;
+  border-radius: 999px;
+  padding: 5px;
+  display: inline-flex;
+  gap: 4px;
+  border: 1px solid #CBD5E1;
+}
+.pricing-toggle button {
+  background: transparent;
+  border: none;
+  border-radius: 999px;
+  padding: 9px 22px;
+  font-family: Manrope, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #64748B;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.pricing-toggle button.active {
+  background: #FFFFFF;
+  color: #0F172A;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+}
+.pricing-toggle-discount {
+  background: #EFF6FF;
+  color: #2563EB;
+  border: 1px solid #BFDBFE;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 10px;
+  border-radius: 999px;
+  letter-spacing: 0.02em;
+}
+.pricing-card {
+  display: flex;
+  flex-direction: column;
+}
+.pricing-card .btn-pricing {
+  margin-top: auto;
+  cursor: pointer;
+}
+.pricing-card.featured {
+  border: 2px solid #2563EB !important;
+  box-shadow: 0 16px 40px -8px rgba(37, 99, 235, 0.2) !important;
+}
+.pricing-badge {
+  background: linear-gradient(135deg, #2563EB, #1D4ED8) !important;
+}
+.pricing-hero {
+  text-align: center;
+  padding: 60px 20px 20px;
+}
+.faq-box {
+  max-width: 800px;
+  margin: 60px auto;
+  background: #fff;
+  border: 1px solid #E2E8F0;
+  border-radius: 20px;
+  padding: 36px 32px;
+}
+.faq-item {
+  border-bottom: 1px solid #F1F5F9;
+  padding: 18px 0;
+}
+.faq-item:last-child {
+  border-bottom: none;
+}
+.faq-item h4 {
+  font-family: Manrope, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #0F172A;
+  margin: 0 0 8px;
+}
+.faq-item p {
+  color: #64748B;
+  font-size: 14.5px;
+  margin: 0;
+  line-height: 1.6;
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html" aria-label="vAdBlock Pro">
+      <img src="img/logo.png" alt="vAdBlock Pro" width="34" height="34" style="display:block; object-fit:contain; border-radius:8px;">
+      <span>vAdBlock <b>Pro</b></span>
+    </a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="index.html#features">Özellikler</a>
+      <a href="index.html#sites">Desteklenen Siteler</a>
+      <a href="pricing.html" style="color:#2563EB; font-weight:700;">Fiyatlandırma</a>
+      <a href="contact.html">İletişim</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn-sm btn-subtle" href="auth.html">Giriş Yap</a>
+      <a class="btn-sm btn-primary" href="auth.html?mode=register">Kayıt Ol</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- FİYATLANDIRMA & VIP ÜYELİK -->
+  <section class="sec sec-alt" id="pricing" style="padding-top:40px;">
+    <div class="wrap">
+      <div class="sec-head" style="text-align:center; max-width:760px; margin:0 auto 30px;">
+        <span class="eyebrow">VIP GÜÇ & AYRICALIKLAR</span>
+        <h1 style="font-size:38px; font-weight:800; margin:12px 0 16px; color:#0F172A;">İhtiyacınıza uygun planı seçin.<br><span class="accent">7 gün tamamen ücretsiz deneyin.</span></h1>
+        <p class="head-aside" style="margin:0 auto;">Tüm planlar 7 günlük ücretsiz deneme süresi içerir. Kredi kartınız deneme bitene kadar ücretlendirilmez, dilediğiniz an tek tıkla iptal edebilirsiniz.</p>
+      </div>
+
+      <!-- Aylık / Yıllık Fatura Seçimi -->
+      <div class="pricing-toggle-wrap">
+        <div class="pricing-toggle" role="group" aria-label="Faturalandırma Dönemi">
+          <button type="button" id="pricing-billing-monthly" class="active">Aylık</button>
+          <button type="button" id="pricing-billing-yearly">
+            Yıllık <span class="pricing-toggle-discount">7 Gün Ücretsiz Deneme</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="pricing-grid">
+        <!-- Starter Plan -->
+        <div class="pricing-card">
+          <span class="pricing-badge" style="background:#2563EB; color:#fff;">7 GÜN ÜCRETSİZ DENEME</span>
+          <div class="pricing-plan">Starter</div>
+          <div class="pricing-desc">Bireysel kullanım ve temel reklamsız gezinme için ideal başlangıç.</div>
+          <div class="pricing-price"><span data-tier-price="Starter">$10.00</span> <span data-tier-interval="Starter">/ ay</span></div>
+          <ul class="pricing-feats">
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Tüm Reklam ve Pop-up Engelleme</li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> YouTube Video Reklam Filtresi</li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> VIP SponsorBlock Atlatma</li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Standart Öncelikli Destek</li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> <b>7 Gün Ücretsiz Deneme</b></li>
+          </ul>
+          <button type="button" class="btn-pricing btn-pricing-secondary" data-subscribe-tier="Starter">Starter Başlat (7 Gün Ücretsiz)</button>
+        </div>
+
+        <!-- Pro Plan (Featured) -->
+        <div class="pricing-card featured">
+          <span class="pricing-badge">%17 TASARRUF · EN POPÜLER</span>
+          <div class="pricing-plan">Pro</div>
+          <div class="pricing-desc">En çok tercih edilen plan. Kesintisiz yüksek hız, bulut eşitleme ve 365 gün koruma.</div>
+          <div class="pricing-price"><span data-tier-price="Pro">$40.00</span> <span data-tier-interval="Pro">/ ay</span></div>
+          <ul class="pricing-feats">
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> <b>Tüm Reklam ve Pop-up Engelleme</b></li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> <b>YouTube Sponsor & Reklam Atlatma</b></li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Bulut Beyaz Liste Senkronizasyonu</li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> 7/24 Öncelikli Canlı Destek</li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Özel VIP Üye Rozeti</li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> <b>7 Gün Ücretsiz Deneme</b></li>
+          </ul>
+          <button type="button" class="btn-pricing btn-pricing-primary" data-subscribe-tier="Pro">Pro Başlat (7 Gün Ücretsiz)</button>
+        </div>
+
+        <!-- Advanced Plan -->
+        <div class="pricing-card">
+          <span class="pricing-badge" style="background:#0F172A; color:#fff;">MAKSİMUM GÜÇ · 7 GÜN DENEME</span>
+          <div class="pricing-plan">Advanced</div>
+          <div class="pricing-desc">Tüm cihazlarınız için sınırsız koruma, kurucu VIP ayrıcalıkları ve tam kontrol.</div>
+          <div class="pricing-price"><span data-tier-price="Advanced">$120.00</span> <span data-tier-interval="Advanced">/ ay</span></div>
+          <ul class="pricing-feats">
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Sınırsız Tüm Cihazlarda Koruma</li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> VIP SponsorBlock Onay Muafiyeti</li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Gelecek Tüm Güncellemelere Ücretsiz Erişim</li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Kurucu VIP Rozeti ve 7/24 VIP Destek</li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> <b>7 Gün Ücretsiz Deneme</b></li>
+          </ul>
+          <button type="button" class="btn-pricing btn-pricing-secondary" data-subscribe-tier="Advanced">Advanced Başlat (7 Gün Ücretsiz)</button>
+        </div>
+      </div>
+
+      <!-- SSS Bölümü -->
+      <div class="faq-box">
+        <h3 style="font-family:Manrope,sans-serif; font-size:22px; font-weight:800; margin-bottom:20px; color:#0F172A; text-align:center;">Sıkça Sorulan Sorular</h3>
+        <div class="faq-item">
+          <h4>7 günlük ücretsiz deneme nasıl çalışır?</h4>
+          <p>Planlardan herhangi birini seçtiğinizde Paddle güvencesiyle 7 gün boyunca hiçbir ücret kesilmeden tüm VIP özelliklere anında erişirsiniz. Deneme süreniz dolmadan önce istediğiniz an iptal edebilirsiniz.</p>
+        </div>
+        <div class="faq-item">
+          <h4>Hangi ödeme yöntemlerini kabul ediyorsunuz?</h4>
+          <p>Kredi ve banka kartları (Visa, Mastercard, AMEX), Apple Pay, Google Pay, PayPal, iDEAL ve Bancontact üzerinden güvenle ödeme yapabilirsiniz.</p>
+        </div>
+        <div class="faq-item">
+          <h4>İstediğim zaman planımı değiştirebilir miyim?</h4>
+          <p>Evet! Hesap sayfanızdan veya Paddle müşteri portalından dilediğiniz zaman planınızı yükseltebilir, düşürebilir veya iptal edebilirsiniz.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <a class="brand" href="index.html">
+        <img src="img/logo.png" alt="vAdBlock Pro" width="30" height="30" style="display:block; object-fit:contain; border-radius:6px;">
+        <span>vAdBlock <b>Pro</b></span>
+      </a>
+      <p>Banner reklamları, video reklamları ve izleyicileri cihazınızda yerel olarak filtreleyen modern Chrome eklentisi.</p>
+    </div>
+    <div class="foot-col">
+      <span class="foot-label">Bağlantılar</span>
+      <a href="index.html#features">Özellikler</a>
+      <a href="pricing.html">Fiyatlandırma</a>
+      <a href="account.html">Hesabım</a>
+      <a href="contact.html">İletişim &amp; Destek</a>
+    </div>
+    <div class="foot-col">
+      <span class="foot-label">Yasal</span>
+      <a href="terms.html">Kullanım Şartları</a>
+      <a href="privacy.html">Gizlilik Politikası</a>
+    </div>
+  </div>
+  <div class="foot-legal wrap">&copy; 2026 vAdBlock Pro · Tüm hakları saklıdır.</div>
+</footer>
+
+<!-- Paddle.js & Pricing Integration -->
+<script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
+<script src="js/paddle-config.js"></script>
+<script src="js/pricing-tiers.js"></script>
+<script src="js/paddle-pricing.js"></script>
+
+</body>
+</html>
