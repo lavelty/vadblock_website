@@ -1159,6 +1159,26 @@ body {
         </div>
 
         <!-- 3 Kullanıcı KPI İstatistiği -->
+        
+        <!-- Paddle Self-Service Customer Portal Card -->
+        <div class="panel-card-white" style="margin-bottom:24px; background:linear-gradient(135deg, #EFF6FF 0%, #FFFFFF 100%); border:1px solid #BFDBFE;">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+            <div>
+              <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+                <span style="background:#2563EB; color:#fff; font-size:11px; font-weight:800; padding:3px 10px; border-radius:999px; text-transform:uppercase;">Paddle Self-Service</span>
+                <h3 style="font-family:'Manrope',sans-serif; font-size:18px; font-weight:800; color:#0F172A; margin:0;">Abonelik & Ödeme Yönetim Portalı</h3>
+              </div>
+              <p style="font-size:13.5px; color:#475569; margin:0;">Kayıtlı ödeme kartınızı güncelleyin, faturalarınızı PDF olarak indirin veya aboneliğinizi tek tıkla yönetin.</p>
+            </div>
+            <div>
+              <button type="button" id="btnOpenPaddlePortal" class="btn-primary-green" style="background:#2563EB; border:none; padding:10px 22px; font-size:14px; display:inline-flex; align-items:center; gap:8px; cursor:pointer;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                <span>Aboneliği Yönet ›</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
         <div class="panel-card-white">
           <div class="panel-header-row">
             <h3 class="panel-title-text">
@@ -1731,6 +1751,65 @@ function copyReferralLink() {
     applyMobileCardLabels();
   }
 
+</script>
+
+
+<script>
+// Paddle Customer Portal self-service button handler
+document.addEventListener('DOMContentLoaded', function() {
+  const portalBtn = document.getElementById('btnOpenPaddlePortal');
+  if (portalBtn) {
+    portalBtn.addEventListener('click', async function() {
+      const btn = this;
+      const originalHtml = btn.innerHTML;
+      btn.disabled = true;
+      btn.innerHTML = '<span>Portala Bağlanılıyor...</span>';
+
+      let userEmail = null;
+      try {
+        const storedUser = JSON.parse(localStorage.getItem('vadblock_user') || '{}');
+        userEmail = storedUser.email || localStorage.getItem('user_email');
+      } catch (e) {
+        userEmail = localStorage.getItem('user_email');
+      }
+
+      if (!userEmail) {
+        // Prompt for email if not found in localStorage
+        userEmail = prompt('Lütfen vAdBlock hesabınıza kayıtlı e-posta adresinizi girin:');
+      }
+
+      if (!userEmail) {
+        btn.disabled = false;
+        btn.innerHTML = originalHtml;
+        return;
+      }
+
+      try {
+        const res = await fetch('/api/portal-session', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-user-email': userEmail
+          },
+          body: JSON.stringify({ email: userEmail })
+        });
+
+        const data = await res.json();
+        if (res.ok && data.portalUrl) {
+          window.location.href = data.portalUrl;
+        } else {
+          alert(data.error || 'Paddle Müşteri Portalı açılamadı.');
+          btn.disabled = false;
+          btn.innerHTML = originalHtml;
+        }
+      } catch (err) {
+        alert('Sunucuya bağlanılamadı. Lütfen sunucunun (npm start) çalıştığından emin olun.');
+        btn.disabled = false;
+        btn.innerHTML = originalHtml;
+      }
+    });
+  }
+});
 </script>
 
 </body>
