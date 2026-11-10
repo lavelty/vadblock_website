@@ -4,3 +4,6 @@ config*.php
 *.lock
 .DS_Store
 Thumbs.db
+.agents/
+skills-lock.json
+.env*
